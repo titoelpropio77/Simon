@@ -1,6 +1,6 @@
 import React, { Component,useState } from 'React';
 import ReactDOM  from 'react-dom';
-import Table from "../table/table.js";
+import Table,{reloadTableData } from "../table/table.js";
 import Wrapper from '../wrapper/Wrapper';
 import ModalBT from "../modal/modal";
 import Loading from '../loading/loading';
@@ -37,10 +37,7 @@ export default class  Modelo extends Component {
 
     }
     render(){
-        const options = {
-            timeout: 5000,
-            position: positions.BOTTOM_CENTER
-          };
+
         // const [show, setShow] = useState(false);
 		return (
             <div>
@@ -51,7 +48,7 @@ export default class  Modelo extends Component {
                 title='Modulo'
                 table = {<Table url='getModeloAll' headTable = {this.headTable()} propertiesDataTable = {this.propertiesDataTable}  getBydId={this.getBy}/>}
                 // field = {<Field onChangeValue ={this.onChangeValue} dataField ={this.state}/>}
-                field = {this.field()}
+                // field = {this.field()}
                 modalBT = {this.modalBT()}
                 btnOpenModal = {this.btnOpenModal()}
                 dataForm ={this.state}
@@ -63,7 +60,7 @@ export default class  Modelo extends Component {
     };
 
     async saveForm ()  {
-        const response = await saveDataForm(this.url,this.state.field);
+        const response = await saveDataForm(this.url,this.state.field, this.state.elementId);
         if( response.status )
         {
             this.setState({statusModal:false});
@@ -76,8 +73,10 @@ export default class  Modelo extends Component {
     }
     async getBy (id)  {
         const response = await getById('modulo',id);
+
         if( response.status )
         {
+            this.setState({elementId: id});
            await this.setState({ field:{nombre : response.data[0].nombre } });
            await this.setState({statusModal:true});
         }
@@ -86,7 +85,7 @@ export default class  Modelo extends Component {
     onChangeValue(e) {
 
         this.setState({
-            [e.target.name]: e.target.value
+            field :{[e.target.name]: e.target.value}
         });
 
     }

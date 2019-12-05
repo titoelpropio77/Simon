@@ -55,6 +55,7 @@ class ModuloController extends Controller
      */
     public function edit( $typeRooms)
     {
+
          if (!$this->verifyPermission('puedeModificar'))
        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
@@ -79,19 +80,16 @@ class ModuloController extends Controller
     {
        if (!$this->verifyPermission('puedeModificar'))
        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
-        if ( $request->ajax() )
-        {
-            try {
-                $result[ 'status' ] = true;
-                $result[ 'message' ] = 'Modificado Correctamente';
-                $typeRooms = Modulo::findOrFail($id);
-                $typeRooms->update($request->all());
-            } catch (Exception $e) {
-                $result[ 'status' ] = false;
-                $result[ 'message' ] = $e->getMessage();
-            }
-            return response()->json( $result );
+        try {
+            $result[ 'status' ] = true;
+            $result[ 'message' ] = 'Modificado Correctamente';
+            $typeRooms = Modulo::findOrFail($id);
+            $typeRooms->update($request->all());
+        } catch (Exception $e) {
+            $result[ 'status' ] = false;
+            $result[ 'message' ] = $e->getMessage();
         }
+        return response()->json( $result );
     }
 
     /**

@@ -67280,11 +67280,7 @@ function (_Component) {
   _createClass(Modelo, [{
     key: "render",
     value: function render() {
-      var options = {
-        timeout: 5000,
-        position: react_alert__WEBPACK_IMPORTED_MODULE_8__["positions"].BOTTOM_CENTER
-      }; // const [show, setShow] = useState(false);
-
+      // const [show, setShow] = useState(false);
       return React__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, React__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_alert__WEBPACK_IMPORTED_MODULE_8__["Provider"], _extends({
         template: react_alert_template_basic__WEBPACK_IMPORTED_MODULE_9__["default"]
       }, options)), React__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_wrapper_Wrapper__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -67297,8 +67293,8 @@ function (_Component) {
           propertiesDataTable: this.propertiesDataTable,
           getBydId: this.getBy
         }) // field = {<Field onChangeValue ={this.onChangeValue} dataField ={this.state}/>}
+        // field = {this.field()}
         ,
-        field: this.field(),
         modalBT: this.modalBT(),
         btnOpenModal: this.btnOpenModal(),
         dataForm: this.state
@@ -67313,7 +67309,7 @@ function (_Component) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(Object(_tools_tools__WEBPACK_IMPORTED_MODULE_7__["saveDataForm"])(this.url, this.state.field));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(Object(_tools_tools__WEBPACK_IMPORTED_MODULE_7__["saveDataForm"])(this.url, this.state.field, this.state.elementId));
 
             case 2:
               response = _context.sent;
@@ -67322,7 +67318,7 @@ function (_Component) {
                 this.setState({
                   statusModal: false
                 });
-                reloadTableData();
+                Object(_table_table_js__WEBPACK_IMPORTED_MODULE_3__["reloadTableData"])();
               } else {}
 
             case 4:
@@ -67347,24 +67343,27 @@ function (_Component) {
               response = _context2.sent;
 
               if (!response.status) {
-                _context2.next = 8;
+                _context2.next = 9;
                 break;
               }
 
-              _context2.next = 6;
+              this.setState({
+                elementId: id
+              });
+              _context2.next = 7;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.setState({
                 field: {
                   nombre: response.data[0].nombre
                 }
               }));
 
-            case 6:
-              _context2.next = 8;
+            case 7:
+              _context2.next = 9;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.setState({
                 statusModal: true
               }));
 
-            case 8:
+            case 9:
             case "end":
               return _context2.stop();
           }
@@ -67374,7 +67373,9 @@ function (_Component) {
   }, {
     key: "onChangeValue",
     value: function onChangeValue(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
+      this.setState({
+        field: _defineProperty({}, e.target.name, e.target.value)
+      });
     }
   }, {
     key: "headTable",
@@ -67640,14 +67641,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
 
-var saveDataForm = function saveDataForm(urlSave, dataForm) {
-  var token, request;
+var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
+  var request, token;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function saveDataForm$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
+          request = "";
+          console.log(elementId);
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-          _context.next = 3;
+
+          if (elementId) {
+            _context.next = 9;
+            break;
+          }
+
+          _context.next = 6;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave, {
             method: "POST",
             headers: {
@@ -67664,11 +67673,36 @@ var saveDataForm = function saveDataForm(urlSave, dataForm) {
             console.log(error);
           }));
 
-        case 3:
+        case 6:
           request = _context.sent;
+          _context.next = 12;
+          break;
+
+        case 9:
+          _context.next = 11;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + '/' + elementId, {
+            method: "PUT",
+            headers: {
+              "X-CSRF-TOKEN": token,
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataForm)
+          }).then(function (res) {
+            return res.json();
+          }).then(function (result) {
+            return result;
+          }, function (error) {
+            console.log(error);
+          }));
+
+        case 11:
+          request = _context.sent;
+
+        case 12:
           return _context.abrupt("return", request);
 
-        case 5:
+        case 13:
         case "end":
           return _context.stop();
       }
@@ -67681,10 +67715,10 @@ var getById = function getById(url, id) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          console.log('getById');
+          console.log("getById");
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
           _context2.next = 4;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url + '/' + id + '/edit', {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url + "/" + id + "/edit", {
             method: "GET",
             headers: {
               "X-CSRF-TOKEN": token,
