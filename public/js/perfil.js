@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -65236,16 +65236,16 @@ var ModalBT = function ModalBT(props) {
 
 /***/ }),
 
-/***/ "./resources/js/components/modulo/index.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/modulo/index.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/perfil/perfil.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/perfil/perfil.js ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modulo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Perfil; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -65287,27 +65287,27 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Modulo =
+var Perfil =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Modulo, _Component);
+  _inherits(Perfil, _Component);
 
-  function Modulo(props) {
+  function Perfil(props) {
     var _this;
 
-    _classCallCheck(this, Modulo);
+    _classCallCheck(this, Perfil);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modulo).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Perfil).call(this, props));
     _this.state = {
-      titleForm: 'Modulo',
-      urlDataTable: 'getModuloAll',
+      titleForm: 'Perfil',
+      urlDataTable: 'getPerfilAll',
       elementId: 0,
       statusModal: false,
       field: {
         nombre: ''
       }
     };
-    _this.url = 'modulo';
+    _this.url = 'perfil';
     _this.onChangeValue = _this.onChangeValue.bind(_assertThisInitialized(_this));
     _this.getByIdElement = _this.getByIdElement.bind(_assertThisInitialized(_this));
     _this.field = _this.field.bind(_assertThisInitialized(_this));
@@ -65317,7 +65317,7 @@ function (_Component) {
     return _this;
   }
 
-  _createClass(Modulo, [{
+  _createClass(Perfil, [{
     key: "render",
     value: function render() {
       // const [show, setShow] = useState(false);
@@ -65533,7 +65533,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         className: "fas fa-trash-alt"
       }));
-      var btnActionOthers = '';
+      var btnActionOthers = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        title: "perfilObjeto",
+        className: "btn btn-warning",
+        href: "perfilobjeto/".concat(elementId)
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "fas fa-newspaper"
+      }));
       return {
         columns: columns,
         head: head,
@@ -65545,12 +65551,12 @@ function (_Component) {
     }
   }]);
 
-  return Modulo;
+  return Perfil;
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]); // export default Wrapper;
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Modulo, null), document.getElementById('contentBody'));
+react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Perfil, null), document.getElementById('contentBody'));
 
 /***/ }),
 
@@ -65927,26 +65933,14 @@ var Wrapper = function Wrapper(_ref) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*********************************************************************************!*\
-  !*** multi ./resources/js/components/modulo/index.js ./resources/sass/app.scss ***!
-  \*********************************************************************************/
+/***/ 2:
+/*!********************************************************!*\
+  !*** multi ./resources/js/components/perfil/perfil.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\js\components\modulo\index.js */"./resources/js/components/modulo/index.js");
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\js\components\perfil\perfil.js */"./resources/js/components/perfil/perfil.js");
 
 
 /***/ })

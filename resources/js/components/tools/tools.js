@@ -50,9 +50,7 @@ export const saveDataForm = async (urlSave, dataForm, elementId) => {
 };
 export const getById = async (url, id) => {
     console.log("getById");
-    let token = document
-        .querySelector("meta[name='csrf-token']")
-        .getAttribute("content");
+
     const request = await fetch(url + "/" + id + "/edit", {
         method: "GET",
         headers: {
@@ -67,8 +65,60 @@ export const getById = async (url, id) => {
                 return result;
             },
             error => {
+
                 console.log(error);
             }
         );
     return request;
 };
+export const deletedElement = async (url, id) => {
+    console.log("getById");
+    let token = document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content");
+    const request = await fetch(url + "/" + id , {
+        method: "DELETE",
+        headers: {
+            "X-CSRF-TOKEN": token,
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(
+            result => {
+                return result;
+            },
+            error => {
+
+                console.log(error);
+            }
+        );
+    return request;
+}
+let token = document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content");
+export const getAllByClass = async (url, dataForm) => {
+    const request = await fetch( url ,{
+        'method' : 'POST',
+        headers: {
+            "X-CSRF-TOKEN": token,
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body : JSON.stringify(dataForm)
+
+    })
+    .then(res => res.json())
+    .then(
+            result => {
+                return result;
+            },
+            error => {
+
+                console.log(error);
+            }
+        );
+    return request;
+}

@@ -3,5 +3,5 @@
 
 @endsection
 @section('Jscripts')
-<script src="js/modulo.js"></script>
+<script src="js/objeto.js"></script>
 @endsection

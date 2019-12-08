@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>{{ config('app.name') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -81,7 +81,7 @@ Redirect::to('logout')->send();
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{asset('dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -97,7 +97,7 @@ Redirect::to('logout')->send();
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{asset('dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -113,7 +113,7 @@ Redirect::to('logout')->send();
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{asset('dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -169,9 +169,9 @@ Redirect::to('logout')->send();
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -179,7 +179,7 @@ Redirect::to('logout')->send();
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
@@ -188,28 +188,28 @@ Redirect::to('logout')->send();
 
       <!-- Sidebar Menu -->
       <nav class="mt-2" id="">
-        <ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+        <ul class='nav nav-pills nav-sidebar flex-column'  data-widget='treeview' role='menu' data-accordion='false'>
             @if( $modulo )
             @foreach( $modulo as $mod )
-            <li class="nav-item has-treeview">
-            <a href="#" class="nav-link ">
+            <li class="nav-item has-treeview " id="itemMenuOpen{{ $mod->nombre }}">
+            <a href="#" class="nav-link " id="itemMenuParent{{$mod->nombre}}" data-modulo="">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                {{ $mod->nombre }}
-                <i class="right fas fa-angle-left"></i>
+                    {{ $mod->nombre }}
+                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
-            @foreach ( $objeto as $obj )
-            @if( $mod->id == $obj->idModulo && $obj->puedeListar != 0 && $obj->visibleEnMenu=='SI')
-                <li class="nav-item">
-                <a href="{{ $obj->urlObjeto }}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>{{ $obj->nombre }}</p>
-                </a>
-                </li>
-                @endif
-            @endforeach
+                @foreach ( $objeto as $obj )
+                    @if( $mod->id == $obj->idModulo && $obj->puedeListar != 0 && $obj->visibleEnMenu=='SI')
+                        <li class="nav-item" >
+                            <a href=" {!!URL::to($obj->urlObjeto)!!} " class="nav-link" id="itemMenuChildren{{ $obj->urlObjeto }}" data-item_parent="{{$mod->nombre}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ $obj->nombre }}</p>
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
             </ul>
             </li>
             @endforeach
@@ -242,8 +242,8 @@ Redirect::to('logout')->send();
     <!-- /.content-header -->
 
     <!-- Main content -->
+    @yield('contentPersonate')
     <section class="content" id="contentBody">
-
         @yield('content')
     </section>
     <!-- /.content -->
@@ -266,41 +266,54 @@ Redirect::to('logout')->send();
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
+<script src="{{asset('plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="{{asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}')}}"></script>
 <!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
 <!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="plugins/admLte/js/adminlte.js"></script>
+<script src="{{asset('plugins/admLte/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
+<script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<script src="js/app.js"></script>
-<script src="js/plugins/alertss.js"></script>
+<script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('js/plugins/alertss.js')}}"></script>
+<script type="text/javascript">
+            var urlForm='{{$urlForm }}';
+            $(document).ready(function()
+            {
+               var elementChilder = $('#itemMenuChildren{{$urlForm ?? ''}}');
+               var elementParent = elementChilder.data('item_parent');
+               console.log(elementParent);
+               elementChilder.addClass('active');
+               $( '#itemMenuOpen'+elementParent ).addClass('menu-open');
+               $( '#itemMenuParent'+elementParent ).addClass('active');
+
+            })
+ </script>
 @yield('Jscripts')
 </body>
 </html>

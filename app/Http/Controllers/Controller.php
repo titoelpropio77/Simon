@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Redirect;
 
 class Controller extends BaseController
 {
@@ -35,7 +36,10 @@ class Controller extends BaseController
        $objeto = $_SESSION['objeto'] ?? 0;
       if ( !$objeto )
       {
-        Redirect::to('logout')->send();
+
+        exit();
+
+        Redirect::to('login')->send();
       }
        foreach ( $objeto as $obj )
        {
@@ -45,11 +49,11 @@ class Controller extends BaseController
             $this->arrayPermission = $obj;
             if (!$obj->puedeListar)
             {
-                Redirect::to('logout')->send();
+                // Redirect::to('login')->send();
             }
             return true;
           }
        }
-      Redirect::to('home')->send();
+      Redirect::to('/')->send();
     }
 }

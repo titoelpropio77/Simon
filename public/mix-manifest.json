@@ -1,5 +1,8 @@
 {
     "/js/modulo.js": "/js/modulo.js",
     "/css/app.css": "/css/app.css",
+    "/js/objeto.js": "/js/objeto.js",
+    "/js/perfil.js": "/js/perfil.js",
+    "/js/perfil_objeto.js": "/js/perfil_objeto.js",
     "/js/plugins/alerts.js": "/js/plugins/alerts.js"
 }

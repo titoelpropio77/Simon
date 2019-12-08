@@ -5,21 +5,21 @@ import Wrapper from '../wrapper/Wrapper';
 import ModalBT from "../modal/modal";
 import Loading from '../loading/loading';
 import {saveDataForm,getById , deletedElement} from "../tools/tools";
-export default class  Modulo extends Component {
+export default class  Perfil extends Component {
 
     constructor(props)
     {
         super(props);
         this.state = {
-            titleForm :'Modulo',
-            urlDataTable :'getModuloAll',
+            titleForm :'Perfil',
+            urlDataTable :'getPerfilAll',
             elementId : 0,
             statusModal : false,
             field : {
                 nombre: '',
             }
           }
-        this.url = 'modulo';
+        this.url = 'perfil';
         this.onChangeValue = this.onChangeValue.bind(this);
         this.getByIdElement = this.getByIdElement.bind(this);
         this.field = this.field.bind(this);
@@ -161,7 +161,7 @@ export default class  Modulo extends Component {
         // const btnAction = 'Editar1';
         const btnActionUpdate = (<button className="btn btn-primary" onClick={() => this.getByElementId(elementId)}><i className="fas fa-edit"></i></button>);
         const btnActionDelete = (<button className="btn btn-danger" onClick={() => this.deletedElement(elementId)}><i className="fas fa-trash-alt"></i></button>);
-        const btnActionOthers = '';
+        const btnActionOthers = (<a title="perfilObjeto" className="btn btn-warning" href={`perfilobjeto/${elementId}`}><i className="fas fa-newspaper"></i></a>);
         return {
             columns : columns,
             head : head,
@@ -173,4 +173,4 @@ export default class  Modulo extends Component {
     }
 }
 // export default Wrapper;
-ReactDOM.render(<Modulo  />, document.getElementById('contentBody'));
+ReactDOM.render(<Perfil  />, document.getElementById('contentBody'));

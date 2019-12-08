@@ -1,35 +1,28 @@
-import React,{Component} from "react";
-import ReactDOM  from 'react-dom';
+import React from 'react';
+import useSignUpForm from './CustomHooks';
 
-export default class Fields extends Component{
-    render(){
-    const dataInput = this.props.dataField;
-    console.log(dataInput);
-    return (
-            <div className="col-md-6">
-                <label>Nombre</label>
-                <input type="text" className="form-control" name="nombre"
-                value={dataInput.nombre}
-                onChange={this.props.onChangeValue.bind(this)}
-                //  onChange={(text) => {
-                //      this.props.onChangeValue(text).bind(text);
-                // }}
-                >
-                </input>
-            </div>
+const Signup = () => {
+    const signup2 = () => {
+        console.log("dfdf");
+        alert(`User Created!
+                Name: ${inputs.firstName} ${inputs.lastName}
+                Email: ${inputs.email}`);
+        }
+  const {inputs, handleInputChange, handleSubmit} = useSignUpForm('' ,signup2);
 
-        );
-    };
+   return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>First Name</label>
+        <input type="text" name="firstName" onChange={handleInputChange} value={inputs.firstName} required />
+        <label>Last Name</label>
+        <input type="text" name="lastName" onChange={handleInputChange} value={inputs.lastName} required />
+        <label>Email</label>
+        <input type="text" name="email" onChange={handleInputChange} value={inputs.email} required />
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  );
+
 }
-//   const  field = ({onChangeValue}) => {
-//     return (
-//         <div>
-//             <div className="col-md-6">
-//                 <label>Nombre</label>
-//                 <input type="text" className="form-control" name="nombre"  onChange={() =>onChangeValue(this)}></input>
-//             </div>
-
-//         </div>
-//     );
-// };
-// export default field;
+export default Signup;

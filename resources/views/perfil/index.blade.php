@@ -1,7 +1,6 @@
 @extends( 'layout.inicio' )
 @section('content')
-
 @endsection
 @section('Jscripts')
-<script src="js/modulo.js"></script>
+<script src="js/perfil.js"></script>
 @endsection

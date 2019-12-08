@@ -12,7 +12,8 @@ class Objeto extends Model
     protected $fillable = [
     	'id',
     	'nombre',
-    	'urlObjeto',
+        'urlObjeto',
+        'tipoObjeto',
     	'visibleEnMenu',
     	'idModulo'
     ];
@@ -23,7 +24,9 @@ class Objeto extends Model
     }
     public static function objetosPerfilNotExitById( $idPerfil )
     {
-         $query ="SELECT *FROM sec_objetos WHERE (NOT EXISTS(SELECT * FROM sec_perfilobjetos,sec_perfil WHERE sec_perfilobjetos.deleted_at IS NULL and sec_objetos.id=sec_perfilobjetos.idObjeto AND sec_perfil.id=sec_perfilobjetos.idPerfil AND sec_objetos.deleted_at IS NULL AND sec_perfilobjetos.idPerfil=".$idPerfil."))";
+         $query ="SELECT *FROM sec_objetos WHERE
+          (NOT EXISTS(SELECT * FROM sec_perfilobjetos,sec_perfil WHERE sec_perfilobjetos.deleted_at IS NULL and sec_objetos.id=sec_perfilobjetos.idObjeto AND sec_perfil.id=sec_perfilobjetos.idPerfil
+          AND sec_objetos.deleted_at IS NULL AND sec_perfilobjetos.idPerfil=".$idPerfil.")) and sec_objetos.deleted_at IS NULL";
         return DB::select( $query );
     }
     public static function getAllObjForMenuSinModuloByIdPerfil (  $idPerfil  )
@@ -40,6 +43,7 @@ class Objeto extends Model
                 sec_perfilobjetos
             WHERE
                 sec_perfilobjetos.deleted_at IS NULL
+                and sec_objetos.deleted_at IS NULL
                  AND sec_objetos.id = sec_perfilobjetos.idObjeto
                 AND sec_perfilobjetos.idPerfil = ".$idPerfil."
                 and sec_perfilobjetos.puedeListar = 1

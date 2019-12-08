@@ -40,4 +40,6 @@ class Modulo extends Model
 					ORDER BY sec_modulos.id';
 		return DB::select( $query );
     }
+    protected $dates = ['deleted_at'];
+
 }

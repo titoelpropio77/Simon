@@ -22,11 +22,14 @@ class PerfilObjeto extends Model
     ];
     public static function getPermissionByIdPerfil( $id )
     {
-     return  DB::select('select sec_objetos.visibleEnMenu, sec_objetos.urlObjeto,sec_objetos.idModulo,sec_perfilobjetos.id, sec_objetos.nombre, sec_perfilobjetos.puedeGuardar as puedeGuardar, sec_perfilobjetos.puedeModificar, sec_perfilobjetos.puedeEliminar,sec_perfilobjetos.puedeListar,sec_perfilobjetos.puedeVerReporte,sec_perfilobjetos.puedeImprimir from sec_perfilobjetos,sec_perfil,sec_objetos where  sec_perfilobjetos.deleted_at IS NULL and sec_perfil.id=sec_perfilobjetos.idPerfil and sec_perfilobjetos.idObjeto=sec_objetos.id and sec_perfil.id ='.$id);
+     return  DB::select('select sec_objetos.visibleEnMenu, sec_objetos.urlObjeto,sec_objetos.idModulo,sec_perfilobjetos.id,
+     sec_objetos.nombre, sec_perfilobjetos.puedeGuardar as puedeGuardar, sec_perfilobjetos.puedeModificar,
+     sec_perfilobjetos.puedeEliminar,sec_perfilobjetos.puedeListar,sec_perfilobjetos.puedeVerReporte,sec_perfilobjetos.puedeImprimir
+      from sec_perfilobjetos,sec_perfil,sec_objetos where sec_objetos.deleted_at IS NULL and  sec_perfilobjetos.deleted_at IS NULL and sec_perfil.id=sec_perfilobjetos.idPerfil and sec_perfilobjetos.idObjeto=sec_objetos.id and sec_perfil.id ='.$id);
     }
     public function objeto()
     {
-        $this->hasMany(Objeto::class, 'idObjeto');
+        return $this->belongsTo('\App\Objeto', 'idObjeto');
     }
      protected $dates = ['deleted_at'];
 }

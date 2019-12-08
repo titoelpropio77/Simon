@@ -12,14 +12,29 @@
 */
 
 Route::get('/', function () {
-    return view('layout.index');
+    return view('layout.inicio', ['urlForm' => '']);
 });
 
 
-
+// Route::group(['middleware' => ['auth:web']], function ()
+// {
 //Modulo
 Route::resource('modulo','ModuloController');
-Route::get('getModeloAll','ModuloController@getModeloAll');
+Route::post('getModuloAll',[ 'uses'=>'ModuloController@getModuloAll']);
+// });
+//Perfil
+Route::resource('perfil','PerfilController');
+Route::post('getPerfilAll',[ 'uses'=>'PerfilController@getPerfilAll']);
+
+//Objeto
+Route::resource('objeto','ObjetoController');
+Route::post('getObjetoDataTable', [ 'uses'=>'ObjetoController@getObjetoDataTable']);
+Route::post('getModuloAllForObjeto', [ 'uses'=>'ObjetoController@getModuloAll']);
+//perfilObjeto
+Route::resource('perfilobjeto','PerfilObjetoController');
+Route::post('getPerfilObjetoDataTable',[ 'uses'=>'PerfilObjetoController@getPerfilObjetoDataTable']);
+Route::post('getObjetoByPerfilId',[ 'uses'=>'PerfilObjetoController@getObjetoByPerfilId']);
+
 
 Auth::routes();
 
