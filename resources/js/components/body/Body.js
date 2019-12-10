@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import {saveDataForm} from "../tools/tools";
 // import Field from '../tools/field.js';
 
-const Body = ({ table,   modalBT,btnOpenModal }) => {
+const Body = ({ table,   modalBT,btnOpenModal, title}) => {
     // const [show, setShow] = useState(false);
     // const saveForm  = async(urlSave,dataForm) => {
     //     const response = await  saveDataForm(urlSave,dataForm);
@@ -25,7 +25,7 @@ const Body = ({ table,   modalBT,btnOpenModal }) => {
                     <div className="card card-outline card-info">
                         <div className="card-header">
                             {modalBT}
-                            <h3 className="card-title"></h3>
+                            <h3 className="card-title">Gestion de {title}</h3>
                             <div className="card-tools">
                                 <button
                                     type="button"

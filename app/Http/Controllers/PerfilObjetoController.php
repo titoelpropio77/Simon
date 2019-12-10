@@ -150,10 +150,9 @@ class PerfilObjetoController extends Controller
     }
     public function getPerfilObjetoDataTable(Request $request)
     {
-        $result['status'] = true;
         if ($request->ajax()) {
             $data = PerfilObjeto::with('objeto')->get();
-            return Datatables::of($data)
+            return DataTables::of($data)
                     ->addIndexColumn()
                     // ->addColumn('action', function($row){
 
@@ -167,7 +166,6 @@ class PerfilObjetoController extends Controller
         }
         // $result['data'] = $this->class::with('modulo')->get();
 
-        return response()->json($result);
     }
     public function getPerfilObjetById($id)
     {

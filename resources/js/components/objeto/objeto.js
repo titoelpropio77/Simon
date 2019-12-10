@@ -20,8 +20,8 @@ export default class  Objeto extends Component {
             optionsSelected : '',
             urlObjeto: '',
             nombre: '',
-            tipoObjeto: '',
-            visibleEnMenu: '',
+            tipoObjeto: 'Formulario',
+            visibleEnMenu: 'SI',
             idModulo : '',
             moduloOptionElement : ''
 
@@ -115,7 +115,7 @@ export default class  Objeto extends Component {
         }
     }
     onChangeValue(e) {
-
+        console.log(e.target.name);
         this.setState({
            [e.target.name]: e.target.value
         });

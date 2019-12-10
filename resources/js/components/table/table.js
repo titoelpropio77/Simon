@@ -63,9 +63,9 @@ export default class Table extends Component{
     render() {
 
         return (
-            <div  className="container">
+            <div className="row">
             <div id="dataTable" className="table">
-                <table  className="display table responsive" witch="100%" ref={el => this.el = el}>
+                <table  className="display nowrap dataTable dtr-inline collapsed responsive" witch="100%" ref={el => this.el = el}>
                     {this.props.propertiesDataTable().head}
                 </table>
             </div>

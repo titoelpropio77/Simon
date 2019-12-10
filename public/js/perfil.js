@@ -65099,7 +65099,8 @@ __webpack_require__.r(__webpack_exports__);
 var Body = function Body(_ref) {
   var table = _ref.table,
       modalBT = _ref.modalBT,
-      btnOpenModal = _ref.btnOpenModal;
+      btnOpenModal = _ref.btnOpenModal,
+      title = _ref.title;
   // const [show, setShow] = useState(false);
   // const saveForm  = async(urlSave,dataForm) => {
   //     const response = await  saveDataForm(urlSave,dataForm);
@@ -65124,7 +65125,7 @@ var Body = function Body(_ref) {
     className: "card-header"
   }, modalBT, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "card-title"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Gestion de ", title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-tools"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
@@ -65212,7 +65213,7 @@ var stateModal = function stateModal(state) {
 };
 
 var ModalBT = function ModalBT(props) {
-  return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     show: props.state,
     onHide: props.closeModal,
     dialogClassName: "modal-90w",
@@ -65228,8 +65229,9 @@ var ModalBT = function ModalBT(props) {
     }
   }, "Guardar"), React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-danger",
+    type: "submit",
     onClick: props.closeModal
-  }, "Cancelar")));
+  }, "Cancelar"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ModalBT);
@@ -65459,7 +65461,7 @@ function (_Component) {
           });
         },
         className: "btn btn-success"
-      }, "Guardar ", this.state.titleForm);
+      }, "Adicionar ", this.state.titleForm);
     }
   }, {
     key: "field",
@@ -65675,12 +65677,12 @@ function (_Component) {
       var _this3 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "container"
+        className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dataTable",
         className: "table"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
-        className: "display table responsive",
+        className: "display nowrap dataTable dtr-inline collapsed responsive",
         witch: "100%",
         ref: function ref(el) {
           return _this3.el = el;

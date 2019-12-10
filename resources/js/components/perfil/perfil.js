@@ -106,7 +106,7 @@ export default class  Perfil extends Component {
             }
             className="btn btn-success"
         >
-            Guardar {this.state.titleForm}
+            Adicionar {this.state.titleForm}
         </button>);
     }
 

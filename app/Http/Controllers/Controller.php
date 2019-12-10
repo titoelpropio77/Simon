@@ -36,9 +36,6 @@ class Controller extends BaseController
        $objeto = $_SESSION['objeto'] ?? 0;
       if ( !$objeto )
       {
-
-        exit();
-
         Redirect::to('login')->send();
       }
        foreach ( $objeto as $obj )
@@ -49,7 +46,7 @@ class Controller extends BaseController
             $this->arrayPermission = $obj;
             if (!$obj->puedeListar)
             {
-                // Redirect::to('login')->send();
+                Redirect::to('login')->send();
             }
             return true;
           }

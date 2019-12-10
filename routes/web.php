@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('layout.inicio', ['urlForm' => '']);
 });
 
+Auth::routes();
 
 // Route::group(['middleware' => ['auth:web']], function ()
 // {
 //Modulo
 Route::resource('modulo','ModuloController');
-Route::post('getModuloAll',[ 'uses'=>'ModuloController@getModuloAll']);
+Route::post('getModuloAll',[ 'uses'=>'ModuloController@getModuloAll' ]);
 // });
 //Perfil
 Route::resource('perfil','PerfilController');
@@ -35,7 +36,15 @@ Route::resource('perfilobjeto','PerfilObjetoController');
 Route::post('getPerfilObjetoDataTable',[ 'uses'=>'PerfilObjetoController@getPerfilObjetoDataTable']);
 Route::post('getObjetoByPerfilId',[ 'uses'=>'PerfilObjetoController@getObjetoByPerfilId']);
 
+//Usuario
+Route::resource('usuario','UserController');
+Route::post('getUsersDataTable',[ 'uses'=>'UserController@getUsersDataTable']);
+Route::post('getPerfilAllForUser',[ 'uses'=>'UserController@getPerfilAllForUser']);
+Route::post('getLicAllForUser',[ 'uses'=>'UserController@getLicAllForUser']);
 
-Auth::routes();
+//Proyecto
+Route::resource( 'proyecto', 'ProyectoController' );
+Route::post('getProyectoDataTable',[ 'uses'=>'ProyectoController@getDataTable']);
+
 
 Route::get('/home', 'HomeController@index')->name('home');

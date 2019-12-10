@@ -39,7 +39,6 @@ class ObjetoController extends Controller
         try {
             $result[ 'status' ] = true;
             $result[ 'message' ] = 'Guardado Correctamente';
-            $request[ 'idModulo' ] = $request[ 'moduloId' ];
             $this->class::create($request->all());
         } catch (Exception $e) {
             $result[ 'status' ] = false;

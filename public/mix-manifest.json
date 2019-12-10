@@ -4,5 +4,8 @@
     "/js/objeto.js": "/js/objeto.js",
     "/js/perfil.js": "/js/perfil.js",
     "/js/perfil_objeto.js": "/js/perfil_objeto.js",
-    "/js/plugins/alerts.js": "/js/plugins/alerts.js"
+    "/js/plugins/alerts.js": "/js/plugins/alerts.js",
+    "/js/proyecto.js": "/js/proyecto.js",
+    "/js/proyecto.create.js": "/js/proyecto.create.js",
+    "/js/usuario.js": "/js/usuario.js"
 }
