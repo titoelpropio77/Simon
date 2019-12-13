@@ -73419,11 +73419,12 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
           if (elementId) {
-            _context.next = 9;
+            _context.next = 20;
             break;
           }
 
-          _context.next = 6;
+          _context.prev = 4;
+          _context.next = 7;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave, {
             method: "POST",
             headers: {
@@ -73432,22 +73433,42 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
               "Content-Type": "application/json"
             },
             body: JSON.stringify(dataForm)
-          }).then(function (res) {
-            return res.json();
+          }).then(function (response) {
+            // if (response.ok) {
+            return response.json(); // }
+            // console.log(response);
+            // throw new Error('A ocurrido un error');
           }).then(function (result) {
+            console.log(request);
             return result;
-          }, function (error) {
-            console.log(error);
           }));
 
-        case 6:
+        case 7:
           request = _context.sent;
-          _context.next = 12;
+          _context.next = 18;
           break;
 
-        case 9:
-          _context.next = 11;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + '/' + elementId, {
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](4);
+          _context.t1 = console;
+          _context.next = 15;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(request);
+
+        case 15:
+          _context.t2 = _context.sent;
+
+          _context.t1.log.call(_context.t1, _context.t2);
+
+          return _context.abrupt("return", _context.t0);
+
+        case 18:
+          _context.next = 23;
+          break;
+
+        case 20:
+          _context.next = 22;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + "/" + elementId, {
             method: "PUT",
             headers: {
               "X-CSRF-TOKEN": token,
@@ -73463,18 +73484,18 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             console.log(error);
           }));
 
-        case 11:
+        case 22:
           request = _context.sent;
 
-        case 12:
+        case 23:
           return _context.abrupt("return", request);
 
-        case 13:
+        case 24:
         case "end":
           return _context.stop();
       }
     }
-  });
+  }, null, null, [[4, 10]]);
 };
 var getById = function getById(url, id) {
   var request;
@@ -73554,7 +73575,7 @@ var getAllByClass = function getAllByClass(url, dataForm) {
         case 0:
           _context4.next = 2;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
-            'method': 'POST',
+            method: "POST",
             headers: {
               "X-CSRF-TOKEN": token,
               Accept: "application/json",

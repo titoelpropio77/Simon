@@ -45,6 +45,9 @@ Route::post('getLicAllForUser',[ 'uses'=>'UserController@getLicAllForUser']);
 //Proyecto
 Route::resource( 'proyecto', 'ProyectoController' );
 Route::post('getProyectoDataTable',[ 'uses'=>'ProyectoController@getDataTable']);
+Route::post('getSectorAllForProyect',[ 'uses'=>'ProyectoController@getSectorAllForProyect']);
+Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDepartamentoAllForProyecto']);
+Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -360,7 +360,7 @@ export default class Proyecto extends Component {
                 data: "pryNombre",
                 render : function(type, data, row)
                 {
-                    return row.name +' '+ row.paterno + ' ' + row.materno;
+                    return row.pryNombre ;
                 }
             },
             {
@@ -373,8 +373,9 @@ export default class Proyecto extends Component {
                 data: "pryNombre"
             },
             {
-                data: "email"
-            }
+                data: "pryNombre"
+            },
+
         ];
         let head = (
             <thead>
