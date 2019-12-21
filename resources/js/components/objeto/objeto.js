@@ -61,7 +61,7 @@ export default class  Objeto extends Component {
 
     };
 
-    async saveForm ()  {
+    async saveForm (event)  {
 
         const response = await saveDataForm(this.url,this.state, this.state.elementId);
         if( response.status )

@@ -45,6 +45,21 @@ Route::post('getLicAllForUser',[ 'uses'=>'UserController@getLicAllForUser']);
 //Proyecto
 Route::resource( 'proyecto', 'ProyectoController' );
 Route::post('getProyectoDataTable',[ 'uses'=>'ProyectoController@getDataTable']);
+Route::post('getSectorAllForProyect',[ 'uses'=>'ProyectoController@getSectorAllForProyect']);
+Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDepartamentoAllForProyecto']);
+Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
+
+
+//proyecto Localizacion
+Route::resource( 'proyectoLocalizacion', 'ProyectoLocalizacionController' );
+Route::post('getLocalitationByProyectoId',[ 'uses'=>'ProyectoLocalizacionController@getLocalitationByProyectoId']);
+
+//proyecto confinaciadores
+Route::resource( 'confinaciamiento', 'ConfinaciamientoController' );
+Route::post('getAllTypeDocumentForConfinaciamiento',[ 'uses'=>'ConfinaciamientoController@getAllTypeDocumentForConfinaciamiento']);
+Route::post('getInstitucionAllForConfinaciamiento',[ 'uses'=>'ConfinaciamientoController@getInstitucionAllForConfinaciamiento']);
+Route::post('getAllConfinaciadoresByProy',[ 'uses'=>'ConfinaciamientoController@getAllConfinaciadoresByProy']);
+Route::post('confinaciamientoUpdate',[ 'uses'=>'ConfinaciamientoController@confinaciamientoUpdate']);
 
 
 Route::get('/home', 'HomeController@index')->name('home');

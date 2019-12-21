@@ -72,7 +72,7 @@ export default class Usuario extends Component {
         );
     }
 
-    async saveForm() {
+    async saveForm(event) {
         const state = this.state;
         const fields = {
             name: state.name,

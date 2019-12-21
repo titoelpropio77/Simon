@@ -36,7 +36,7 @@ $objeto = Session::get('objeto');
 $menuSinModulo = Session::get('menuSinModulo');
 if ( !$modulo )
 {
-Redirect::to('logout')->send();
+Redirect::to('login')->send();
 }
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">

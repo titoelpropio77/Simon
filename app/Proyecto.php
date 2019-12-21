@@ -10,7 +10,8 @@ class Proyecto extends Model
     protected $table = 'proyecto';
     protected $fillable = [
             'id',
-            'licLd',
+            'funId',
+            'licId',
             'pryNombre',
             'pryCodSisin',
             'fechAprobacion',

@@ -56,8 +56,8 @@ class ModuloController extends Controller
     public function edit( $typeRooms)
     {
 
-         if (!$this->verifyPermission('puedeModificar'))
-       return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+    //      if (!$this->verifyPermission('puedeModificar'))
+    //    return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
             $clientList = Modulo::find($typeRooms);
             $result[ 'data' ] = $clientList;

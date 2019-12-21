@@ -10,6 +10,7 @@ const ModalBT = props => {
             <Modal
                 show={props.state}
                 onHide={props.closeModal}
+                size="lg"
                 dialogClassName="modal-90w"
                 aria-labelledby="example-custom-modal-styling-title"
             >
