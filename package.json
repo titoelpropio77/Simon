@@ -26,12 +26,14 @@
         "sass-loader": "7.*"
     },
     "dependencies": {
-        "@ag-grid-community/react" : "@ag-grid-community/react",
+        "@ag-grid-community/react": "@ag-grid-community/react",
         "admin-lte": "^3.0",
         "ag-grid-community": "^22.1.0",
         "ag-grid-react": "^22.1.0",
         "datatables.net-dt": "^1.10.20",
         "jquery": "^3.4.1",
+        "moment": "^2.24.0",
+        "moment-range": "^4.0.2",
         "prop-types": "^15.7.2",
         "react-alert": "^6.0.0",
         "react-alert-template-basic": "^1.0.0",

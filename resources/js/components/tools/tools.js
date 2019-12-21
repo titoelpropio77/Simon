@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * guardar los datos en la funcion store de laravel
+ * @param urlSave = la url a la que se va dirigir la peticion
+ * @param dataForm = son los datos que se van a enviar al servidor
+ *
+ */
+
 export const saveDataForm = async (urlSave, dataForm, elementId) => {
     var request = "";
     console.log(elementId);
@@ -19,19 +26,17 @@ export const saveDataForm = async (urlSave, dataForm, elementId) => {
             })
                 .then(response => {
                     // if (response.ok) {
-                        return response.json();
+                    return response.json();
                     // }
                     // console.log(response);
                     // throw new Error('A ocurrido un error');
                 })
-                .then(
-                    result => {
-                        console.log(request);
-                        return result;
-                    }
-                );
+                .then(result => {
+                    console.log(request);
+                    return result;
+                });
         } catch (error) {
-            console.log( await request);
+            console.log(await request);
             return error;
         }
     } else {
@@ -124,5 +129,58 @@ export const getAllByClass = async (url, dataForm) => {
                 console.log(error);
             }
         );
+    return request;
+};
+
+
+export const saveTypeDataForm = async (urlSave, dataForm, elementId) => {
+    var request = "";
+    console.log(elementId);
+    let token = document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content");
+    if (!elementId) {
+        try {
+            request = await fetch(urlSave, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                    // Accept: "application/json",
+                },
+                body: dataForm
+            })
+                .then(response => {
+                    // if (response.ok) {
+                    return response.json();
+                    // }
+                    // console.log(response);
+                    // throw new Error('A ocurrido un error');
+                })
+                .then(result => {
+                    console.log(request);
+                    return result;
+                });
+        } catch (error) {
+            console.log(await request);
+            return error;
+        }
+    } else {
+        request = await fetch(urlSave , {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": token,
+            },
+            body: dataForm
+        })
+            .then(res => res.json())
+            .then(
+                result => {
+                    return result;
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+    }
     return request;
 };

@@ -50,4 +50,16 @@ Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDep
 Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
 
 
+//proyecto Localizacion
+Route::resource( 'proyectoLocalizacion', 'ProyectoLocalizacionController' );
+Route::post('getLocalitationByProyectoId',[ 'uses'=>'ProyectoLocalizacionController@getLocalitationByProyectoId']);
+
+//proyecto confinaciadores
+Route::resource( 'confinaciamiento', 'ConfinaciamientoController' );
+Route::post('getAllTypeDocumentForConfinaciamiento',[ 'uses'=>'ConfinaciamientoController@getAllTypeDocumentForConfinaciamiento']);
+Route::post('getInstitucionAllForConfinaciamiento',[ 'uses'=>'ConfinaciamientoController@getInstitucionAllForConfinaciamiento']);
+Route::post('getAllConfinaciadoresByProy',[ 'uses'=>'ConfinaciamientoController@getAllConfinaciadoresByProy']);
+Route::post('confinaciamientoUpdate',[ 'uses'=>'ConfinaciamientoController@confinaciamientoUpdate']);
+
+
 Route::get('/home', 'HomeController@index')->name('home');

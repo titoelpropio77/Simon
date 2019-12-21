@@ -20,14 +20,14 @@ export default class Objeto extends Component {
             elementId: 0,
             statusModal: false,
             //fields
-            objetoId : 0,
-            objetoOptionElement :'',
-            optionsSelected: { label: 'Seleccione un Objeto' , value : 0},
+            objetoId: 0,
+            objetoOptionElement: "",
+            optionsSelected: { label: "Seleccione un Objeto", value: 0 },
             puedeGuardar: 0,
             puedeEliminar: 0,
-            idPerfil : document.getElementById('perfil_id').value,
+            idPerfil: document.getElementById("perfil_id").value,
             puedeImprimir: 0,
-            puedeListar :0,
+            puedeListar: 0,
             puedeModificar: 0,
             puedeVerReporte: 0
         };
@@ -69,18 +69,18 @@ export default class Objeto extends Component {
         );
     }
 
-    async saveForm() {
+    async saveForm(event) {
         const state = this.state;
-
-        const fields = { puedeGuardar: state.puedeGuardar,
-                        puedeEliminar : state.puedeEliminar,
-                        puedeModificar: state.puedeModificar,
-                        puedeListar : state.puedeListar,
-                        puedeImprimir : state.puedeImprimir,
-                        puedeVerReporte : state.puedeVerReporte,
-                        idObjeto : state.objetoId,
-                        idPerfil : state.idPerfil,
-                     };
+        const fields = {
+            puedeGuardar: state.puedeGuardar,
+            puedeEliminar: state.puedeEliminar,
+            puedeModificar: state.puedeModificar,
+            puedeListar: state.puedeListar,
+            puedeImprimir: state.puedeImprimir,
+            puedeVerReporte: state.puedeVerReporte,
+            idObjeto: state.objetoId,
+            idPerfil: state.idPerfil
+        };
         const response = await saveDataForm(
             this.url,
             fields,
@@ -91,15 +91,13 @@ export default class Objeto extends Component {
             reloadTableData();
             this.cleanForm();
             this.getObjetoByPerfilId();
-
         } else {
         }
     }
-    cleanForm()
-    {
+    cleanForm() {
         this.setState({
-            objetoId : 0,
-            optionsSelected: { label: 'Seleccione un Objeto' , value : 0},
+            objetoId: 0,
+            optionsSelected: { label: "Seleccione un Objeto", value: 0 },
             puedeGuardar: 0,
             puedeEliminar: 0,
             puedeListar: 0,
@@ -114,25 +112,25 @@ export default class Objeto extends Component {
             this.setState({ elementId: id });
             let data = response.data;
             await this.setState({
-                puedeGuardar: data.puedeGuardar ? 1 : 0 ,
+                puedeGuardar: data.puedeGuardar ? 1 : 0,
                 puedeEliminar: data.puedeEliminar,
                 puedeListar: data.puedeListar,
                 puedeModificar: data.puedeModificar,
                 puedeVerReporte: data.puedeVerReporte,
                 puedeImprimir: data.puedeImprimir,
                 objetoId: data.idObjeto,
-                elementId : data.id,
+                elementId: data.id,
                 statusModal: true
-
             });
         }
     }
 
     async getObjetoByPerfilId() {
-        const response = await getAllByClass("../getObjetoByPerfilId",{perfil_id : document.getElementById('perfil_id').value});
+        const response = await getAllByClass("../getObjetoByPerfilId", {
+            perfil_id: document.getElementById("perfil_id").value
+        });
         if (response.status) {
-
-            response.data.push({ nombre: 'Seleccione un Objeto' , id : 0});
+            response.data.push({ nombre: "Seleccione un Objeto", id: 0 });
             const data = response.data.map(x => ({
                 label: x.nombre,
                 value: x.id
@@ -156,43 +154,39 @@ export default class Objeto extends Component {
         });
     }
     handleChangeSelect(value) {
-        this.setState({ optionsSelected: value, objetoId: value.value })
+        this.setState({ optionsSelected: value, objetoId: value.value });
     }
     btnOpenModal() {
         return (
             <div className="row">
-                    <div className="col  col-md-2 col-lg-4">
-                        <label>Objeto</label>
-                        <Select
-                        name='objetIid'
-                        value = {this.state.optionsSelected}
-                        options = {this.state.objetoOptionElement}
-                        onChange={
-                            value =>
-                                    this.handleChangeSelect(value)
-                            }
-                          />
-                    </div>
-                    <div className="col  col-md-8">
-                        {this.checkBoxFunction()}
-                        <button
-
-                            onClick={() => {
-                                this.saveForm();
-                                // const alert = useAlert();
-                                // alert.show("Oh look, an alert!");
-                                // this.setState({statusModal:true, elementId:0,
-                                //     field: {
-                                //         nombre : ''
-                                //     }
-                                // });
-                            }}
-                            className="btn btn-success"
-                        >
-                            Guardar {this.state.titleForm}
-                        </button>
-                    </div>
+                <div className="col  col-md-2 col-lg-4">
+                    <label>Objeto</label>
+                    <Select
+                        name="objetIid"
+                        value={this.state.optionsSelected}
+                        options={this.state.objetoOptionElement}
+                        onChange={value => this.handleChangeSelect(value)}
+                    />
                 </div>
+                <div className="col  col-md-8">
+                    {this.checkBoxFunction()}
+                    <button
+                        onClick={() => {
+                            this.saveForm();
+                            // const alert = useAlert();
+                            // alert.show("Oh look, an alert!");
+                            // this.setState({statusModal:true, elementId:0,
+                            //     field: {
+                            //         nombre : ''
+                            //     }
+                            // });
+                        }}
+                        className="btn btn-success"
+                    >
+                        Guardar {this.state.titleForm}
+                    </button>
+                </div>
+            </div>
         );
     }
     checkBoxFunction() {
@@ -263,7 +257,6 @@ export default class Objeto extends Component {
     }
     handleChange(value) {
         this.setState({ optionsSelected: value, objetoId: value.value });
-
     }
 
     field() {
@@ -331,10 +324,9 @@ export default class Objeto extends Component {
             <ModalBT
                 state={this.state.statusModal}
                 closeModal={() => {
-                    this.setState({ statusModal: false })
+                    this.setState({ statusModal: false });
                     this.cleanForm();
-                }
-                    }
+                }}
                 field={this.checkBoxFunction()}
                 // onChangeField={onChangeValue}
                 title={this.state.titleForm}
@@ -409,9 +401,8 @@ export default class Objeto extends Component {
             <button
                 className="btn btn-danger"
                 onClick={() => {
-                    this.deletedElement(elementId)
-                }
-            }
+                    this.deletedElement(elementId);
+                }}
             >
                 <i className="fas fa-trash-alt"></i>
             </button>

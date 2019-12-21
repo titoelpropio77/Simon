@@ -70,7 +70,9 @@ export default class Proyecto extends Component {
         );
     }
 
-    async saveForm() {
+    async saveForm(e) {
+        event.preventDefault();
+        event.stopPropagation();
         const state = this.state;
         const fields = {
             name: state.name,
@@ -389,12 +391,12 @@ export default class Proyecto extends Component {
             </thead>
         );
         const btnActionUpdate = (
-            <button
+            <a
                 className="btn btn-primary"
-                onClick={() => this.getByElementId(elementId)}
+                href={'proyecto/'+elementId}
             >
                 <i className="fas fa-edit"></i>
-            </button>
+            </a>
         );
         const btnActionDelete = (
             <button

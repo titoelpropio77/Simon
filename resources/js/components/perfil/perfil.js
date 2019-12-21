@@ -51,7 +51,8 @@ export default class  Perfil extends Component {
 
     };
 
-    async saveForm ()  {
+    async saveForm (event)  {
+
         const response = await saveDataForm(this.url,this.state.field, this.state.elementId);
         if( response.status )
         {
