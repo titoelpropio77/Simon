@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import { Form, Alert } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
 const NavTabs = props => {
-    const [key, setKey] = useState("componentes");
+    const [key, setKey] = useState("home");
     const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const handleSubmit = async event => {
