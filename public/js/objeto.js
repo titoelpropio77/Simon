@@ -72700,7 +72700,7 @@ var ModalBT = function ModalBT(props) {
     closeButton: true
   }, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Title, {
     id: "example-custom-modal-styling-title"
-  }, "Guardar ", props.title)), React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Body, null, props.field), React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Footer, null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, props.title)), React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Body, null, props.field), React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Footer, null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-success",
     onClick: function onClick() {
       return props.saveDataForm();
@@ -73311,6 +73311,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
+
+/**
+ * guardar los datos en la funcion store de laravel
+ * @param urlSave = la url a la que se va dirigir la peticion
+ * @param dataForm = son los datos que se van a enviar al servidor
+ *
+ */
 
 var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
   var request, token;
