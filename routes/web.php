@@ -62,4 +62,9 @@ Route::post('getAllConfinaciadoresByProy',[ 'uses'=>'ConfinaciamientoController@
 Route::post('confinaciamientoUpdate',[ 'uses'=>'ConfinaciamientoController@confinaciamientoUpdate']);
 
 
+/// Componente
+Route::resource( 'componente', 'ComponenteController' );
+Route::post( 'getComponentesByProyecto', [ 'uses'=>'ComponenteController@getComponentesByProyecto'] );
+
+
 Route::get('/home', 'HomeController@index')->name('home');

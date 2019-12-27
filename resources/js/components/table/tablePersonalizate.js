@@ -11,7 +11,7 @@ const TablePersonalizate = props => {
                     ? props.rowTable.map((item, index) =>
                           props.rowTableRender(item, index)
                       )
-                    : ""}
+                    : <tr></tr>}
             </tbody>
         </Table>
     );
