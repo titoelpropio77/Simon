@@ -3,8 +3,10 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import { Form, Alert } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
-const NavTabs = props => {
-    const [key, setKey] = useState("home");
+const NavTabs = (props) => {
+    console.log(props);
+    const [key, setKey] = useState("componentes");
+
     const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const handleSubmit = async event => {
@@ -49,6 +51,7 @@ const NavTabs = props => {
                         </Form>
                     </div>
                 </Tab>
+
                 <Tab eventKey="localizacion" title="Localización">
                     <div className="card-body">
                         {props.fields.secondSection}
@@ -64,7 +67,9 @@ const NavTabs = props => {
                 <Tab
                     eventKey="estructura_financiamiento"
                     title="Estructura Financiamiento"
-                ></Tab>
+                >
+                <div className="card-body">{props.fields.fifthSection}</div>
+                </Tab>
             </Tabs>
             <Alert variant="danger" show={showAlert}></Alert>
         </div>

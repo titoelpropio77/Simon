@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Componente;
 use Illuminate\Http\Request;
 use Validator;
+use App\AuxIndicadores;
+use App\CompIndicadores;
+
 class ComponenteController extends Controller
 {
     private $url = "proyecto";
@@ -162,6 +165,18 @@ class ComponenteController extends Controller
     public function getComponentesByProyecto( Request $request )
     {
         $result[ 'data' ] = $this->class::where( 'pryId', $request->proyectoId )->get();
+        $result[ 'status' ] = true;
+        return response()->json( $result );
+    }
+    public function getHitosByIdComponente( Request $request )
+    {
+        $result[ 'data' ] = CompIndicadores::where( 'cmpId', $request->componenteId )->with( 'auxIndicadores' )->get();
+        $result[ 'status' ] = true;
+        return response()->json( $result );
+    }
+    public function getIndicadoresAllForProyect()
+    {
+        $result[ 'data' ] = AuxIndicadores::All();
         $result[ 'status' ] = true;
         return response()->json( $result );
     }

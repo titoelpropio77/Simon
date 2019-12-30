@@ -65217,6 +65217,7 @@ var ModalBT = function ModalBT(props) {
     show: props.state,
     onHide: props.closeModal,
     size: "lg",
+    name: props.name,
     dialogClassName: "modal-90w",
     "aria-labelledby": "example-custom-modal-styling-title"
   }, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_1__["default"].Header, {

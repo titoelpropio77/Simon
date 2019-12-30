@@ -54,6 +54,7 @@ const Body = ({ table,   modalBT,btnOpenModal, title}) => {
                                 </div>
                                 <div className="col-md-12">
                                     {/* <Table data={dataSet}></Table> openModal={() => setShow(true)} */}
+                                    {/* body del card */}
                                     {table}
                                 </div>
                             </div>

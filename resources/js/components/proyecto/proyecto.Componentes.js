@@ -17,6 +17,7 @@ import Hitos from "./Hitos";
 const Componentes = props => {
     let dateNow = moment(Date.now()).format("YYYY-MM-DD");
     // const [startDate1, setStartDate1] = useState(new Date());
+    //section hooks
     const [inputs, setInputs] = useState({
         fechaInicio: new Date(),
         fechaConclusion:new Date(),
@@ -26,6 +27,11 @@ const Componentes = props => {
     const [showModal, setShowModal] = useState(false);
     const [ rowTable, setRowTable ] = useState([]);
     const [validated, setValidated] = useState(false);
+    //showHito open modal  of hito
+    const [ showHito, setShowHito] = useState(false);
+    const [ hito, setHito ] =useState(0);
+    const [ dataRowHitos, setDataRowHitos ] = useState([]);
+    /// en section
     const save = async () => {
         const fechaInicio = moment(inputs.fechaInicio).format("YYYY-MM-DD");
         const fechaConclusion = moment(inputs.fechaConclusion).format("YYYY-MM-DD");
@@ -42,6 +48,7 @@ const Componentes = props => {
         }
 
     };
+
     const getComponente = async () =>{
         const response = await getAllByClass('../getComponentesByProyecto', { proyectoId : document.getElementById( 'proyecto_id' ).value });
         if( response.status )
@@ -275,6 +282,16 @@ const Componentes = props => {
             btnActionOthers: btnActionOthers
         };
     };
+    /**
+    *  extraer todos los hitos dado un elemento seleccionado en la tabla de componentes
+    */
+    const getHitosByIdComponente = async (id) =>{
+            setShowHito(true);
+            setHito(id);
+    }
+    /**
+     * renderiza el body de la table
+     * **/
     const rowTableRender = (item, index) => {
         return (
             <tr key={ index }>
@@ -284,7 +301,7 @@ const Componentes = props => {
                 <td>{item.monto}</td>
                 <td>
                     <Button variant="primary" onClick={() => getComponenteById( item.id )}> Editar </Button>
-                    <Button variant="warning"> Listar </Button>
+                    <Button variant="warning" onClick={() => {  setHito( item.id ); getHitosByIdComponente(item .id) }} >Hitos</Button>
                     <Button variant="danger"> Eliminar </Button>
                 </td>
             </tr>
@@ -312,7 +329,9 @@ const Componentes = props => {
         });
         setElementId(null);
     }
-
+    const closeHito = () =>  {
+        setShowHito(false);
+    }
     return (
         <Row>
             <ModalBT
@@ -322,13 +341,7 @@ const Componentes = props => {
                 closeModal = {closeModal}
                 saveDataForm = {save}
             />
-            {/* <ModalBT
-                state ={showModal}
-                field ={<Hitos></Hitos>}
-                title ={ 'Metas e Hitos' }
-                closeModal = {closeModal}
-                saveDataForm = {save}
-            /> */}
+            <Hitos showHito ={ showHito } closeHito ={closeHito} dataRowHitos={dataRowHitos} hito={hito} />
             <Col lg={4} md={4}>
                 <h2>Codigo SISIN: {props.codSinSin}</h2>
                 &nbsp;&nbsp;&nbsp;&nbsp;

@@ -65,6 +65,15 @@ Route::post('confinaciamientoUpdate',[ 'uses'=>'ConfinaciamientoController@confi
 /// Componente
 Route::resource( 'componente', 'ComponenteController' );
 Route::post( 'getComponentesByProyecto', [ 'uses'=>'ComponenteController@getComponentesByProyecto'] );
+Route::post( 'getHitosByIdComponente', [ 'uses'=>'ComponenteController@getHitosByIdComponente'] );
+Route::post( 'getIndicadoresAllForProyect', [ 'uses'=>'ComponenteController@getIndicadoresAllForProyect'] );
+
+
+//indicadores
+Route::resource( 'indicadores', 'AuxIndicadoresController' );
+
+//Componente Indicadores
+Route::resource( 'compIndicadores', 'CompIndicadoresController' );
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -11,6 +11,7 @@ const ModalBT = props => {
                 show={props.state}
                 onHide={props.closeModal}
                 size="lg"
+                name={props.name}
                 dialogClassName="modal-90w"
                 aria-labelledby="example-custom-modal-styling-title"
             >
@@ -26,7 +27,7 @@ const ModalBT = props => {
                     <button className="btn btn-success" onClick={() => props.saveDataForm()}>
                         Guardar
                     </button>
-                    <button className="btn btn-danger" type="submit" onClick={props.closeModal}>
+                    <button className="btn btn-danger" type="submit" onClick={ props.closeModal}>
                         Cancelar
                     </button>
                 </Modal.Footer>

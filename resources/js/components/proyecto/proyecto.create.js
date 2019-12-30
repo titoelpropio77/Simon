@@ -12,7 +12,7 @@ import Localizacion from "./proyecto.localizacion";
 import Confinaciadores from "./proyecto.confinaciadores";
 import Componentes from "./proyecto.Componentes.js";
 import Alert from "react-bootstrap/Alert";
-
+import EstructuraFinanciamiento from "./proyecto.EstructuraFinanciamiento"
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 // import TableAgGrid from "../table/TableAgGrid.js";
 // import DatePicker from "react-datepicker";
@@ -106,8 +106,10 @@ export default class ProyectoCreate extends Component {
                                 quarterSection : (<Componentes
                                     codSinSin={this.state.elementId}
                                     nombreProy={this.state.nombreProy}
-                                />)
+                                />),
+                                 fifthSection :( <EstructuraFinanciamiento
 
+                                 /> )
                             }}
                             saveForm={this.saveForm}
                         ></NavTabs>
