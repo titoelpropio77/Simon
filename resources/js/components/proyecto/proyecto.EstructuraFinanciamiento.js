@@ -68,6 +68,7 @@ const EstructuraFinanciamiento = props => {
                 <i className="fas fa-trash-alt"></i>
             </button>
         );
+        //hola carlos
         const btnActionOthers = "";
         return {
             columns: columns,
