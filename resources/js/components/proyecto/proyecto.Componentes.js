@@ -31,6 +31,8 @@ const Componentes = props => {
     const [ showHito, setShowHito] = useState(false);
     const [ hito, setHito ] =useState(0);
     const [ dataRowHitos, setDataRowHitos ] = useState([]);
+    const [ visibleBtnSave, setVisibleBtnSave ] = useState("block");
+    const [ nombreComponente, setNombreCompente ] = useState("");
     /// en section
     const save = async () => {
         const fechaInicio = moment(inputs.fechaInicio).format("YYYY-MM-DD");
@@ -50,7 +52,7 @@ const Componentes = props => {
     };
 
     const getComponente = async () =>{
-        const response = await getAllByClass('../getComponentesByProyecto', { proyectoId : document.getElementById( 'proyecto_id' ).value });
+        const response = await props.getComponenteByProyectId();
         if( response.status )
         {
             const items = response.data.map( x => ({
@@ -285,9 +287,11 @@ const Componentes = props => {
     /**
     *  extraer todos los hitos dado un elemento seleccionado en la tabla de componentes
     */
-    const getHitosByIdComponente = async (id) =>{
+    const getHitosByIdComponente = async (id, nombreComponente) =>{
             setShowHito(true);
+            setVisibleBtnSave("none");
             setHito(id);
+            setNombreCompente(nombreComponente);
     }
     /**
      * renderiza el body de la table
@@ -300,9 +304,9 @@ const Componentes = props => {
                 <td>{item.duracionDias}</td>
                 <td>{item.monto}</td>
                 <td>
-                    <Button variant="primary" onClick={() => getComponenteById( item.id )}> Editar </Button>
-                    <Button variant="warning" onClick={() => {  setHito( item.id ); getHitosByIdComponente(item .id) }} >Hitos</Button>
-                    <Button variant="danger"> Eliminar </Button>
+                    <Button variant="primary" onClick={() => getComponenteById( item.id )}> <i className="fas fa-edit"></i> </Button>
+                    <Button variant="warning" onClick={() => {  setHito( item.id ); getHitosByIdComponente(item .id, item.nombre) }} ><i class="fas fa-align-left"></i></Button>
+                    <Button variant="danger"> <i className="fas fa-trash-alt"></i> </Button>
                 </td>
             </tr>
         );
@@ -331,6 +335,8 @@ const Componentes = props => {
     }
     const closeHito = () =>  {
         setShowHito(false);
+        setVisibleBtnSave("block");
+
     }
     return (
         <Row>
@@ -340,8 +346,9 @@ const Componentes = props => {
                 title ={ 'Componente' }
                 closeModal = {closeModal}
                 saveDataForm = {save}
+                visibleBtnSave ={ visibleBtnSave }
             />
-            <Hitos showHito ={ showHito } closeHito ={closeHito} dataRowHitos={dataRowHitos} hito={hito} />
+            <Hitos nombreComponente={nombreComponente} showHito ={ showHito } closeHito ={closeHito} dataRowHitos={dataRowHitos} hito={hito}  visibleBtnSave ={ visibleBtnSave } />
             <Col lg={4} md={4}>
                 <h2>Codigo SISIN: {props.codSinSin}</h2>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -359,6 +366,7 @@ const Componentes = props => {
                 propertiesTable={propertiesTableLocalizacion}
                 rowTable={rowTable}
                 rowTableRender={rowTableRender}
+                visibleBtnSave ={ visibleBtnSave }
             />
             <Row>
                 <Col lg={12} md={12}>

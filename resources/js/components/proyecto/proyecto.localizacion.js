@@ -90,7 +90,6 @@ const Localizacion = props => {
     const [rowTable, setRowTable] = useState([]);
 
     useEffect(() => {
-        console.log("useEfect");
         // Cree una función asíncrona de alcance en la
         async function anyFunction() {
             const response = await getDepartamentoAll();
@@ -101,7 +100,8 @@ const Localizacion = props => {
                 }));
                 setDepartamentos(data);
                 const proyectoId = document.getElementById("proyecto_id").value;
-                if (proyectoId) {
+                // console.log(proyectoId);
+                if ( proyectoId != 0) {
                     const resultLocalitationAll = await getAllByClass(
                         "../getLocalitationByProyectoId",
                         { proyectoId: proyectoId }
@@ -128,11 +128,12 @@ const Localizacion = props => {
         }
 
         // setMaskField( [ ...maskField, { proyectoId: props.codSinSin } ]);
-        const response = saveDataForm("../proyectoLocalizacion", {
+        const response = await saveDataForm("../proyectoLocalizacion", {
             maskField,
             proyectoId: props.codSinSin
         });
         if (response.status) {
+            props.changeNavTab( 'cofinaciadores' );
         }
     };
     const getMaskField = () => {

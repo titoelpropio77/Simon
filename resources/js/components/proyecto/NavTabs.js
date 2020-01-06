@@ -3,9 +3,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import { Form, Alert } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
-const NavTabs = (props) => {
-    console.log(props);
-    const [key, setKey] = useState("componentes");
+const NavTabs = props => {
+    const [key, setKey] = useState("cofinaciadores");
 
     const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -17,7 +16,6 @@ const NavTabs = (props) => {
         if (form.checkValidity() === true) {
             const response = await props.saveForm();
 
-            setKey("localizacion");
         } else {
             setValidated(true);
         }
@@ -26,8 +24,10 @@ const NavTabs = (props) => {
         <div>
             <Tabs
                 id="controlled-tab-example"
-                activeKey={key}
-                onSelect={k => setKey(k)}
+                activeKey={props.navActive}
+                onSelect={k => {
+                    props.changeNavTab(k);
+                }}
             >
                 <Tab eventKey="home" title="Datos Generales">
                     <div className="card-body">
@@ -57,18 +57,21 @@ const NavTabs = (props) => {
                         {props.fields.secondSection}
                     </div>
                 </Tab>
-                <Tab eventKey="confinaciadores" title="Confinaciadores">
+                <Tab eventKey="cofinaciadores" title="Cofinaciadores">
                     <div className="card-body">{props.fields.thirdSection}</div>
                 </Tab>
                 <Tab eventKey="componentes" title="Componentes">
-                  <div className="card-body">{props.fields.quarterSection}</div>
+                    <div className="card-body">
+                        {props.fields.quarterSection}
+                    </div>
                 </Tab>
 
                 <Tab
                     eventKey="estructura_financiamiento"
                     title="Estructura Financiamiento"
+                    onClick={() => console.log("estructura fin")}
                 >
-                <div className="card-body">{props.fields.fifthSection}</div>
+                    <div className="card-body">{props.fields.fifthSection}</div>
                 </Tab>
             </Tabs>
             <Alert variant="danger" show={showAlert}></Alert>

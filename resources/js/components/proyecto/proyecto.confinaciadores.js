@@ -14,7 +14,6 @@ import {
     getAllByClass,
     saveTypeDataForm
 } from "../tools/tools";
-
 const Confinaciadores = props => {
     let dateNow = moment(Date.now()).format("YYYY-MM-DD");
     const [inputs, setInputs] = useState({
@@ -39,23 +38,9 @@ const Confinaciadores = props => {
     const [visibilityButton, setVisibilityButton] = useState( 'visible' );
     const [confinaciadorId, setConfinaciadorId] = useState( null);
     const [elementId, setElementId] = useState( null);
+    const [rowFooter, setRowFooter] = useState([]);
+    const [ totalMontoCof, setTotalMontoCof ] = useState();
 
-    const getAllConfinaciadoresByProy = async () => {
-        const response = await getAllByClass("../getAllConfinaciadoresByProy", {
-            proyectoId: document.getElementById("proyecto_id").value
-        });
-        if (response.status) {
-            const items = response.data.map(x => ({
-                id: x.id,
-                institucion: x.institucional.SIGLA,
-                nombre: x.convNombre,
-                fechaFirma: x.fechaFirma,
-                duracionEnDias: x.convVigencia,
-                monto: x.convMonto,
-            }));
-            setRowTable(items);
-        }
-    };
     const handleGetElementById = async (id) => {
         const response = await getById( '../confinaciamiento', id );
         setShowModal(true);
@@ -79,6 +64,38 @@ const Confinaciadores = props => {
             setInstitucion( [{ label : data.institucional.denominacion, value : data.institucional.id } ]);
         }
     }
+    /**
+     * llama al metodo getAllConfinamcimeto
+     */
+    const getAllConfinaciadoresByProy = async () => {
+        const response  =  await props.getAllConfinaciadoresByProyecto();
+        if (response.status) {
+            // getAllConfinaciadoresByProy(response);
+            // confinaciadoresAll=  response.data;
+            const items = response.data.map(x => ({
+                id: x.id,
+                institucion: x.institucional.SIGLA,
+                nombre: x.convNombre,
+                fechaFirma: x.fechaFirma,
+                duracionEnDias: x.convVigencia,
+                monto: x.convMonto,
+            }));
+            const arrayMontos = items.map(x =>  x.monto);
+            const totalMonto  = arrayMontos.reduce( (a,b) => a+b, 0 );
+            setTotalMontoCof(totalMonto);
+            setRowFooter(["TOTAL", "","","",  totalMonto]);
+            setRowTable(items);
+        }
+    }
+    const deletedItem = async (id) =>
+    {
+        const response = deletedElement( '../confinaciamiento',id );
+        if( response.status )
+        {
+            getAllConfinaciadoresByProy();
+        }
+
+    }
     const rowTableRender = (item, index) => {
         return (
             <tr key={index}>
@@ -89,7 +106,7 @@ const Confinaciadores = props => {
                 <td>{ item.monto }</td>
                 <td>
                     <Button variant={'primary'} onClick={ () => handleGetElementById( item.id ) }><i className="fas fa-edit"></i></Button>
-                    <Button variant={'danger'} onClick={ () => handleGetElementById( item.id ) }><i className="fas fa-trash-alt"></i></Button>
+                    <Button variant={'danger'} onClick={ () => deletedItem( item.id ) }><i className="fas fa-trash-alt"></i></Button>
                 </td>
             </tr>
         );
@@ -100,7 +117,6 @@ const Confinaciadores = props => {
             ...inputs,
             [event.target.name]: event.target.value
         }));
-        console.log(inputs);
     };
     useEffect(() => {
         const getDocumentoAll = async () => {
@@ -135,13 +151,6 @@ const Confinaciadores = props => {
     }, []);
 
     const propertiesTableLocalizacion = () => {
-        const [selectElementOption, setSelectElementOption] = useState({
-            value: 1,
-            label: "Seleccione"
-        });
-        const [optionsElement, setOptionsElement] = useState([
-            { value: 1, label: "Seleccione" }
-        ]);
         const columns = (
             <tr>
                 <td>adf</td>
@@ -161,6 +170,17 @@ const Confinaciadores = props => {
                     <th>Accion</th>
                 </tr>
             </thead>
+        );
+        let footer = (
+            <tfoot>
+                <tr>
+                    {rowFooter
+                        ? rowFooter.map((item, index) =>
+                              <td key={index}>{ item }</td>
+                          )
+                        : <td></td>}
+                </tr>
+            </tfoot>
         );
         const btnActionUpdate = (
             <button
@@ -185,12 +205,21 @@ const Confinaciadores = props => {
             targets: [6],
             btnActionDelete: btnActionDelete,
             btnActionUpdate: btnActionUpdate,
-            btnActionOthers: btnActionOthers
+            btnActionOthers: btnActionOthers,
+            footer: footer
         };
     };
     const  updateForm =async () =>
     {
         const fileInput = document.getElementById("docConvenio").files[0];
+        const total = parseFloat(inputs.montoFinanciado) +parseFloat( totalMontoCof );
+        var messageSend = null;
+        if( parseFloat(props.montoTotalComprometido) < total)
+        {
+            messageSend = { status : false, error : "El monto financiado total supera al monto comprometido del proyecto", message: "" };
+        }
+        console.log(messageSend);
+        console.log(total);
         var formData = new FormData();
         formData.append("docConvenio", fileInput);
         formData.append(
@@ -208,10 +237,12 @@ const Confinaciadores = props => {
         const response = await saveTypeDataForm(
             "../confinaciamientoUpdate",
             formData,
-            elementId
+            elementId,
+            messageSend
         );
         if( response.status )
         {
+            setVisibilityButton('visible');
             getAllConfinaciadoresByProy();
             setShowModal(false);
             cleanForm();
@@ -366,9 +397,7 @@ const Confinaciadores = props => {
                 <Form.Group as={Col} lg={4} md={4} controlId="docConvenio">
                     <Form.Label>Documento Convenio</Form.Label>
                     <Form.Control
-                        type="text"
                         name="docConvenio"
-                        required={true}
                         type="file"
                         onChange={onChangeValue}
                         // value={inputs ? inputs.vigenciaDias : ""}
@@ -387,8 +416,6 @@ const Confinaciadores = props => {
         const form = event.currentTarget;
         event.preventDefault();
         event.stopPropagation();
-        console.log(event);
-
         if (form.checkValidity() === true) {
             setValidated(false);
             const fileInput = document.getElementById("docConvenio").files[0];
@@ -398,6 +425,12 @@ const Confinaciadores = props => {
                 "proyectoId",
                 document.getElementById("proyecto_id").value
             );
+            const total = parseFloat(inputs.montoFinanciado) +parseFloat( totalMontoCof );
+            var messageSend = null;
+            if( parseFloat(props.montoTotalComprometido) < total)
+            {
+                messageSend = { status : false, error : "El monto Total Financiado supera al Monto Comprometido del proyecto", message: "" };
+            }
             formData.append("institucion", inputs.institucion);
             formData.append("tipoDocumento", inputs.tipoDocumento);
             formData.append("nombreDocumento", inputs.nombreDocumento);
@@ -405,11 +438,13 @@ const Confinaciadores = props => {
             formData.append("fechaConvenio", inputs.fechaConvenio);
             formData.append("montoFinanciado", inputs.montoFinanciado);
             formData.append("vigenciaDias", inputs.vigenciaDias);
-            // const response = await saveTypeDataForm(
-            //     "../confinaciamiento",
-            //     formData,
-            //     elementId
-            // );
+
+            const response = await saveTypeDataForm(
+                "../confinaciamiento",
+                formData,
+                elementId,
+                messageSend
+            );
             if( response.status )
             {
                 getAllConfinaciadoresByProy();
@@ -458,7 +493,9 @@ const Confinaciadores = props => {
                 <Col lg={4} md={4}>
                     <h2>Nombre: {props.nombreProy}</h2>
                 </Col>
-                <Col lg={4} md={4}></Col>
+                <Col lg={4} md={4}>
+                    <h3>Monto Comprometido: </h3><span style={{ fontWeight: "bold" , fontSize: "19"}}>{props.montoTotalComprometido}</span>
+                </Col>
             </Row>
             {field()}
             <br />

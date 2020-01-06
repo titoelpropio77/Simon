@@ -11,11 +11,9 @@ import { Button, Row, Col, Form } from "react-bootstrap";
 import Localizacion from "./proyecto.localizacion";
 import Confinaciadores from "./proyecto.confinaciadores";
 import Componentes from "./proyecto.Componentes.js";
-import Alert from "react-bootstrap/Alert";
 import EstructuraFinanciamiento from "./proyecto.EstructuraFinanciamiento"
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
-// import TableAgGrid from "../table/TableAgGrid.js";
-// import DatePicker from "react-datepicker";
+
 import {
     saveDataForm,
     getById,
@@ -28,14 +26,13 @@ export default class ProyectoCreate extends Component {
         this.state = {
             titleForm: "Proyecto",
             urlDataTable: "getProyectoDataTable",
-
             elementId:
                 document.getElementById("proyecto_id").value != 0
                     ? document.getElementById("proyecto_id").value
                     : null,
             statusModal: false,
             validated: false,
-            navActive: "home",
+            navActive: "cofinaciadores",
             codSinSinGeneral: "",
             //fields
 
@@ -46,21 +43,24 @@ export default class ProyectoCreate extends Component {
             codSelected: "", //codigo seleccionado EJ: 1-1-1
 
             duracionMes: "", // duracion en mes
-            montoTotalCompartido: "",
+            montoTotalComprometido: "",
             descripcion: "",
 
             sectorId: "",
             tipoProyectoId: "",
             subSectorId: "",
-
+            confinaciadoresAll : [],
+            componenteAll : [],
             //options Selected
             optionsSelectedSectorial: "",
             optionsSelectedLic: "",
             optionsSelectedTipoProyecto: "",
+            optionsSelectedFuncResponsable: "",
 
             optionsElementSectorial: "",
             optionsElementTipoProyecto: "",
-            optionsElementSubSectorial: ""
+            optionsElementSubSectorial: "",
+            optionsElementFuncResponsable: "",
         };
         this.url = "../proyecto";
         this.onChangeValue = this.onChangeValue.bind(this);
@@ -71,13 +71,10 @@ export default class ProyectoCreate extends Component {
         this.handleChangeSelected = this.handleChangeSelected.bind(this);
         this.maskFields = this.maskFields.bind(this);
         this.saveForm = this.saveForm.bind(this);
-
-        // if( proyectoId )
-        // {
-        //     getByIdElement(proyectoId)
-        // }
+        this.getAllConfinaciadoresByProyecto = this.getAllConfinaciadoresByProyecto.bind(this);
+        this.getComponenteByProyectId = this.getComponenteByProyectId.bind(this);
+        this.changeNavTab = this.changeNavTab.bind(this);
         this.getSectorialAll();
-        // this.modalBT = this.modalBT.bind(this);
     }
     render() {
         // const [show, setShow] = useState(false);
@@ -91,26 +88,41 @@ export default class ProyectoCreate extends Component {
                     table={
                         <NavTabs
                             navActive={this.state.navActive}
+                            changeNavTab = {this.changeNavTab}
                             fields={{
                                 firstSection: this.field(),
                                 secondSection: (
                                     <Localizacion
                                         codSinSin={this.state.elementId}
                                         nombreProy={this.state.nombreProy}
+                                        changeNavTab = {this.changeNavTab}
+
                                     />
                                 ),
                                 thirdSection : (<Confinaciadores
                                     codSinSin={this.state.elementId}
                                     nombreProy={this.state.nombreProy}
-                                />),
+                                    getAllConfinaciadoresByProyecto = {this.getAllConfinaciadoresByProyecto}
+                                    changeNavTab = {this.changeNavTab}
+                                    montoTotalComprometido ={this.state.montoTotalComprometido}
+                                    />),
                                 quarterSection : (<Componentes
                                     codSinSin={this.state.elementId}
                                     nombreProy={this.state.nombreProy}
+                                    getComponenteByProyectId ={this.getComponenteByProyectId}
+                                    changeNavTab = {this.changeNavTab}
+                                    montoTotalComprometido ={this.state.montoTotalComprometido}
+
                                 />),
                                  fifthSection :( <EstructuraFinanciamiento
+                                    codSinSin={this.state.elementId}
+                                    confinaciadoresAll ={this.state.confinaciadoresAll}
+                                    nombreProy={this.state.nombreProy}
+                                    componenteAll = {this.state.componenteAll}
+                                    /> )
 
-                                 /> )
                             }}
+                            // getAllConfinaciadoresByProy = {this.getAllConfinaciadoresByProy}
                             saveForm={this.saveForm}
                         ></NavTabs>
                     }
@@ -123,7 +135,6 @@ export default class ProyectoCreate extends Component {
             </div>
         );
     }
-
     maskFields() {
         const state = this.state;
         const fields = {
@@ -135,9 +146,9 @@ export default class ProyectoCreate extends Component {
             codSelected: saveDataForm.codSelected, //codigo seleccionado EJ: 1-1-1
             codSinSinGeneral: state.codSinSin,
             duracionMes: state.duracionMes, // duracion en mes
-            montoTotalCompartido: state.montoTotalCompartido,
+            montoTotalComprometido: state.montoTotalComprometido,
             descripcion: state.descripcion,
-
+            funcId : state.optionsSelectedFuncResponsable.value,
             sectorId: state.sectorId,
             tipoProyectoId: state.tipoProyectoId,
             subSectorId: state.subSectorId
@@ -145,23 +156,42 @@ export default class ProyectoCreate extends Component {
         return fields;
     }
     async saveForm() {
+        const dataSend = this.maskFields();
+        let messageSend = { status: true, menssage : "", error:  "" };
+        if( !dataSend.tipoProyectoId )
+        {
+            messageSend.status = false;
+            messageSend.error = "Debe Seleccionar el Cod Sectorial hasta tipo de proyecto";
+        }
         const response = await saveDataForm(
             this.url,
-            this.maskFields(),
-            this.state.elementId
+            dataSend,
+            this.state.elementId,
+            messageSend
         );
-        console.log(response);
+
         if (response.status) {
             this.setState({
                 statusModal: false,
-                navActive: "localizacion",
                 elementId: response.data.id,
                 codSinSinGeneral: response.data.id
             });
+
             document.getElementById("proyecto_id").value = response.data.id;
+            this.changeNavTab( "localizacion" );
             // reloadTableData();
         } else {
         }
+    }
+    /**
+     * se cambia el valor del tab para cambiar de formulario
+     * @param {nombre del tab} tabKey
+     */
+    changeNavTab( tabKey )
+    {
+        // console.log("changeNavTab");
+        // console.log(tabKey);
+        this.setState({ navActive: tabKey });
     }
     componentDidMount() {
         const proyectoId = document.getElementById("proyecto_id").value;
@@ -175,21 +205,26 @@ export default class ProyectoCreate extends Component {
         if (response.status) {
             this.setState({ elementId: id });
             let data = response.data;
+            const subSector = response.data.subSector.map(x => ({
+                subSector: x.subSector,
+                label: x.denominacion,
+                value: x.id
+            }));
+            const tipoProyecto = response.data.tipoProyecto.map(x => ({
+                tipo: x.tipo,
+                label: x.denominacion,
+                value: x.id
+            }));
             this.setState({
                 nombreProy: data.pryNombre,
                 codSinSin: data.codSinSin,
                 fechaInicio: data.fechAprobacion,
                 duracionMes: data.duracion,
+                optionsElementSubSectorial: subSector,
+                optionsElementTipoProyecto: tipoProyecto,
                 descripcion: data.pryDescripcion,
                 codSinSin: data.pryCodSisin,
-                // montoTotalCompartido : data.duracion,
-                // funcResp : data.codSinSin,
-                // email: data.email,
-                // materno: data.materno,
-                // paterno: data.paterno,
-                // visibleEnMenu: data.visibleEnMenu,
-                // tipoObjeto: data.tipoObjeto,
-                // idPerfil: data.perfil_id,
+                montoTotalComprometido : data.montoTotal,
                 // licId: data.licencia ? data.licencia.id : 0,
                 sector: data.sectorial.Sector.Sector,
                 tipo: data.sectorial.tipo.tipo,
@@ -218,35 +253,50 @@ export default class ProyectoCreate extends Component {
             });
         }
     }
-
+    async getComponenteByProyectId()
+    {
+        if ( document.getElementById("proyecto_id").value != 0 )
+        {
+        const response = await getAllByClass('../getComponentesByProyecto', { proyectoId : document.getElementById( 'proyecto_id' ).value });
+        this.setState({componenteAll : response});
+        return response;
+        }
+        this.setState({componenteAll : {}});
+        return {};
+    }
     async getSectorialAll() {
-        const response = await getAllByClass("../getSectorAllForProyect");
+        const response = await getAllByClass("../getSectorAllForProyect", { proyectoId : document.getElementById( 'proyecto_id' ).value });
         if (response.status) {
-            // console.log(response.data);
-            // response.data.push({ nombre: 'Sin Modulo' , id : 0});
-
             const sectorial = response.data.sector.map(x => ({
                 label: x.denominacion,
                 sector: x.Sector,
                 value: x.id
             }));
-            const subSector = response.data.subSector.map(x => ({
-                subSector: x.subSector,
-                label: x.denominacion,
+            const functResponsable = response.data.funcionario.map( x => ({
+                label: x.name,
                 value: x.id
             }));
-            const tipoProyecto = response.data.tipoProyecto.map(x => ({
-                tipo: x.tipo,
-                label: x.denominacion,
-                value: x.id
-            }));
-
             this.setState({
                 optionsElementSectorial: sectorial,
-                optionsElementSubSectorial: subSector,
-                optionsElementTipoProyecto: tipoProyecto
+                optionsElementSubSectorial: [{label:"seleccione", value: 0}],
+                optionsElementTipoProyecto: [{label:"seleccione", value: 0}],
+                optionsElementFuncResponsable: functResponsable,
+                optionsSelectedFuncResponsable: functResponsable[0],
             });
         }
+    }
+    async getAllConfinaciadoresByProyecto()
+    {
+        if ( document.getElementById("proyecto_id").value != 0 )
+        {
+            const response = await getAllByClass("../getAllConfinaciadoresByProy", {
+                proyectoId: document.getElementById("proyecto_id").value
+            });
+            this.setState({confinaciadoresAll : response});
+            return response;
+        }
+        this.setState({confinaciadoresAll : {}});
+        return {};
     }
     async deletedElement(elementId) {
         const response = await deletedElement(this.url, elementId);
@@ -358,25 +408,46 @@ export default class ProyectoCreate extends Component {
             btnActionOthers: btnActionOthers
         };
     }
-    handleChangeSelected(value, nameObj) {
-        console.log(value);
+    async handleChangeSelected(value, nameObj) {
         switch (nameObj) {
             case "sector":
                 // const {codSelected} = this.state;
-
-                this.setState({
-                    optionsSelectedSectorial: value,
-                    sector: value.sector,
-                    codSelected: value.sector
-                });
+                const response  = await getAllByClass( '../getSectorialByCodigo', { nameObj: nameObj, sector:  value.sector  } );
+                if( response.status )
+                {
+                    const subSector = response.data.map(x => ({
+                        subSector: x.subSector,
+                        label: x.denominacion,
+                        value: x.id
+                    }));
+                    this.setState({
+                        optionsElementSubSectorial: subSector,
+                        optionsSelectedSubSector : {label : "seleccione", value : 0},
+                        optionsSelectedTipoProyecto : {label : "seleccione", value : 0},
+                        optionsSelectedSectorial: value,
+                        sector: value.sector,
+                        codSelected: value.sector
+                    });
+                }
                 break;
             case "subSector":
-                this.setState({
-                    optionsSelectedSubSector: value,
-                    subSectorId: value.value,
-                    subSector: value.subSector,
-                    codSelected: this.state.sector + "-" + value.subSector
-                });
+                const responseSubSector  = await getAllByClass( '../getSectorialByCodigo', { nameObj: nameObj, sector:  this.state.sector, subSector : value.subSector  } );
+                if( responseSubSector.status )
+                {
+                    const tipoProyecto = responseSubSector.data.map(x => ({
+                        tipo: x.tipo,
+                        label: x.denominacion,
+                        value: x.id
+                    }));
+                    this.setState({
+                        optionsElementTipoProyecto: tipoProyecto,
+                        optionsSelectedSubSector: value,
+                        optionsSelectedTipoProyecto : {label : "seleccione", value : 0},
+                        subSectorId: value.value,
+                        subSector: value.subSector,
+                        codSelected: this.state.sector + "-" + value.subSector
+                    });
+                }
                 break;
             case "tipoProyecto":
                 this.setState({
@@ -392,6 +463,7 @@ export default class ProyectoCreate extends Component {
                 });
                 break;
         }
+
         // console.log(value);
         // console.log(this.state.idModulo);
     }
@@ -428,12 +500,13 @@ export default class ProyectoCreate extends Component {
                 </Col>
                 <Col xs ls="6" md="6">
                     <Form.Label>Funcionario Responsable</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="funcResp"
-                        required={true}
-                        value={this.state.funcResp || ""}
-                        onChange={this.onChangeValue}
+                    <Select
+                     options ={this.state.optionsElementFuncResponsable}
+                     value ={this.state.optionsSelectedFuncResponsable}
+                     onChange = { (value) => {
+                        this.setState({ optionsSelectedFuncResponsable:value });
+                     }}
+
                     />
                     <Form.Control.Feedback type="invalid">
                         El campo es obligatorio
@@ -514,8 +587,8 @@ export default class ProyectoCreate extends Component {
                     <input
                         type="text"
                         className="form-control"
-                        name="montoTotalCompartido"
-                        value={this.state.montoTotalCompartido || ""}
+                        name="montoTotalComprometido"
+                        value={this.state.montoTotalComprometido || ""}
                         onChange={this.onChangeValue}
                     ></input>
                 </div>

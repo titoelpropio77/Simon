@@ -7,6 +7,7 @@ use App\ClaSectorial;
 use Illuminate\Http\Request;
 use DataTables;
 use DB;
+use App\User;
 use App\Localizaciones;
 
 class ProyectoController extends Controller
@@ -57,13 +58,14 @@ class ProyectoController extends Controller
             $fechaInicio = $myDateTime->format('Y-m-d');
             $create = $this->class::create(
                 [
-                    'licId' => 1,
-                    'funId' => auth()->user()->id,
+                    'licId' => auth()->user()->lic_id,
+                    'funId' => $request->funcId,
                     'pryNombre' => $request->nombreProy,
                     'pryCodSisin' => $request->codSinSin,
                     'fechAprobacion' => $fechaInicio,
                     'fechAprobacion' => $fechaInicio,
                     'sectId' => $request->sectorId,
+                    "montoTotal" => $request->montoTotalComprometido,
                     'fechInicProgramada' => $fechaInicio,
                     'duracion' => $request->duracionMes,
                     'pryDescripcion' => $request->descripcion,
@@ -104,10 +106,11 @@ class ProyectoController extends Controller
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
             $clientList = $this->class::select(DB::raw('*,DATE_FORMAT(fechAprobacion, "%d/%m/%Y") as fechAprobacion' ))->find($proyecto);
-
             $sectorial = ClaSectorial::getSectorAndSubSectorAndTipo($clientList->sectId);
             $result[ 'data' ] = $clientList;
             $result[ 'data' ][ 'sectorial' ] = $sectorial;
+            $result[ 'data' ][ 'subSector' ] = $this->getSubSectorAndTipo( 'sector', $sectorial[ 'Sector' ]->Sector );
+            $result[ 'data' ][ 'tipoProyecto' ] = $this->getSubSectorAndTipo( 'subSector', $sectorial[ 'Sector' ]->Sector , $sectorial[ 'subSector' ]->subSector );
             $result[ 'status' ] = true;
         } catch (Exception $e) {
             $result[ 'status' ] = false;
@@ -137,8 +140,8 @@ class ProyectoController extends Controller
             $fechaInicio = $myDateTime->format('Y-m-d');
             $typeRooms = $this->class::findOrFail($id);
              $typeRooms->update( [
-                'licId' => 1,
-                'funId' => auth()->user()->id,
+                'licId' => auth()->user()->lic_id,
+                'funId' => $request->funcId,
                 'pryNombre' => $request->nombreProy,
                 'pryCodSisin' => $request->codSinSin,
                 'fechAprobacion' => $fechaInicio,
@@ -164,9 +167,21 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proyecto $proyecto)
+    public function destroy( $proyecto)
     {
-        //
+        if (!$this->verifyPermission('puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        try {
+            $perfil = $this->class::findOrFail($proyecto);
+            $perfil->delete();
+            $result['status'] = true;
+            $result['message'] = 'Eliminado Correctamente';
+        } catch (Exception $e) {
+
+            $result['status'] = false;
+            $result['message'] = $e->getMessage();
+        }
+        return response()->json($result);
     }
     public function getSectorAllForProyect(Request $request)
     {
@@ -177,16 +192,8 @@ class ProyectoController extends Controller
                                 ['subsector' ,'=', '0'],
                                 ['tipo' ,'=', '0'],
                             ])->get();
-
-        $result[ 'data' ]['subSector'] =
-        ClaSectorial::select('denominacion', 'id', 'subSector')->where([
-                                ['subsector' ,'<>', '0'],
-                                ['tipo' ,'=', '0'],
-                            ])->get();
-        $result[ 'data' ]['tipoProyecto'] =
-        ClaSectorial::select('denominacion', 'id','tipo')->where([
-                                ['tipo' ,'<>', '0'],
-                            ])->get();
+        $userId = $request->proyectoId  ? $this->class::find($request->proyectoId)->funId : auth()->user()->id;
+        $result[ 'data' ][ 'funcionario' ] = DB::select( 'SELECT * FROM users where lic_id=' .  auth()->user()->lic_id . ' ORDER BY FIELD (id,' . $userId . ') DESC;' );
         return response()->json($result);
     }
     public function getDataTable(Request $request)
@@ -219,5 +226,40 @@ class ProyectoController extends Controller
         $result[ 'data' ] = Localizaciones::where('locPadre',$request->id)->get();
         $result[ 'status' ] = true;
         return response()->json( $result );
+    }
+    public function getSectorialByCodigo( Request $request )
+    {
+        if( $request->nameObj == "sector" )
+        {
+            $result[ 'data' ] = $this->getSubSectorAndTipo( $request->nameObj, $request->sector );
+        }else
+        {
+            $result[ 'data' ] = $this->getSubSectorAndTipo( $request->nameObj, $request->sector, $request->subSector );
+        }
+
+        $result[ 'status' ] = true;
+        return response()->json( $result );
+    }
+    /**
+     * retorna de la tabla aux_sectorial dado un filtro de parametros por entrada
+     */
+    public function getSubSectorAndTipo( $nameObj, $sector, $subSector = 0  )
+    {
+        if( $nameObj == "sector" )
+        {
+            $result = ClaSectorial::select('denominacion', 'id', 'subSector')->where([
+                ['subsector' ,'<>', '0'],
+                ['tipo' ,'=', '0'],
+                ['Sector' ,'=', $sector],
+            ])->get();
+        }else
+        {
+            $result = ClaSectorial::select('denominacion', 'id', 'tipo')->where([
+                ['subsector' ,'=', $subSector],
+                ['tipo' ,'<>', '0'],
+                ['Sector' ,'=', $sector],
+            ])->get();
+        }
+        return $result ;
     }
 }

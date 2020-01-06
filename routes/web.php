@@ -48,6 +48,7 @@ Route::post('getProyectoDataTable',[ 'uses'=>'ProyectoController@getDataTable'])
 Route::post('getSectorAllForProyect',[ 'uses'=>'ProyectoController@getSectorAllForProyect']);
 Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDepartamentoAllForProyecto']);
 Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
+Route::post('getSectorialByCodigo',[ 'uses'=>'ProyectoController@getSectorialByCodigo']);
 
 
 //proyecto Localizacion
@@ -75,5 +76,9 @@ Route::resource( 'indicadores', 'AuxIndicadoresController' );
 //Componente Indicadores
 Route::resource( 'compIndicadores', 'CompIndicadoresController' );
 
+//Estructura Financiamiento
+Route::resource( 'estructuraFinanciamiento', 'EstruturaFinanciamientoController' );
+Route::post( 'getListClaPresupuestario', [ 'uses'=>'EstruturaFinanciamientoController@getListClaPresupuestario'] );
+Route::post( 'getEFByProyecto', [ 'uses'=>'EstruturaFinanciamientoController@getEFByProyecto'] );
 
 Route::get('/home', 'HomeController@index')->name('home');

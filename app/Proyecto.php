@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Proyecto extends Model
 {
+    use SoftDeletes;
     protected $table = 'proyecto';
     protected $fillable = [
             'id',
@@ -18,6 +19,7 @@ class Proyecto extends Model
             'sectId',
             'fechInicProgramada',
             'duracion',
+            'montoTotal',
             'pryDescripcion',
     ];
 

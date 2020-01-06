@@ -1,4 +1,5 @@
 import React from "react";
+import alertify from 'alertifyjs';
 
 /**
  * guardar los datos en la funcion store de laravel
@@ -7,9 +8,20 @@ import React from "react";
  *
  */
 
-export const saveDataForm = async (urlSave, dataForm, elementId) => {
+export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = null) => {
     var request = "";
-    console.log(elementId);
+    if( messageSend )
+    {
+        if( !messageSend.status )
+        {
+            alertify
+            .alert(messageSend.error, function(){
+                alertify.message('OK');
+            });
+            return { status: false }
+        }
+    }
+
     let token = document
         .querySelector("meta[name='csrf-token']")
         .getAttribute("content");
@@ -25,14 +37,19 @@ export const saveDataForm = async (urlSave, dataForm, elementId) => {
                 body: JSON.stringify(dataForm)
             })
                 .then(response => {
+                    // console.log(response);
                     // if (response.ok) {
                     return response.json();
                     // }
-                    // console.log(response);
+                    // alertify
+                    // .alert(messageSend.error, function(){
+                    //     alertify.message('OK');
+                    // });
+                    return response.json();
                     // throw new Error('A ocurrido un error');
                 })
                 .then(result => {
-                    console.log(request);
+                    alertify.success(result.message);
                     return result;
                 });
         } catch (error) {
@@ -52,6 +69,7 @@ export const saveDataForm = async (urlSave, dataForm, elementId) => {
             .then(res => res.json())
             .then(
                 result => {
+                    alertify.success(result.message);
                     return result;
                 },
                 error => {
@@ -75,6 +93,7 @@ export const getById = async (url, id) => {
         .then(res => res.json())
         .then(
             result => {
+
                 return result;
             },
             error => {
@@ -133,9 +152,19 @@ export const getAllByClass = async (url, dataForm) => {
 };
 
 
-export const saveTypeDataForm = async (urlSave, dataForm, elementId) => {
+export const saveTypeDataForm = async (urlSave, dataForm, elementId, messageSend = null) => {
     var request = "";
-    console.log(elementId);
+    if( messageSend )
+    {
+        if( !messageSend.status )
+        {
+            alertify
+            .alert("Error",messageSend.error, function(){
+                alertify.message('OK');
+            });
+            return { status: false }
+        }
+    }
     let token = document
         .querySelector("meta[name='csrf-token']")
         .getAttribute("content");
@@ -157,7 +186,7 @@ export const saveTypeDataForm = async (urlSave, dataForm, elementId) => {
                     // throw new Error('A ocurrido un error');
                 })
                 .then(result => {
-                    console.log(request);
+                    alertify.success(result.message);
                     return result;
                 });
         } catch (error) {

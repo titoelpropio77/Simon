@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Confinaciamiento extends Model
 {
+    use SoftDeletes;
     protected $table = 'proyconvfinanciamiento';
 
     protected $fillable = [

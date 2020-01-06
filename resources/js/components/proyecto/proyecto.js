@@ -33,7 +33,7 @@ export default class Proyecto extends Component {
             optionsElement: "",
             optionsElementLIc : ""
         };
-        this.url = "usuario";
+        this.url = "proyecto";
         this.onChangeValue = this.onChangeValue.bind(this);
         this.getByIdElement = this.getByIdElement.bind(this);
         this.field = this.field.bind(this);
@@ -369,10 +369,14 @@ export default class Proyecto extends Component {
                 data: "pryNombre"
             },
             {
-                data: "pryNombre"
+                data: "fechInicProgramada"
             },
             {
-                data: "pryNombre"
+                data: "pryNombre",
+                render : function()
+                {
+                    return "ejecucion";
+                }
             },
             {
                 data: "pryNombre"
@@ -406,7 +410,14 @@ export default class Proyecto extends Component {
                 <i className="fas fa-trash-alt"></i>
             </button>
         );
-        const btnActionOthers = "";
+        const btnActionOthers = (
+            <button
+                className="btn btn-success"
+                // onClick={() => this.deletedElement(elementId)}
+            >
+               <i class="far fa-file-excel"></i>
+            </button>
+        );
         return {
             columns: columns,
             head: head,

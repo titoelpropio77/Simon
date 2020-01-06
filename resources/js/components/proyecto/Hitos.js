@@ -126,15 +126,16 @@ const Hitos = props => {
 
         getIndicadoresAll();
     }, [props.hito]);
-    ///  renderiza el body delmodal
+    ///  renderiza el body del modal
     const bodyModal = () => {
         return (
             <Row>
                 <Col md="12">
                     <span>Nombre Proyecto</span>
                     <br />
-                    <span>componente</span>
+                    <span style={{ fontWeight: "bold" }}>Componente : { props.nombreComponente }</span>
                 </Col>
+                <br/>
                 <Col md="12">
                     <TablePersonalizate
                         propertiesTable={propertiesTableLocalizacion}
@@ -163,8 +164,12 @@ const Hitos = props => {
         ]);
     };
     const saveHito = async item => {
-        console.log(item);
         if (!item.isDisabled) {
+            var messageSend = null;
+            if ( !item.selectedHitosOfControl.value || !item.selectedHitoMeta.value || !item.cantidad || !item.plazoDias )
+            {
+                messageSend = { status : false, error : "Los todos los campos son requeridos" };
+            }
             const response = await saveDataForm(
                 "../compIndicadores",
                 {
@@ -173,7 +178,8 @@ const Hitos = props => {
                     indId: item.selectedHitosOfControl.value,
                     tipo: item.selectedHitoMeta.value
                 },
-                item.key
+                item.key,
+                messageSend
             );
             if (response.status) {
                 const items = rowTable.map(row => {
@@ -298,6 +304,7 @@ const Hitos = props => {
             title={"Metas e Hitos"}
             closeModal={props.closeHito}
             saveDataForm={saveHito}
+            visibleBtnSave = { props.visibleBtnSave}
         />
     );
 };

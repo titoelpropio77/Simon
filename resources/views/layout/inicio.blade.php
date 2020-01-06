@@ -28,7 +28,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('plugins/datatables/datatables.min.css')}}">
-
+  <link rel="stylesheet" href="{{asset('plugins/alertify/alertify.css')}}">
 </head>
 <?php
 $modulo = Session::get('modulo');
@@ -281,7 +281,7 @@ Redirect::to('login')->send();
 <script src="{{asset('plugins/sparklines/sparkline.js')}}"></script>
 <!-- JQVMap -->
 <script src="{{asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}')}}"></script>
+<!-- <script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
@@ -296,11 +296,11 @@ Redirect::to('login')->send();
 <!-- AdminLTE App -->
 <script src="{{asset('plugins/admLte/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+<!-- <script src="{{asset('dist/js/pages/dashboard.js')}}"></script> -->
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('dist/js/demo.js')}}"></script>
+<!-- <script src="{{asset('dist/js/demo.js')}}"></script> -->
 <script src="{{asset('js/app.js')}}"></script>
-<script src="{{asset('js/plugins/alertss.js')}}"></script>
+<!-- <script src="{{asset('js/plugins/alertss.js')}}"></script> -->
 <script type="text/javascript">
             var urlForm='{{$urlForm }}';
             $(document).ready(function()

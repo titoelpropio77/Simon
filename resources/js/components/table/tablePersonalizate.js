@@ -13,6 +13,8 @@ const TablePersonalizate = props => {
                       )
                     : <tr></tr>}
             </tbody>
+            {props.propertiesTable().footer}
+
         </Table>
     );
 };

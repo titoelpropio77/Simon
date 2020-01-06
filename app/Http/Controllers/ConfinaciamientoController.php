@@ -56,7 +56,7 @@ class ConfinaciamientoController extends Controller
             $validator = Validator::make($request->all(), [
                 'proyectoId' => 'integer|required',
                 'institucion' => 'integer|required',
-                'docConvenio' => 'file|required',
+                // 'docConvenio' => 'file|required',
             ]);
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 401);
@@ -144,9 +144,21 @@ class ConfinaciamientoController extends Controller
      * @param  \App\Confinaciamiento  $confinaciamiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Confinaciamiento $confinaciamiento)
+    public function destroy( $confinaciamiento)
     {
-        //
+        if (!$this->verifyPermission('puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        try {
+            $perfil = $this->class::findOrFail($confinaciamiento);
+            $perfil->delete();
+            $result['status'] = true;
+            $result['message'] = 'Eliminado Correctamente';
+        } catch (Exception $e) {
+
+            $result['status'] = false;
+            $result['message'] = $e->getMessage();
+        }
+        return response()->json($result);
     }
     public function getAllTypeDocumentForConfinaciamiento()
     {

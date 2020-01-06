@@ -24,7 +24,7 @@ const ModalBT = props => {
                         {props.field}
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="btn btn-success" onClick={() => props.saveDataForm()}>
+                    <button className="btn btn-success" style={{ display: props.visibleBtnSave }} onClick={() => props.saveDataForm()}>
                         Guardar
                     </button>
                     <button className="btn btn-danger" type="submit" onClick={ props.closeModal}>
