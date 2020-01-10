@@ -99,8 +99,13 @@ const Localizacion = props => {
             if (resultLocalitationAll.status) {
                 const data = resultLocalitationAll.data;
                 handleAddRow(data);
+                if  ( !data.length )
+                {
+                    handleAddRow();
+                }
             }
         } else {
+
             handleAddRow();
         }
     }
@@ -132,7 +137,7 @@ const Localizacion = props => {
         // setMaskField( [ ...maskField, { proyectoId: props.codSinSin } ]);
         const response = await saveDataForm("../proyectoLocalizacion", {
             maskField,
-            proyectoId: props.codSinSin
+            proyectoId:  document.getElementById("proyecto_id").value
         });
         if (response.status) {
             props.changeNavTab( 'cofinaciadores' );

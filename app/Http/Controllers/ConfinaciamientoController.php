@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Confinaciamiento;
 use App\TipoDocumento;
 use App\Institucional;
+use App\Proyecto;
 
 use Illuminate\Http\Request;
 use Validator;
@@ -85,6 +86,7 @@ class ConfinaciamientoController extends Controller
                     'convPath'=>  $pathFile,
                 ]
             );
+            Proyecto::updateStatusProyect( $request->proyectoId, [ 'message_cofinaciadores' => '']  );
         } catch (Exception $e) {
             $result[ 'status' ] = false;
             $result[ 'message' ] = $e->getMessage();

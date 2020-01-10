@@ -69,6 +69,11 @@ class ProyectoController extends Controller
                     'fechInicProgramada' => $fechaInicio,
                     'duracion' => $request->duracionMes,
                     'pryDescripcion' => $request->descripcion,
+                    'message_localizacion' => 'Falta Agregar Localizaciones',
+                    'message_cofinaciadores' => 'Falta Agregar Cofinaciadores',
+                    'message_componente'  => 'Falta Agregar Componentes',
+                    'message_estructura_financiamiento'=>  'Falta Agregar Estructura Financiamiento',
+                    'status' => 'Incompleto',
                 ]
             );
             $result[ 'data' ][ 'id' ] = $create[ 'id' ];

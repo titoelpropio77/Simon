@@ -31,8 +31,10 @@ export default class ProyectoCreate extends Component {
                     ? document.getElementById("proyecto_id").value
                     : null,
             statusModal: false,
-            validated: false,
-            navActive: "cofinaciadores",
+            validated: true,
+            //habilita y deshabilita el tab de estructura financiamiento
+            disableTabEF: true,
+            navActive: "home",
             codSinSinGeneral: "",
             //fields
 
@@ -89,6 +91,7 @@ export default class ProyectoCreate extends Component {
                         <NavTabs
                             navActive={this.state.navActive}
                             changeNavTab = {this.changeNavTab}
+                            disableTabEF={this.state.disableTabEF}
                             fields={{
                                 firstSection: this.field(),
                                 secondSection: (
@@ -118,6 +121,7 @@ export default class ProyectoCreate extends Component {
                                     codSinSin={this.state.elementId}
                                     confinaciadoresAll ={this.state.confinaciadoresAll}
                                     nombreProy={this.state.nombreProy}
+
                                     componenteAll = {this.state.componenteAll}
                                     /> )
 
@@ -257,11 +261,15 @@ export default class ProyectoCreate extends Component {
     {
         if ( document.getElementById("proyecto_id").value != 0 )
         {
-        const response = await getAllByClass('../getComponentesByProyecto', { proyectoId : document.getElementById( 'proyecto_id' ).value });
-        this.setState({componenteAll : response});
-        return response;
+            const response = await getAllByClass('../getComponentesByProyecto', { proyectoId : document.getElementById( 'proyecto_id' ).value });
+            if( response.data.length )
+            {
+                this.setState({disableTabEF : false});
+            }
+            this.setState({componenteAll : response});
+            return response;
         }
-        this.setState({componenteAll : {}});
+        this.setState({componenteAll : {}, disableTabEF : false});
         return {};
     }
     async getSectorialAll() {

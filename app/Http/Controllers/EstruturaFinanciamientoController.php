@@ -72,7 +72,10 @@ class EstruturaFinanciamientoController extends Controller
                         'esfConcepto'=> "Estructura Financiamiento",
                         'esfGlosa' => 'Estructura Financiamiento',
                     ]
+
                 );
+
+
                 if ( $createEF )
                 {
                     $createEFC = $this->saveDetalleEFC( $request, $createEF[ 'id' ] );

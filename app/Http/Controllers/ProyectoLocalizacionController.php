@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Proyecto;
 use App\ProyectoLocalizacion;
 use App\Localizaciones;
 use Illuminate\Http\Request;
@@ -52,21 +52,28 @@ class ProyectoLocalizacionController extends Controller
             $result['status'] = true;
             $result['message'] = 'Guardado Correctamente';
             $data = $request->all();
-            foreach ( $data[ 'maskField']   as $localidad )
+            $proyectoId = $data[ 'proyectoId' ];
+            foreach ( $data[ 'maskField']   as $key => $localidad )
             {
                 // echo json_encode( $localidad['localidad'][0]);
                 // exit    ;
                 $localidadId = $localidad['localidad']['value'];
                 if( $localidadId )
                 {
+
                     if( !$localidad[ 'id' ] )
                     {
                     $this->class::create(
                         [
-                            'pryId' => $data[ 'proyectoId' ]  ,
+                            'pryId' => $proyectoId  ,
                             'locid' => $localidadId
                         ]
                     );
+                    if( $key == 0 )
+                    {
+                        Proyecto::updateStatusProyect( $proyectoId, [ 'message_localizacion' => '']  );
+                    }
+
                     }
                     else
                     {

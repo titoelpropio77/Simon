@@ -4,8 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import { Form, Alert } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
 const NavTabs = props => {
-    const [key, setKey] = useState("cofinaciadores");
-
+    console.log(props);
     const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const handleSubmit = async event => {
@@ -69,6 +68,7 @@ const NavTabs = props => {
                 <Tab
                     eventKey="estructura_financiamiento"
                     title="Estructura Financiamiento"
+                    disabled={props.disableTabEF}
                     onClick={() => console.log("estructura fin")}
                 >
                     <div className="card-body">{props.fields.fifthSection}</div>

@@ -43,59 +43,48 @@ Redirect::to('login')->send();
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-info navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        <a style="color:white" class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <div style="text-align : center;width: 66%;     margin: 0 auto;">
-            <h2>{{ Session::get('nombreInstitucion') }}</h2>
+            <h2 style="color:white ; font-weight: bold;" >{{ Session::get('nombreInstitucion') }}</h2>
         </div>
     </ul>
+    <ul class="navbar-nav ml-auto" style="color:white" >
+        <li style="    text-align: right;"><img style="    width: 52%;" src="{{asset('images/user.png')}}" alt=""></li>
+    </ul>
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-       <li class="dropdown">
-            <a href="#" class="nav-link" data-toggle="dropdown">
-                <small class="">{{ auth()->user()->name }}</small>
-                <img style="width: 17%;" src="{{asset('images/logout.png')}}" class="user-image" alt="User Image">
+    <ul class="navbar-nav " style="color:white; " >
+        <li class="dropdown">
+            <a style="color: white ; height: max-content;"  href="#" class="nav-link" data-toggle="dropdown">
+                <span style="font-weight: bold;">{{auth()->user()->name." ". auth()->user()->paterno. " ". auth()->user()->materno}}</span>
+                <br>
+                <span style="font-weight: bold;">Cargo</span>
+                <br>
+                <span style="font-weight: bold;">{{Date('d/m/Y')}}</span>
             </a>
-            <ul class="dropdown-menu">
-                <li class="user-header">
-                <img src="{{asset('images/user.png')}}" class="img-circle" alt="User Image">
-                    <p>
-                        {{ auth()->user()->name }}
-
-                    </p>
-
-                </li>
-                <li class="user-footer">
-
-                    <div class="pull-right">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: block;">
-                                        @csrf
-                                        <a class="btn btn-danger" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                                    </form>
-
-                        <!-- <a href="{!!URL::to('logout')!!}" ><button class="btn btn-danger">CERRAR SESION</button></a> -->
-                    </div>
-                </li>
-            </ul>
-            <!-- <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: block;">
+                                            @csrf
+                        <a class="btn btn-white" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                           <img style="width: 43%;" src="{{asset('images/logout.png')}}" class="user-image" alt="User Image">
+                        </a>
+                </form>
+                <!-- <a class="dropdown-item" href="#">Another action</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div> -->
-       </li>
+                <a class="dropdown-item" href="#">Something else here</a> -->
+            </div>
+        </li>
+      <!-- Messages Dropdown Menu -->
+
       <!-- Notifications Dropdown Menu -->
       <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
