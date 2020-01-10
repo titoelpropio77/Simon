@@ -24,7 +24,7 @@
                     @endif
                     <form  action="{{ route('logout') }}" method="POST" style="display: block;">
                     @csrf
-                                    </form>
+                     </form>
                     You are logged in!
                 </div>
             </div>

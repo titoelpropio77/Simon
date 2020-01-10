@@ -76929,8 +76929,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         className: "fas fa-trash-alt"
       }));
-      var btnActionOthers = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "btn btn-success" // onClick={() => this.deletedElement(elementId)}
+      var btnActionOthers = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        className: "btn btn-success",
+        href: "exportReportProyect" // onClick={() => this.deletedElement(elementId)}
 
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         "class": "far fa-file-excel"
@@ -77503,7 +77504,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\js\components\proyecto\proyecto.js */"./resources/js/components/proyecto/proyecto.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\proyecto\proyecto.js */"./resources/js/components/proyecto/proyecto.js");
 
 
 /***/ })

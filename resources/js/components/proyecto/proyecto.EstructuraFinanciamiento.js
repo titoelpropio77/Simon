@@ -82,11 +82,8 @@ const EstructuraFinanciamiento = props => {
     };
 
     const renderHeadTable = (item, index) => {
-        return <th key={index}>{item.convNombre}</th>;
+        return <th key={index}>{item.institucional.SIGLA}</th>;
     };
-    $(document).ready(function(){
-
-    })
     useEffect(() => {
         setCofinaciadores(props.confinaciadoresAll.data);
         const setearComponen = async ()=>{

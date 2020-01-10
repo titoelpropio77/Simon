@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use DB;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -31,6 +31,15 @@ class User extends Authenticatable
     public function licencia()
     {
         return $this->belongsTo('\App\Licencia'::class, 'lic_id');
+    }
+    public static function getIntitucionByUserId( $idUser )
+    {
+        $result = DB::select( 'select aux_clainstitucional.* from users, adm_licencia, aux_clainstitucional
+                    where users.lic_id = adm_licencia.id 
+                    and adm_licencia.instId = aux_clainstitucional.id
+                    and users.deleted_at IS NULL
+                    and users.id = '. $idUser );
+        return $result;
     }
     protected $hidden = [
         'password', 'remember_token',

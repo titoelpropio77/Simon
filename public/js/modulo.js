@@ -69790,8 +69790,8 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\js\components\modulo\index.js */"./resources/js/components/modulo/index.js");
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\modulo\index.js */"./resources/js/components/modulo/index.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

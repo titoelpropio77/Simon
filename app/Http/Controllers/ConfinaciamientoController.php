@@ -67,10 +67,10 @@ class ConfinaciamientoController extends Controller
             {
                 $extension = $request->file('docConvenio')->getClientOriginalExtension();
                 $fileName = uniqid() . '.' . $extension;
-                $path = public_path('documentos/Documentos_Convenio/' . $fileName);
+                // $path = public_path('documentos/Documentos_Convenio/' . $fileName);
             //    $path = $request->file('docConvenio')->store('documentos/Documentos_Convenio');
                 // $pathFile= Storage::putFileAs('documentos/Documentos_Convenio', $request->file('docConvenio'),  $fileName);
-                $pathFile= Storage::putFile('documentos/Documentos_Convenio', $request->file('docConvenio') );
+                $pathFile= Storage::putFile('public/documentos/Documentos_Convenio', $request->file('docConvenio') );
             }
             $this->class::create(
                 [
@@ -225,5 +225,23 @@ class ConfinaciamientoController extends Controller
             $result[ 'message' ] = $e->getMessage();
         }
         return response()->json( $result );
+    }
+    public function dowloadFieldCofinaciadores( $id )
+    {
+        $public_path = public_path();
+        $result = $this->class::where( 'id', $id )->first();
+        $url = $result->convPath;
+        if( $url != "" )
+        {
+            if (Storage::exists($url))
+            {
+                return Storage::download($url);
+            }
+            echo "No existe la ruta del archivo";
+        }else{
+            echo "<h1>El cofinanciador no contiene documento</h1>";
+        }
+
+
     }
 }

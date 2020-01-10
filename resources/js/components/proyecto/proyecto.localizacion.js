@@ -88,7 +88,22 @@ const Localizacion = props => {
     ]);
     const [maskField, setMaskField] = useState([]);
     const [rowTable, setRowTable] = useState([]);
-
+    const getLocalizationAllByProy = async() => {
+        const proyectoId = document.getElementById("proyecto_id").value;
+        // console.log(proyectoId);
+        if ( proyectoId != 0) {
+            const resultLocalitationAll = await getAllByClass(
+                "../getLocalitationByProyectoId",
+                { proyectoId: proyectoId }
+            );
+            if (resultLocalitationAll.status) {
+                const data = resultLocalitationAll.data;
+                handleAddRow(data);
+            }
+        } else {
+            handleAddRow();
+        }
+    }
     useEffect(() => {
         // Cree una función asíncrona de alcance en la
         async function anyFunction() {
@@ -99,20 +114,7 @@ const Localizacion = props => {
                     value: x.id
                 }));
                 setDepartamentos(data);
-                const proyectoId = document.getElementById("proyecto_id").value;
-                // console.log(proyectoId);
-                if ( proyectoId != 0) {
-                    const resultLocalitationAll = await getAllByClass(
-                        "../getLocalitationByProyectoId",
-                        { proyectoId: proyectoId }
-                    );
-                    if (resultLocalitationAll.status) {
-                        const data = resultLocalitationAll.data;
-                        handleAddRow(data);
-                    }
-                } else {
-                    handleAddRow();
-                }
+                getLocalizationAllByProy();
                 return data;
             }
         }
@@ -134,6 +136,7 @@ const Localizacion = props => {
         });
         if (response.status) {
             props.changeNavTab( 'cofinaciadores' );
+            getLocalizationAllByProy();
         }
     };
     const getMaskField = () => {

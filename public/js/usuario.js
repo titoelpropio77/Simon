@@ -77520,7 +77520,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\SWTecnico\resources\js\components\usuario\usuario.js */"./resources/js/components/usuario/usuario.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\usuario\usuario.js */"./resources/js/components/usuario/usuario.js");
 
 
 /***/ })

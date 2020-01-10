@@ -93,21 +93,21 @@ export default class ProyectoCreate extends Component {
                                 firstSection: this.field(),
                                 secondSection: (
                                     <Localizacion
-                                        codSinSin={this.state.elementId}
+                                        codSinSin={this.state.codSinSinGeneral}
                                         nombreProy={this.state.nombreProy}
                                         changeNavTab = {this.changeNavTab}
 
                                     />
                                 ),
                                 thirdSection : (<Confinaciadores
-                                    codSinSin={this.state.elementId}
+                                    codSinSin={this.state.codSinSinGeneral}
                                     nombreProy={this.state.nombreProy}
                                     getAllConfinaciadoresByProyecto = {this.getAllConfinaciadoresByProyecto}
                                     changeNavTab = {this.changeNavTab}
                                     montoTotalComprometido ={this.state.montoTotalComprometido}
                                     />),
                                 quarterSection : (<Componentes
-                                    codSinSin={this.state.elementId}
+                                    codSinSin={this.state.codSinSinGeneral}
                                     nombreProy={this.state.nombreProy}
                                     getComponenteByProyectId ={this.getComponenteByProyectId}
                                     changeNavTab = {this.changeNavTab}
@@ -217,10 +217,10 @@ export default class ProyectoCreate extends Component {
             }));
             this.setState({
                 nombreProy: data.pryNombre,
-                codSinSin: data.codSinSin,
                 fechaInicio: data.fechAprobacion,
                 duracionMes: data.duracion,
                 optionsElementSubSectorial: subSector,
+                codSinSinGeneral : data.pryCodSisin,
                 optionsElementTipoProyecto: tipoProyecto,
                 descripcion: data.pryDescripcion,
                 codSinSin: data.pryCodSisin,

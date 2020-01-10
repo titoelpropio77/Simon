@@ -195,16 +195,11 @@ const Componentes = props => {
                             value="contratacionTerceros"
                             onChange={onChangeValue}
                             checked={
-                                inputs
-                                    ? inputs.tipoEjecucion ===
-                                      "contratacionTerceros"
+                                inputs.tipoEjecucion ===
+                                "contratacionTerceros"
+                                    ? true
                                     : false
                             }
-                            checked={
-                                 inputs.tipoEjecucion ===
-                                      "contratacionTerceros"
-                            }
-                            // value={inputs ? inputs.nombreComponente : ""}
                         />
                     </Col>
                 </Form.Group>
@@ -225,9 +220,9 @@ const Componentes = props => {
                             required={true}
                             onChange={onChangeValue}
                             checked={
-                                inputs
-                                    ? inputs.tipoEjecucion ===
+                                inputs.tipoEjecucion ===
                                       "administracionPropia"
+                                    ? true
                                     : false
                             }
                             value="administracionPropia"

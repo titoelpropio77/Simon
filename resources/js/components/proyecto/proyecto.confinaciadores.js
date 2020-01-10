@@ -41,7 +41,12 @@ const Confinaciadores = props => {
     const [rowFooter, setRowFooter] = useState([]);
     const [ totalMontoCof, setTotalMontoCof ] = useState();
 
-    const handleGetElementById = async (id) => {
+    /**
+     * Realiza una peticion al WS del confinacimiento dado un id
+     * @param {id Del elemento a editar} id
+     * @param {posicion de la fila a editar} indexRow
+     */
+    const handleGetElementById = async (id,indexRow) => {
         const response = await getById( '../confinaciamiento', id );
         setShowModal(true);
         setElementId(id);
@@ -50,13 +55,15 @@ const Confinaciadores = props => {
         {
             const data = response.data;
             setInputs({
+                'indexRow':indexRow,
                 'nombreDocumento' : data.convNombre,
                 'fechaConclusion' :  data.fechaConclusion,
                 'fechaConvenio' : data.fechaFirma,
                 'montoFinanciado' : data.convMonto,
+                'montoFinanciadoSinActualizar' : data.convMonto,//este carga el monto para que pueda restar al monto total al actualizar
                 'vigenciaDias' : data.convVigencia,
-                'institucion' : data.tipo_documento.id,
-                'tipoDocumento' : data.institucional.id,
+                'institucion' : data.instId,
+                'tipoDocumento' : data.tdocId,
             });
             // setStartDate1(data.fechaFirma);
             // setStartDate2(data.fechaConclusion);
@@ -75,6 +82,7 @@ const Confinaciadores = props => {
             const items = response.data.map(x => ({
                 id: x.id,
                 institucion: x.institucional.SIGLA,
+                convPath: x.convPath,
                 nombre: x.convNombre,
                 fechaFirma: x.fechaFirma,
                 duracionEnDias: x.convVigencia,
@@ -96,6 +104,9 @@ const Confinaciadores = props => {
         }
 
     }
+    const dowloadFieldCofinaciadores = ( id ) => {
+        window.open( '../dowloadFieldCofinaciadores/'+id );
+    }
     const rowTableRender = (item, index) => {
         return (
             <tr key={index}>
@@ -105,8 +116,9 @@ const Confinaciadores = props => {
                 <td>{ item.duracionEnDias }</td>
                 <td>{ item.monto }</td>
                 <td>
-                    <Button variant={'primary'} onClick={ () => handleGetElementById( item.id ) }><i className="fas fa-edit"></i></Button>
+                    <Button variant={'primary'} onClick={ () => handleGetElementById( item.id, index ) }><i className="fas fa-edit"></i></Button>
                     <Button variant={'danger'} onClick={ () => deletedItem( item.id ) }><i className="fas fa-trash-alt"></i></Button>
+                    <Button variant={'success'} onClick={ () => dowloadFieldCofinaciadores( item.id ) }>Descargar  Documento</Button>
                 </td>
             </tr>
         );
@@ -198,7 +210,7 @@ const Confinaciadores = props => {
                 <i className="fas fa-trash-alt"></i>
             </button>
         );
-        const btnActionOthers = "";
+        const btnActionOthers = (<Button variant="success">Ver Documento</Button>);
         return {
             columns: columns,
             head: head,
@@ -212,14 +224,15 @@ const Confinaciadores = props => {
     const  updateForm =async () =>
     {
         const fileInput = document.getElementById("docConvenio").files[0];
-        const total = parseFloat(inputs.montoFinanciado) +parseFloat( totalMontoCof );
+        // primero se resta al valor total el monto del elemento con el monto cofinaciado anterior
+        const totalMenosElemento = inputs.montoFinanciadoSinActualizar - totalMontoCof;
+        const total = parseFloat(inputs.montoFinanciado) +parseFloat( totalMenosElemento );
         var messageSend = null;
         if( parseFloat(props.montoTotalComprometido) < total)
         {
             messageSend = { status : false, error : "El monto financiado total supera al monto comprometido del proyecto", message: "" };
         }
-        console.log(messageSend);
-        console.log(total);
+
         var formData = new FormData();
         formData.append("docConvenio", fileInput);
         formData.append(
@@ -286,6 +299,7 @@ const Confinaciadores = props => {
                         options={tipoDocumentoOptions}
                         value={tipoDocumento}
                         onChange={(e, meta) => {
+
                             setInputs({ ...inputs, tipoDocumento: e.value });
                             setTipoDocumento(e);
                         }}
@@ -327,11 +341,17 @@ const Confinaciadores = props => {
                         name="fechaConvenio"
                         required=""
                         onChange={dateSelect => {
-                            var dateFormat = moment(dateSelect).format(
+                            var fechaInicio = moment(dateSelect).format(
                                 "YYYY-MM-DD"
                             );
-
-                            setInputs({ ...inputs, fechaConvenio: dateFormat });
+                            const fechaConclusion = moment(inputs.fechaConclusion);
+                            var vigenciaDias = fechaConclusion.diff( fechaInicio, 'days' );
+                            if ( vigenciaDias < 0 )
+                            {
+                                alert("La fecha de convenio tiene que ser menor a la fecha de conclusion");
+                                return;
+                            }
+                            setInputs({ ...inputs, fechaConvenio: fechaInicio, vigenciaDias: vigenciaDias });
                             setStartDate1(dateSelect);
                         }}
                     />
@@ -344,13 +364,21 @@ const Confinaciadores = props => {
                         dateFormat="d/MM/yyyy"
                         className="form-control"
                         onChange={dateSelect => {
-                            var dateFormat = moment(dateSelect).format(
+                            var fechaConclusion = moment(dateSelect).format(
                                 "YYYY-MM-DD"
                             );
-
+                            var fechaFin  = moment(fechaConclusion);
+                            const fechaConvenio = moment(inputs.fechaConvenio);
+                            var vigenciaDias = fechaFin.diff( fechaConvenio, 'days' );
+                            if ( vigenciaDias < 0 )
+                            {
+                                alert("La fecha de convenio tiene que ser menor a la fecha de conclusion");
+                                return;
+                            }
                             setInputs({
                                 ...inputs,
-                                fechaConclusion: dateFormat
+                                fechaConclusion: fechaConclusion,
+                                vigenciaDias: vigenciaDias
                             });
                             setStartDate2(dateSelect);
                         }}

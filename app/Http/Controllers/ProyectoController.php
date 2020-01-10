@@ -262,4 +262,11 @@ class ProyectoController extends Controller
         }
         return $result ;
     }
+
+    public function exportReportProyect()
+    {
+        $pdf = \PDF::loadView('Reportes.reportProyecto');
+        // $pdf->save(storage_path().'_filename.pdf')
+        return $pdf->download('customers.pdf');
+    }
 }

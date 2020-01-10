@@ -49,7 +49,7 @@ Route::post('getSectorAllForProyect',[ 'uses'=>'ProyectoController@getSectorAllF
 Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDepartamentoAllForProyecto']);
 Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
 Route::post('getSectorialByCodigo',[ 'uses'=>'ProyectoController@getSectorialByCodigo']);
-
+Route::get( 'exportReportProyect', 'ProyectoController@exportReportProyect' );
 
 //proyecto Localizacion
 Route::resource( 'proyectoLocalizacion', 'ProyectoLocalizacionController' );
@@ -61,7 +61,7 @@ Route::post('getAllTypeDocumentForConfinaciamiento',[ 'uses'=>'ConfinaciamientoC
 Route::post('getInstitucionAllForConfinaciamiento',[ 'uses'=>'ConfinaciamientoController@getInstitucionAllForConfinaciamiento']);
 Route::post('getAllConfinaciadoresByProy',[ 'uses'=>'ConfinaciamientoController@getAllConfinaciadoresByProy']);
 Route::post('confinaciamientoUpdate',[ 'uses'=>'ConfinaciamientoController@confinaciamientoUpdate']);
-
+Route::get( 'dowloadFieldCofinaciadores/{id}', 'ConfinaciamientoController@dowloadFieldCofinaciadores' );
 
 /// Componente
 Route::resource( 'componente', 'ComponenteController' );
