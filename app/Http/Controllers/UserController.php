@@ -47,6 +47,7 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
             $request['name'] = trim($request['name']);
+            $request['fecha_activacion'] = Date( 'Y-m-d' );
             $request['email'] = trim($request->email);
             $request['password'] = bcrypt(trim($request->password));
             $user= User::create($request->all());
