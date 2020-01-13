@@ -68818,7 +68818,10 @@ var Body = function Body(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-12"
+    className: "col-md-12",
+    style: {
+      marginBottom: "1%"
+    }
   }, btnOpenModal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-12"
   }, table)))))));

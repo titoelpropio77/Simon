@@ -49,7 +49,7 @@ const Body = ({ table,   modalBT,btnOpenModal, title}) => {
                         </div>
                         <div className="card-body pad">
                             <div className="row">
-                                <div className="col-md-12">
+                                <div className="col-md-12" style={{ marginBottom: "1%" }}>
                                 {btnOpenModal}
                                 </div>
                                 <div className="col-md-12">

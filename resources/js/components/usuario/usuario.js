@@ -166,7 +166,6 @@ export default class Usuario extends Component {
     btnOpenModal() {
         return (
             <button
-                variant="primary"
                 onClick={() => {
                     // const alert = useAlert();
                     // alert.show("Oh look, an alert!");
@@ -179,7 +178,7 @@ export default class Usuario extends Component {
                     });
                     this.cleanForm();
                 }}
-                className="btn btn-success"
+                className="btn btn-success float-right"
             >
                 Guardar {this.state.titleForm}
             </button>
