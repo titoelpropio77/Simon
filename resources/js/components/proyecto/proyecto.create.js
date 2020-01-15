@@ -12,7 +12,12 @@ import Localizacion from "./proyecto.localizacion";
 import Confinaciadores from "./proyecto.confinaciadores";
 import Componentes from "./proyecto.Componentes.js";
 import EstructuraFinanciamiento from "./proyecto.EstructuraFinanciamiento"
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import moment from 'moment';
+import es from 'date-fns/locale/es'
+registerLocale('es', es)
 
 import {
     saveDataForm,
@@ -41,10 +46,12 @@ export default class ProyectoCreate extends Component {
             nombreProy: "",
             codSinSin: "",
             funcResp: "",
-            fechaInicio: "",
+            fechaInicio: new Date(),
+            fechaFinal: new Date(),
             codSelected: "", //codigo seleccionado EJ: 1-1-1
 
-            duracionMes: "", // duracion en mes
+            duracionMes: 0, // duracion en mes
+            duracionDias: 0,    // duracion en dias
             montoTotalComprometido: "",
             descripcion: "",
 
@@ -281,7 +288,7 @@ export default class ProyectoCreate extends Component {
                 value: x.id
             }));
             const functResponsable = response.data.funcionario.map( x => ({
-                label: x.name,
+                label: `${x.name} ${x.paterno} ${x.materno}`,
                 value: x.id
             }));
             this.setState({
@@ -327,6 +334,24 @@ export default class ProyectoCreate extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const date1 = this.state.fechaInicio;
+        const date2 = this.state.fechaFinal;
+
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const totalMeses = Math.floor(diffDays/31);
+
+        if (prevState.duracionDias !== diffDays) {
+            this.setState({
+                duracionDias: diffDays,
+                duracionMes: totalMeses
+            })
+        }        
+
     }
 
     modalBT() {
@@ -568,26 +593,51 @@ export default class ProyectoCreate extends Component {
                 </Col>
                 <Col xs ls="4" md="4">
                     <Form.Label>Fecha Inicio Programado</Form.Label>
-                    <InputMask
-                        mask="99/99/9999"
+                    <DatePicker
                         className="form-control"
                         name="fechaInicio"
-                        required={true}
-                        onChange={this.onChangeValue}
-                        value={this.state.fechaInicio}
+                        locale="es"
+                        dateFormat='dd/MM/yyyy'
+                        selected={this.state.fechaInicio}
+                        onChange={date => {
+                            this.setState({
+                                fechaInicio: date
+                            })
+                            
+                        }}
                     />
                     <Form.Control.Feedback type="invalid">
                         El campo es obligatorio
                     </Form.Control.Feedback>
                 </Col>
+
+                <Col xs ls="4" md="4">
+                    <Form.Label>Fecha Final Programada</Form.Label>
+                    <DatePicker
+                        name="fechaFinal"
+                        locale="es"
+                        dateFormat='dd/MM/yyyy'
+                        className="form-control"
+                        selected={this.state.fechaFinal}
+                        onChange={date => {
+                            this.setState({
+                                fechaFinal: date,
+                            })
+                        }}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        El campo es obligatorio
+                    </Form.Control.Feedback>
+                </Col>
+
                 <div className="col-md-4">
                     <label>Duracion en mes</label>
                     <input
                         type="text"
                         className="form-control"
                         name="duracionMes"
-                        value={this.state.duracionMes || ""}
-                        onChange={this.onChangeValue}
+                        // value={this.state.duracionMes || ""}
+                        value={ `Dias: ${this.state.duracionDias} ---- Meses: ${this.state.duracionMes}` }
                     ></input>
                 </div>
                 <div className="col-md-4">
