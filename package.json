@@ -26,7 +26,6 @@
         "sass-loader": "7.*"
     },
     "dependencies": {
-        "@ag-grid-community/react": "@ag-grid-community/react",
         "admin-lte": "^3.0",
         "ag-grid-community": "^22.1.0",
         "ag-grid-react": "^22.1.0",
