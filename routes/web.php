@@ -50,6 +50,7 @@ Route::post('getDepartamentoAllForProyecto',[ 'uses'=>'ProyectoController@getDep
 Route::post('getProviciasByDepartamentoId',[ 'uses'=>'ProyectoController@getProviciasByDepartamentoId']);
 Route::post('getSectorialByCodigo',[ 'uses'=>'ProyectoController@getSectorialByCodigo']);
 Route::get( 'exportReportProyect', 'ProyectoController@exportReportProyect' );
+Route::get( 'exportReportProyByType/{id}/{type}', 'ProyectoController@exportReportProyByType' );
 
 //proyecto Localizacion
 Route::resource( 'proyectoLocalizacion', 'ProyectoLocalizacionController' );

@@ -52,5 +52,9 @@ class Proyecto extends Model
             $result[ 'error' ] = $e->getMessage();
         }
     }
+    public function users()
+    {
+        return $this->belongsTo('\App\User', 'funId');
+    }
     protected $dates = ['deleted_at'];
 }

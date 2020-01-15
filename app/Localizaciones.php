@@ -38,4 +38,5 @@ class Localizaciones extends Model
         $result = DB::select( 'SELECT *,if( id = ' . $id . ',1,2 )as orden from aux_localizaciones where locPadre=' . $fatherId . ' order by orden' );
         return $result;
     }
+
 }
