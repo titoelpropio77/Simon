@@ -16,4 +16,8 @@ class Componente extends Model
         'cmpMonto',
         'cmpTipoEjecucion'
     ];
+    public function hitos()
+    {
+        return $this->hasMany( '\App\CompIndicadores', 'cmpId' );
+    }
 }

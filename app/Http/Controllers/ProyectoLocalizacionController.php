@@ -144,27 +144,7 @@ class ProyectoLocalizacionController extends Controller
     public function getLocalitationByProyectoId( Request $request )
     {
         $resultLocalizacion = $this->class::with( 'localizacion' )->where( 'pryId', $request->proyectoId )->get();
-
-        $localidadArray = array();
-        $comunidadArray = array();
-        foreach( $resultLocalizacion as $localizacion )
-        {
-            $localidad = Localizaciones::localizacionByIdAndFatherId(  $localizacion[ 'localizacion' ]->id ,$localizacion[ 'localizacion' ]->locPadre );
-
-            $comunidad = Localizaciones::localizacionPadre( $localizacion[ 'localizacion' ]->locPadre, 1 );
-
-            $municipio = Localizaciones::localizacionPadre( $comunidad[0]->locPadre, 1 );
-
-            $provincia = Localizaciones::localizacionPadre( $municipio[0]->locPadre, 1 );
-
-            $ciudad = Localizaciones::localizacionPadre( $provincia[0]->locPadre, 1 );
-
-            array_push( $localidadArray, [ 'id' => $localizacion->id, 'localidadId' => $localizacion->locid ,'localidad' => $localidad, 'comunidad' =>  $comunidad , 'municipio' => $municipio, 'provincia' => $provincia, 'departamento' => $ciudad] );
-
-
-            array_push( $comunidadArray, [  'nombre' => $localizacion['localizacion']->locNombre, 'id' => $localizacion['localizacion']->id ] );
-        }
-        $result['data'] = $localidadArray;
+        $result['data'] = $this->class::getProyectoLocalizacionByProyId($request->proyectoId)  ;
         $result[ 'status' ] = true;
         return $result;
     }

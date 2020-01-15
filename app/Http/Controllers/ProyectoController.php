@@ -9,6 +9,8 @@ use DataTables;
 use DB;
 use App\User;
 use App\Localizaciones;
+use App\Componente;
+use App\ProyectoLocalizacion;
 
 class ProyectoController extends Controller
 {
@@ -273,5 +275,40 @@ class ProyectoController extends Controller
         $pdf = \PDF::loadView('Reportes.reportProyecto');
         // $pdf->save(storage_path().'_filename.pdf')
         return $pdf->download('customers.pdf');
+    }
+    public function exportReportProyByType($proyectoId, $type)
+    {
+        $proyecto = $this->class::where('id',$proyectoId)->with('users')->first();
+        // echo json_encode($proyecto);
+        // return response()->json($proyecto);
+        if( $proyecto )
+        {
+            switch( $type )
+            {
+                case  'datosGenerales' :
+                    $pdf = \PDF::loadView('Reportes.report_proy_datos_generales', compact( 'proyecto' ))->setPaper('a4', 'landscape');;
+                    return   $pdf->stream();
+                break;
+                case  'localizacion' :
+                    $proyectoLocalizacion = ProyectoLocalizacion::getProyectoLocalizacionByProyId( $proyectoId );
+                    // echo json_encode( $proyectoLocalizacion );
+                    // exit;
+                //  return view( 'Reportes.report_proy_localizacion', compact( 'proyecto',  'proyectoLocalizacion' ) );
+
+                    $pdf = \PDF::loadView('Reportes.report_proy_localizacion', compact( 'proyecto',  'proyectoLocalizacion'))->setPaper('a4', 'landscape');;
+                    return   $pdf->stream();
+                break;
+                case  'componentes' :
+                    $componentes = Componente::where('pryId', $proyectoId)->with('hitos')->get();
+                    $pdf = \PDF::loadView('Reportes.report_proy_componentes',compact( 'proyecto', 'componentes'))->setPaper('a4', 'landscape');
+                    return   $pdf->stream();
+                break;
+
+            }
+        }
+        return "<h1>No existe ningun proyecto con esos datos</h1>";
+
+
+
     }
 }

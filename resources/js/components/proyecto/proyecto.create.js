@@ -291,6 +291,7 @@ export default class ProyectoCreate extends Component {
                 label: `${x.name} ${x.paterno} ${x.materno}`,
                 value: x.id
             }));
+            console.log("Holi mundo");
             this.setState({
                 optionsElementSectorial: sectorial,
                 optionsElementSubSectorial: [{label:"seleccione", value: 0}],
