@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import { Form, Alert } from "react-bootstrap";
+import { Form, Alert,Col,Row } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
 const NavTabs = props => {
     console.log(props);
@@ -37,16 +37,34 @@ const NavTabs = props => {
                         >
                             {props.fields.firstSection}
                             <br />
-                            <button
-                                className="btn btn-primary"
-                                type="submit"
-                                onClick={() => {
-                                    // props.saveForm();
-                                    // setKey("localizacion");
-                                }}
-                            >
-                                Grabar e ir a Localización
-                            </button>
+
+                            <Row>
+                                <Col md="3">
+                                    <button
+                                        className="btn btn-primary"
+                                        type="submit"
+                                        onClick={() => {
+                                            // props.saveForm();
+                                            // setKey("localizacion");
+                                        }}
+                                    >
+                                        Grabar e ir a Localización
+                                    </button>
+                                </Col>
+                                <Col md="3">
+                                    <button
+                                        className="btn btn-success"
+                                        type="button"
+                                        onClick={() => {
+                                            // props.saveForm();
+                                            // setKey("localizacion");
+                                        }}
+                                    >
+                                        Ver Reporte
+                                    </button>
+
+                                </Col>
+                            </Row>
                         </Form>
                     </div>
                 </Tab>
