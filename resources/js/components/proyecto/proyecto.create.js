@@ -228,7 +228,7 @@ export default class ProyectoCreate extends Component {
             }));
             this.setState({
                 nombreProy: data.pryNombre,
-                fechaInicio: data.fechAprobacion,
+                fechaInicio: new Date(data.fechInicProgramada),
                 duracionMes: data.duracion,
                 optionsElementSubSectorial: subSector,
                 codSinSinGeneral : data.pryCodSisin,

@@ -100,7 +100,6 @@ const EstructuraFinanciamiento = props => {
 
 
         setearComponen();
-
         // getIndicadoresAll();
     }, [props.confinaciadoresAll, props.componenteAll]);
 
