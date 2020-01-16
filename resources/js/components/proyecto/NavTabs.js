@@ -4,7 +4,6 @@ import Tab from "react-bootstrap/Tab";
 import { Form, Alert,Col,Row } from "react-bootstrap";
 // import TabContainer from 'react-bootstrap/TabContainer'
 const NavTabs = props => {
-    console.log(props);
     const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const handleSubmit = async event => {
@@ -51,19 +50,9 @@ const NavTabs = props => {
                                         Grabar e ir a Localización
                                     </button>
                                 </Col>
-                                <Col md="3">
-                                    <button
-                                        className="btn btn-success"
-                                        type="button"
-                                        onClick={() => {
-                                            // props.saveForm();
-                                            // setKey("localizacion");
-                                        }}
-                                    >
-                                        Ver Reporte
-                                    </button>
+                                
+                                {buttonReporte(document.getElementById('proyecto_id').value)}
 
-                                </Col>
                             </Row>
                         </Form>
                     </div>
@@ -96,4 +85,28 @@ const NavTabs = props => {
         </div>
     );
 };
+
+const buttonReporte = (id) => {
+    if (id != 0) {
+        return (
+            <Col md="3">
+                <button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={() => {
+                        // props.saveForm();
+                        // setKey("localizacion");
+                        // window.open('https://www.google.com/', 'Reporte')
+                        // window.open( '../datosGenerales/'+ 1 );
+                        console.log('Prueba de Evento en boton')
+                    }}
+                >
+                    Ver Reporte
+                </button>
+
+            </Col>
+        );
+    }
+}
+
 export default NavTabs;
