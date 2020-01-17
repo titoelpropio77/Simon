@@ -11,6 +11,7 @@ use App\User;
 use App\Localizaciones;
 use App\Componente;
 use App\ProyectoLocalizacion;
+use App\CompIndicadores;
 
 class ProyectoController extends Controller
 {
@@ -299,16 +300,24 @@ class ProyectoController extends Controller
                     return   $pdf->stream();
                 break;
                 case  'componentes' :
-                    $componentes = Componente::where('pryId', $proyectoId)->with('hitos')->get();
-                    $pdf = \PDF::loadView('Reportes.report_proy_componentes',compact( 'proyecto', 'componentes'))->setPaper('a4', 'landscape');
+                    $componentes = Componente::where( 'pryId', $proyectoId )->get();
+                    foreach ( $componentes as $key => $value )
+                    {
+
+                            $componentes[ $key ][ 'hitos' ] = json_decode(json_encode( CompIndicadores::where( 'cmpId', $value->id )->with( 'auxIndicadores' )->get())) ;
+
+                    }
+                //    echo json_encode( $componentes[0]->hitos[0]->aux_indicadores->id );
+                //     exit;
+
+                //  return view( 'Reportes.report_proy_componentes', compact( 'proyecto', 'componentes' ) );
+                    $pdf = \PDF::loadView( 'Reportes.report_proy_componentes' ,compact( 'proyecto', 'componentes'))->setPaper('a4', 'landscape');
                     return   $pdf->stream();
                 break;
 
             }
         }
         return "<h1>No existe ningun proyecto con esos datos</h1>";
-
-
 
     }
 }

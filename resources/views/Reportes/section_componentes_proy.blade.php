@@ -1,8 +1,8 @@
-<table width="100%">
+<table width="100%" border="1" cellspacing=0 cellpadding=2 >
     <thead>
 
     </thead>
-    <tbody>
+    <tbody >
         <tr>
                 <td>Componentes</td>
                 <td>Modalidad de Ejecucion</td>
@@ -16,41 +16,19 @@
             <td>Unidad</td>
             <td>Cantidad</td>
          </tr>
-         <tr>
-            <td  rowspan="3">jaldf</td>
-            <td  rowspan="3">adfa</td>
-            <td  rowspan="3">asdfad</td>
-
-         </tr>
-        <tr>
-            <td>300</td>
-            <td>400</td>
-        </tr>
-        <tr>
-            <td>300</td>
-            <td>400</td>
-        </tr>
-        <tr>
-            <td  rowspan="3">adsf</td>
-            <td  rowspan="3">adf234a</td>
-            <td  rowspan="3">as345345dfad</td>
-
-         </tr>
-        <tr>
-            <td>300</td>
-            <td>400</td>
-        </tr>
-        <tr>
-            <td>300</td>
-            <td>400</td>
-        </tr>
         @foreach( $componentes as $value )
          <tr>
-            <td rowspan="{{ count($value->hitos) }}">{{$value->cmpNombre}}</td>
-            <td rowspan="{{ count($value->hitos) }}">{{$value->cmpTipoEjecucion == "administracionPropia" ? "Administracion Propia" : "Contratacion a Terceros"}}</td>
-            <td rowspan="{{ count($value->hitos) }}">{{$value->cmpMonto}}</td>
+            <td rowspan="{{ count($value->hitos) + 1 }}">{{$value->cmpNombre }}</td>
+            <td rowspan="{{ count($value->hitos) + 1 }}">{{$value->cmpTipoEjecucion == "administracionPropia" ? "Administracion Propia" : "Contratacion a Terceros"}}</td>
+            <td rowspan="{{ count($value->hitos) + 1 }}">{{$value->cmpMonto}}</td>
          </tr>
-
+         @foreach( $value->hitos as $hito )
+         <tr>
+            <td >{{$hito->aux_indicadores->indNombre . "(" . $hito->aux_indicadores->indUnidad . ")" }}</td>
+            <td >{{$hito->cantidad}}</td>
+         </tr>
+         @endforeach
+        @endforeach
     </tbody>
 
 </table>
