@@ -364,6 +364,18 @@ const Componentes = props => {
                 visibleBtnSave ={ visibleBtnSave }
             />
             <Row>
+                {renderButton(document.getElementById('proyecto_id').value)}
+                
+            </Row>
+        </Row>
+    );
+};
+
+
+const renderButton = (id) => {
+    if (id != 0){
+        return(
+            <React.Fragment>
                 <Col lg={6} md={6}>
                     <Button variant="info float-right" type="button">
                         Ir Estructura Financiamiento
@@ -371,13 +383,26 @@ const Componentes = props => {
                 </Col>
 
                 <Col lg={6} md={6}>
-                    <Button variant="info float-right" type="button">
-                        Ir Estructura Financiamiento
+                    <Button
+                        variant="success float-right"
+                        type="button"
+                        onClick={() => {
+                            window.open(`../exportReportProyByType/${document.getElementById('proyecto_id').value}/componentes`);
+                        }}>
+                        Ver Reporte
                     </Button>
                 </Col>
-            </Row>
-        </Row>
-    );
-};
+            </React.Fragment>
+        );
+    } else {
+        return (
+            <Col lg={12} md={12}>
+                <Button variant="info float-right" type="button">
+                    Ir Estructura Financiamiento
+                </Button>
+            </Col>
+        );
+    }
+}
 
 export default Componentes;

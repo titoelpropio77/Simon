@@ -94,9 +94,6 @@ const buttonReporte = (id) => {
                     className="btn btn-success"
                     type="button"
                     onClick={() => {
-                        // props.saveForm();
-                        // setKey("localizacion");
-                        // window.open('https://www.google.com/', 'Reporte')
                         window.open(`../exportReportProyByType/${document.getElementById('proyecto_id').value}/datosGenerales`);
                     }}
                 >
