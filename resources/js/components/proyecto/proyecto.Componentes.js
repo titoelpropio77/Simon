@@ -364,9 +364,15 @@ const Componentes = props => {
                 visibleBtnSave ={ visibleBtnSave }
             />
             <Row>
-                <Col lg={12} md={12}>
+                <Col lg={6} md={6}>
                     <Button variant="info float-right" type="button">
-                        ir Estructura Financiamiento
+                        Ir Estructura Financiamiento
+                    </Button>
+                </Col>
+
+                <Col lg={6} md={6}>
+                    <Button variant="info float-right" type="button">
+                        Ir Estructura Financiamiento
                     </Button>
                 </Col>
             </Row>

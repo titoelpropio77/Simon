@@ -77507,7 +77507,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\proyecto\proyecto.js */"./resources/js/components/proyecto/proyecto.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Simon\resources\js\components\proyecto\proyecto.js */"./resources/js/components/proyecto/proyecto.js");
 
 
 /***/ })

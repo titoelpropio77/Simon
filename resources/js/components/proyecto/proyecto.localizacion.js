@@ -380,9 +380,30 @@ const Localizacion = props => {
                         Grabar e ir Confinaciadores
                     </Button>
                 </Col>
+                {renderButton(document.getElementById('proyecto_id').value)}
             </Row>
         </Form>
     );
 };
+
+
+const renderButton = (id) => {
+
+    if (id != 0) {
+        return(
+            <Col lg={4} md={4}>
+                <Button
+                    variant="btn btn-info"
+                    onClick={() => {
+                        window.open(`../exportReportProyByType/${document.getElementById('proyecto_id').value}/localizacion`);
+                    }}
+                >
+                    Ver Reporte
+                </Button>
+            </Col> 
+        );
+    }
+   
+}
 
 export default Localizacion;
