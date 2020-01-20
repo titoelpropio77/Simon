@@ -494,7 +494,9 @@ const Confinaciadores = props => {
             montoFinanciado : '',
             vigenciaDias : '',
             fechaConclusion: dateNow,
-            fechaConvenio: dateNow
+            fechaConvenio: dateNow,
+            institucion: null,
+            tipoDocumento: { label: "Seleccion", value: 0 }
         });
         setElementId(null);
     }

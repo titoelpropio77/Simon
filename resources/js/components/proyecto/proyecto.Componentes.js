@@ -23,6 +23,7 @@ const Componentes = props => {
         fechaConclusion:new Date(),
         tipoEjecucion : "contratacionTerceros"
     });
+    const [ totalDias, setTotalDias ] = useState(0);
     const [elementId, setElementId] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [ rowTable, setRowTable ] = useState([]);
@@ -67,8 +68,13 @@ const Componentes = props => {
     }
     useEffect(() =>{
 
+        const diffTime = Math.abs(inputs.fechaConclusion - inputs.fechaInicio);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        setTotalDias(diffDays)
+
         getComponente();
-    },[])
+    },[inputs.fechaConclusion, inputs.fechaInicio])
     const field = () => {
         return (
             <Row>
@@ -99,7 +105,7 @@ const Componentes = props => {
                     controlId="fechaInicio"
                 >
                     <Form.Label column md="6" sm={6}>
-                        Fecha de Incio Programada :
+                        Fecha de Inicio Programada :
                     </Form.Label>
                     <Col sm={6} md="6" style={{ display: "inline-block" }}>
                         <DatePicker
@@ -125,11 +131,9 @@ const Componentes = props => {
                     </Form.Label>
                     <Col md="6" sm="6" style={{ display: "inline-block" }}>
                         <Form.Control
-                            type="number"
                             name="tiempoDuracion"
                             required={true}
-                            onChange={onChangeValue}
-                            value={inputs.tiempoDuracion ? inputs.tiempoDuracion : ""}
+                            value={`Dias: ${totalDias}`}
                         />
                     </Col>
                 </Form.Group>
