@@ -57,19 +57,21 @@ class ProyectoController extends Controller
             DB::beginTransaction();
             $result['status'] = true;
             $result['message'] = 'Guardado Correctamente';
-            $myDateTime = \DateTime::createFromFormat('d/m/Y', $request->fechaInicio);
-            $fechaInicio = $myDateTime->format('Y-m-d');
+            // echo $fechaInicio;
+            // $myDateTime = \DateTime::createFromFormat('Y-m-d', $request->fechaInicio);
+
+            // $fechaInicio = $myDateTime->format('Y-m-d');
             $create = $this->class::create(
                 [
                     'licId' => auth()->user()->lic_id,
                     'funId' => $request->funcId,
                     'pryNombre' => $request->nombreProy,
                     'pryCodSisin' => $request->codSinSin,
-                    'fechAprobacion' => $fechaInicio,
-                    'fechAprobacion' => $fechaInicio,
+                    // 'fechAprobacion' => $fechaInicio,
+                    'fechAprobacion' => $request->fechaInicio,
                     'sectId' => $request->sectorId,
                     "montoTotal" => $request->montoTotalComprometido,
-                    'fechInicProgramada' => $fechaInicio,
+                    'fechInicProgramada' => $request->fechaInicio,
                     'duracion' => $request->duracionMes,
                     'pryDescripcion' => $request->descripcion,
                     'message_localizacion' => 'Falta Agregar Localizaciones',

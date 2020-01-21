@@ -32,21 +32,5 @@
             </td>
         </tr>
         @endforeach
-
-        <tr>
-            <td class="localization">
-                <p class="field">1Rejara</p>
-            </td>
-            <td class="localization">
-             <p class="field">1Rejara</p>
-            </td>
-            <td class="localization">
-                <p style="text-align: center;" class="field">1Rejara</p>
-            </td>
-            <td class="localization">
-                <p class="field">1Rejara</p>
-            </td>
-
-        </tr>
     </tbody>
 </table>

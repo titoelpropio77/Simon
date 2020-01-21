@@ -148,12 +148,13 @@ export default class ProyectoCreate extends Component {
     }
     maskFields() {
         const state = this.state;
+        var fechaInicio = moment( state.fechaInicio ).format( 'YYYY-MM-DD' );
         const fields = {
             nombreProy: state.nombreProy,
             nombreProyGeneral: state.nombreProy,
             codSinSin: state.codSinSin,
             funcResp: state.funcResp,
-            fechaInicio: state.fechaInicio,
+            fechaInicio: fechaInicio,
             codSelected: saveDataForm.codSelected, //codigo seleccionado EJ: 1-1-1
             codSinSinGeneral: state.codSinSin,
             duracionMes: state.duracionMes, // duracion en mes
@@ -351,7 +352,7 @@ export default class ProyectoCreate extends Component {
                 duracionDias: diffDays,
                 duracionMes: totalMeses
             })
-        }        
+        }
 
     }
 
@@ -604,7 +605,7 @@ export default class ProyectoCreate extends Component {
                             this.setState({
                                 fechaInicio: date
                             })
-                            
+
                         }}
                     />
                     <Form.Control.Feedback type="invalid">
