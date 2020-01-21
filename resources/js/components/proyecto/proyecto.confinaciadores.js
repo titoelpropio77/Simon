@@ -132,9 +132,10 @@ const Confinaciadores = props => {
     }
     const deletedItem = async (id) =>
     {
-        const response = deletedElement( '../confinaciamiento',id );
+        const response = await deletedElement( '../confinaciamiento',id );
         if( response.status )
         {
+
             getAllConfinaciadoresByProy();
         }
 
