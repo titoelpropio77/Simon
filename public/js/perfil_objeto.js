@@ -77479,7 +77479,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\perfil_objeto\perfil_objeto.js */"./resources/js/components/perfil_objeto/perfil_objeto.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Simon\resources\js\components\perfil_objeto\perfil_objeto.js */"./resources/js/components/perfil_objeto/perfil_objeto.js");
 
 
 /***/ })

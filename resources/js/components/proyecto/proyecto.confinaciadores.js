@@ -18,7 +18,8 @@ const Confinaciadores = props => {
     let dateNow = moment(Date.now()).format("YYYY-MM-DD");
     const [inputs, setInputs] = useState({
         fechaConclusion: dateNow,
-        fechaConvenio: dateNow
+        fechaConvenio: dateNow,
+        institucion: 0
     });
     const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([
         { label: "Seleccion un tipo documento", value: 0 }
@@ -56,21 +57,53 @@ const Confinaciadores = props => {
             const data = response.data;
             setInputs({
                 'indexRow':indexRow,
+                'institucion' : data.instId,
                 'nombreDocumento' : data.convNombre,
                 'fechaConclusion' :  data.fechaConclusion,
                 'fechaConvenio' : data.fechaFirma,
                 'montoFinanciado' : data.convMonto,
                 'montoFinanciadoSinActualizar' : data.convMonto,//este carga el monto para que pueda restar al monto total al actualizar
                 'vigenciaDias' : data.convVigencia,
-                'institucion' : data.instId,
                 'tipoDocumento' : data.tdocId,
             });
+
+
+            // setStartDate1(data.fechaFirma);
+            // setStartDate2(data.fechaConclusion);
+            setTipoDocumento([{ label : data.tipo_documento.tDocNombre, value:data.tipo_documento.id   }]);
+
+            setInstitucion( [{ label : data.institucional.denominacion, value : data.institucional.id } ]);
+        }
+    }
+
+    const GetElementById = async (id) => {
+        const response = await getById( '../confinaciamiento', id );
+        // setShowModal(true);
+        setElementId(id);
+        // setVisibilityButton('hidden');
+        if( response.status )
+        {
+            const data = response.data;
+            setInputs({
+                'institucion' : data.instId,
+                'nombreDocumento' : data.convNombre,
+                'fechaConclusion' :  data.fechaConclusion,
+                'fechaConvenio' : data.fechaFirma,
+                'montoFinanciado' : data.convMonto,
+                'montoFinanciadoSinActualizar' : data.convMonto,//este carga el monto para que pueda restar al monto total al actualizar
+                'vigenciaDias' : data.convVigencia,
+                'tipoDocumento' : data.tdocId,
+            });
+
+
             // setStartDate1(data.fechaFirma);
             // setStartDate2(data.fechaConclusion);
             setTipoDocumento([{ label : data.tipo_documento.tDocNombre, value:data.tipo_documento.id   }]);
             setInstitucion( [{ label : data.institucional.denominacion, value : data.institucional.id } ]);
         }
     }
+
+
     /**
      * llama al metodo getAllConfinamcimeto
      */
@@ -93,6 +126,7 @@ const Confinaciadores = props => {
             setTotalMontoCof(totalMonto);
             setRowFooter(["TOTAL", "","","",  totalMonto]);
             setRowTable(items);
+            GetElementById(items[0].id)
         }
     }
     const deletedItem = async (id) =>
@@ -433,7 +467,8 @@ const Confinaciadores = props => {
                 </Form.Group>
                 <Form.Group as={Col} lg={8} md={8} >
                     <Form.Label></Form.Label>
-                    <Button style={{ visibility:visibilityButton }} type="submit" variant={"primary pull-rigth"}>
+                    <Button style={{ visibility:visibilityButton }} 
+                            type="submit" variant={"primary pull-rigth"}>
                      Add List
                     </Button>
                 </Form.Group>
@@ -453,7 +488,7 @@ const Confinaciadores = props => {
                 "proyectoId",
                 document.getElementById("proyecto_id").value
             );
-            const total = parseFloat(inputs.montoFinanciado) +parseFloat( totalMontoCof );
+            const total = parseFloat(inputs.montoFinanciado) + parseFloat( totalMontoCof );
             var messageSend = null;
             if( parseFloat(props.montoTotalComprometido) < total)
             {
@@ -461,11 +496,11 @@ const Confinaciadores = props => {
             }
             formData.append("institucion", inputs.institucion);
             formData.append("tipoDocumento", inputs.tipoDocumento);
-            formData.append("nombreDocumento", inputs.nombreDocumento);
-            formData.append("fechaConclusion", inputs.fechaConclusion);
-            formData.append("fechaConvenio", inputs.fechaConvenio);
-            formData.append("montoFinanciado", inputs.montoFinanciado);
-            formData.append("vigenciaDias", inputs.vigenciaDias);
+            formData.append("nombreDocumento", inputs.nombreDocumento);//
+            formData.append("fechaConclusion", inputs.fechaConclusion);//
+            formData.append("fechaConvenio", inputs.fechaConvenio);//
+            formData.append("montoFinanciado", inputs.montoFinanciado);//
+            formData.append("vigenciaDias", inputs.vigenciaDias);//
 
             const response = await saveTypeDataForm(
                 "../confinaciamiento",
@@ -495,7 +530,7 @@ const Confinaciadores = props => {
             vigenciaDias : '',
             fechaConclusion: dateNow,
             fechaConvenio: dateNow,
-            institucion: null,
+            institucion: 0,
             tipoDocumento: { label: "Seleccion", value: 0 }
         });
         setElementId(null);
