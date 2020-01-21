@@ -43,6 +43,7 @@ const Componentes = props => {
             fechaInicio: fechaInicio,
             fechaConclusion: fechaConclusion,
             proyectoId: document.getElementById("proyecto_id").value,
+            tiempoDuracion : totalDias
         }, elementId);
         if( response.status )
         {
@@ -70,11 +71,13 @@ const Componentes = props => {
 
         const diffTime = Math.abs(inputs.fechaConclusion - inputs.fechaInicio);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
         setTotalDias(diffDays)
 
-        getComponente();
+
     },[inputs.fechaConclusion, inputs.fechaInicio])
+    useEffect(() => {
+        getComponente();
+    }, [])
     const field = () => {
         return (
             <Row>
@@ -369,7 +372,7 @@ const Componentes = props => {
             />
             <Row>
                 {renderButton(document.getElementById('proyecto_id').value)}
-                
+
             </Row>
         </Row>
     );
