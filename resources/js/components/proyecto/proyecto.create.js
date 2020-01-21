@@ -230,10 +230,13 @@ export default class ProyectoCreate extends Component {
                 label: x.denominacion,
                 value: x.id
             }));
+            console.log(new Date(data.fechInicProgramada));
+            var fechaInit = moment(data.fechInicProgramada).format();
+            console.log(fechaInit);
             this.setState({
                 nombreProy: data.pryNombre,
-                fechaInicio: new Date(data.fechInicProgramada),
-                fechaFinal:  data.fechFinProgramada ? new Date(data.fechFinProgramada) : new Date(),
+                fechaInicio: new Date(data.fechInicProgramada+"T00:00:00"),
+                fechaFinal:  data.fechFinProgramada ? new Date(data.fechFinProgramada+"T00:00:00") : new Date(),
                 duracionMes: data.duracion,
                 optionsElementSubSectorial: subSector,
                 codSinSinGeneral : data.pryCodSisin,

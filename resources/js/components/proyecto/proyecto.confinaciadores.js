@@ -55,11 +55,13 @@ const Confinaciadores = props => {
         if( response.status )
         {
             const data = response.data;
+            var fechaConclusion = new Date( data.fechaConclusion + "T00:00:00");
+            console.log(fechaConclusion);
             setInputs({
                 'indexRow':indexRow,
                 'institucion' : data.instId,
                 'nombreDocumento' : data.convNombre,
-                'fechaConclusion' :  data.fechaConclusion,
+                'fechaConclusion' :  fechaConclusion,
                 'fechaConvenio' : data.fechaFirma,
                 'montoFinanciado' : data.convMonto,
                 'montoFinanciadoSinActualizar' : data.convMonto,//este carga el monto para que pueda restar al monto total al actualizar
