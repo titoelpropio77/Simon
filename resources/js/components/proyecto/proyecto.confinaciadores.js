@@ -15,7 +15,7 @@ import {
     saveTypeDataForm
 } from "../tools/tools";
 const Confinaciadores = props => {
-    let dateNow = moment(Date.now()).format("YYYY-MM-DD");
+    let dateNow = new Date();
     const [inputs, setInputs] = useState({
         fechaConclusion: dateNow,
         fechaConvenio: dateNow,
@@ -56,12 +56,13 @@ const Confinaciadores = props => {
         {
             const data = response.data;
             var fechaConclusion = new Date( data.fechaConclusion + "T00:00:00");
+            var fechaConvenio = new Date( data.fechaFirma + "T00:00:00");
             setInputs({
                 'indexRow':indexRow,
                 'institucion' : data.instId,
                 'nombreDocumento' : data.convNombre,
                 'fechaConclusion' :  fechaConclusion,
-                'fechaConvenio' : data.fechaFirma,
+                'fechaConvenio' : fechaConvenio,
                 'montoFinanciado' : data.convMonto,
                 'montoFinanciadoSinActualizar' : data.convMonto,//este carga el monto para que pueda restar al monto total al actualizar
                 'vigenciaDias' : data.convVigencia,
@@ -268,6 +269,12 @@ const Confinaciadores = props => {
         {
             messageSend = { status : false, error : "El monto financiado total supera al monto comprometido del proyecto", message: "" };
         }
+        var fechaConvenio = moment(inputs.fechaConvenio).format(
+            "YYYY-MM-DD"
+        );
+        var fechaConclusion = moment(inputs.fechaConclusion).format(
+            "YYYY-MM-DD"
+        );
 
         var formData = new FormData();
         formData.append("docConvenio", fileInput);
@@ -275,14 +282,16 @@ const Confinaciadores = props => {
             "proyectoId",
             document.getElementById("proyecto_id").value
         );
+
         formData.append("institucion", inputs.institucion);
         formData.append("tipoDocumento", inputs.tipoDocumento);
         formData.append("nombreDocumento", inputs.nombreDocumento);
-        formData.append("fechaConclusion", inputs.fechaConclusion);
-        formData.append("fechaConvenio", inputs.fechaConvenio);
+        formData.append("fechaConclusion", fechaConclusion);
+        formData.append("fechaConvenio", fechaConvenio);
         formData.append("montoFinanciado", inputs.montoFinanciado);
         formData.append("vigenciaDias", inputs.vigenciaDias);
         formData.append( "elementId", elementId );
+
         const response = await saveTypeDataForm(
             "../confinaciamientoUpdate",
             formData,
@@ -371,7 +380,7 @@ const Confinaciadores = props => {
                 >
                     <Form.Label>Fecha de firma Convenio/Aprobacion</Form.Label>
                     <DatePicker
-                        selected={startDate1}
+                        selected={inputs.fechaConvenio}
                         className="form-control"
                         dateFormat="d/MM/yyyy"
                         name="fechaConvenio"
@@ -387,7 +396,7 @@ const Confinaciadores = props => {
                                 alert("La fecha de convenio tiene que ser menor a la fecha de conclusion");
                                 return;
                             }
-                            setInputs({ ...inputs, fechaConvenio: fechaInicio, vigenciaDias: vigenciaDias });
+                            setInputs({ ...inputs, fechaConvenio: dateSelect, vigenciaDias: vigenciaDias });
                             setStartDate1(dateSelect);
                         }}
                     />
@@ -395,7 +404,7 @@ const Confinaciadores = props => {
                 <Col lg={4} md={4}>
                     <Form.Label>Fecha de Conclusion</Form.Label>
                     <DatePicker
-                        selected={startDate2}
+                        selected={inputs.fechaConclusion}
                         name="fechaConclusion"
                         dateFormat="d/MM/yyyy"
                         className="form-control"
@@ -413,7 +422,7 @@ const Confinaciadores = props => {
                             }
                             setInputs({
                                 ...inputs,
-                                fechaConclusion: fechaConclusion,
+                                fechaConclusion: dateSelect,
                                 vigenciaDias: vigenciaDias
                             });
                             setStartDate2(dateSelect);
@@ -500,11 +509,17 @@ const Confinaciadores = props => {
             {
                 messageSend = { status : false, error : "Debe seleccionar la instiucion y el tipo de documento", message: "" };
             }
+            var fechaConvenio = moment(inputs.fechaConvenio).format(
+                "YYYY-MM-DD"
+            );
+            var fechaConclusion = moment(inputs.fechaConclusion).format(
+                "YYYY-MM-DD"
+            );
             formData.append("institucion", inputs.institucion);
             formData.append("tipoDocumento", inputs.tipoDocumento);
             formData.append("nombreDocumento", inputs.nombreDocumento);//
-            formData.append("fechaConclusion", inputs.fechaConclusion);//
-            formData.append("fechaConvenio", inputs.fechaConvenio);//
+            formData.append("fechaConclusion", fechaConclusion);//
+            formData.append("fechaConvenio", fechaConvenio);//
             formData.append("montoFinanciado", inputs.montoFinanciado);//
             formData.append("vigenciaDias", inputs.vigenciaDias);//
 
