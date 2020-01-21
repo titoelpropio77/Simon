@@ -69,6 +69,7 @@ class ProyectoController extends Controller
                     'pryCodSisin' => $request->codSinSin,
                     // 'fechAprobacion' => $fechaInicio,
                     'fechAprobacion' => $request->fechaInicio,
+                    'fechFinProgramada' => $request->fechaFinal,
                     'sectId' => $request->sectorId,
                     "montoTotal" => $request->montoTotalComprometido,
                     'fechInicProgramada' => $request->fechaInicio,
@@ -146,18 +147,18 @@ class ProyectoController extends Controller
         try {
 
             DB::beginTransaction();
-            $myDateTime = \DateTime::createFromFormat('d/m/Y', $request->fechaInicio);
-            $fechaInicio = $myDateTime->format('Y-m-d');
+            // $myDateTime = \DateTime::createFromFormat('d/m/Y', $request->fechaInicio);
+            // $fechaInicio = $myDateTime->format('Y-m-d');
             $typeRooms = $this->class::findOrFail($id);
              $typeRooms->update( [
                 'licId' => auth()->user()->lic_id,
                 'funId' => $request->funcId,
                 'pryNombre' => $request->nombreProy,
                 'pryCodSisin' => $request->codSinSin,
-                'fechAprobacion' => $fechaInicio,
-                'fechAprobacion' => $fechaInicio,
+                'fechFinProgramada' => $request->fechaFinal,
                 'sectId' => $request->sectorId,
-                'fechInicProgramada' => $fechaInicio,
+                'fechAprobacion' => $request->fechaInicio,
+                'fechInicProgramada' => $request->fechaInicio,
                 'duracion' => $request->duracionMes,
                 'pryDescripcion' => $request->descripcion,
             ] );

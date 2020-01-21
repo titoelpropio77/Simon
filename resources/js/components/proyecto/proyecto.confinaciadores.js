@@ -494,6 +494,10 @@ const Confinaciadores = props => {
             {
                 messageSend = { status : false, error : "El monto Total Financiado supera al Monto Comprometido del proyecto", message: "" };
             }
+            if ( inputs.institucion == undefined || inputs.tipoDocumento == undefined)
+            {
+                messageSend = { status : false, error : "Debe seleccionar la instiucion y el tipo de documento", message: "" };
+            }
             formData.append("institucion", inputs.institucion);
             formData.append("tipoDocumento", inputs.tipoDocumento);
             formData.append("nombreDocumento", inputs.nombreDocumento);//

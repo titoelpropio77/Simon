@@ -16,6 +16,7 @@ class Proyecto extends Model
             'pryNombre',
             'pryCodSisin',
             'fechAprobacion',
+            'fechFinProgramada',
             'sectId',
             'fechInicProgramada',
             'duracion',

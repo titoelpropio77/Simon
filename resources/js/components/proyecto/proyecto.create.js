@@ -149,12 +149,14 @@ export default class ProyectoCreate extends Component {
     maskFields() {
         const state = this.state;
         var fechaInicio = moment( state.fechaInicio ).format( 'YYYY-MM-DD' );
+        var fechaFinal = moment( state.fechaFinal ).format( 'YYYY-MM-DD' );
         const fields = {
             nombreProy: state.nombreProy,
             nombreProyGeneral: state.nombreProy,
             codSinSin: state.codSinSin,
             funcResp: state.funcResp,
             fechaInicio: fechaInicio,
+            fechaFinal: fechaFinal,
             codSelected: saveDataForm.codSelected, //codigo seleccionado EJ: 1-1-1
             codSinSinGeneral: state.codSinSin,
             duracionMes: state.duracionMes, // duracion en mes
@@ -169,6 +171,7 @@ export default class ProyectoCreate extends Component {
     }
     async saveForm() {
         const dataSend = this.maskFields();
+        console.log(dataSend);
         let messageSend = { status: true, menssage : "", error:  "" };
         if( !dataSend.tipoProyectoId )
         {
@@ -230,6 +233,7 @@ export default class ProyectoCreate extends Component {
             this.setState({
                 nombreProy: data.pryNombre,
                 fechaInicio: new Date(data.fechInicProgramada),
+                fechaFinal:  data.fechFinProgramada ? new Date(data.fechFinProgramada) : new Date(),
                 duracionMes: data.duracion,
                 optionsElementSubSectorial: subSector,
                 codSinSinGeneral : data.pryCodSisin,
@@ -237,6 +241,7 @@ export default class ProyectoCreate extends Component {
                 descripcion: data.pryDescripcion,
                 codSinSin: data.pryCodSisin,
                 montoTotalComprometido : data.montoTotal,
+                tipoProyectoId : data.sectId,
                 // licId: data.licencia ? data.licencia.id : 0,
                 sector: data.sectorial.Sector.Sector,
                 tipo: data.sectorial.tipo.tipo,
