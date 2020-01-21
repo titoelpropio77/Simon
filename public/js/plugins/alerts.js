@@ -35552,7 +35552,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Simon\resources\js\components\alerts.js */"./resources/js/components/alerts.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\alerts.js */"./resources/js/components/alerts.js");
 
 
 /***/ })

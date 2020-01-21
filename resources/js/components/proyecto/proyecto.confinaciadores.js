@@ -21,13 +21,13 @@ const Confinaciadores = props => {
         fechaConvenio: dateNow,
         institucion: 0
     });
-    const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState([
+    const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState(
         { label: "Seleccion un tipo documento", value: 0 }
-    ]);
-    const [tipoDocumento, setTipoDocumento] = useState([
-        { label: "Seleccion", value: 0 }
-    ]);
-    const [institucion, setInstitucion] = useState();
+);
+    const [tipoDocumento, setTipoDocumento] = useState(
+        { label: "Seleccione TD", value: 0 }
+    );
+    const [institucion, setInstitucion] = useState({ label: "Seleccione una institucion" });
     const [institucionOptions, setInstitucionOptions] = useState([
         { label: "Seleccion", value: 0 }
     ]);
@@ -126,7 +126,7 @@ const Confinaciadores = props => {
             setTotalMontoCof(totalMonto);
             setRowFooter(["TOTAL", "","","",  totalMonto]);
             setRowTable(items);
-            GetElementById(items[0].id)
+            // GetElementById(items[0].id)
         }
     }
     const deletedItem = async (id) =>
@@ -467,7 +467,7 @@ const Confinaciadores = props => {
                 </Form.Group>
                 <Form.Group as={Col} lg={8} md={8} >
                     <Form.Label></Form.Label>
-                    <Button style={{ visibility:visibilityButton }} 
+                    <Button style={{ visibility:visibilityButton }}
                             type="submit" variant={"primary pull-rigth"}>
                      Add List
                     </Button>
@@ -524,14 +524,16 @@ const Confinaciadores = props => {
         setShowModal(false);
     }
     const cleanForm = () => {
+        setInstitucion({   label: "Seleccione una institucion", value: 0 });
+        setTipoDocumento({   label: "Seleccione TD", value: 0 });
         setInputs({
             nombreDocumento : '',
             montoFinanciado : '',
             vigenciaDias : '',
             fechaConclusion: dateNow,
             fechaConvenio: dateNow,
-            institucion: 0,
-            tipoDocumento: { label: "Seleccion", value: 0 }
+            // institucion: 0,
+            // tipoDocumento: { label: "Seleccion", value: 0 }
         });
         setElementId(null);
     }
