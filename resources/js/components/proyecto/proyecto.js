@@ -411,13 +411,13 @@ export default class Proyecto extends Component {
             </button>
         );
         const btnActionOthers = (
-            <a
+            <button
                 className="btn btn-success"
                 href="exportReportProyect"
-                // onClick={() => this.deletedElement(elementId)}
+                onClick={() => window.open( 'exportReportProyByType/'+elementId+'/proyectoAll' )}
             >
                <i class="far fa-file-excel"></i>
-            </a>
+            </button>
         );
         return {
             columns: columns,

@@ -56,7 +56,6 @@ const Confinaciadores = props => {
         {
             const data = response.data;
             var fechaConclusion = new Date( data.fechaConclusion + "T00:00:00");
-            console.log(fechaConclusion);
             setInputs({
                 'indexRow':indexRow,
                 'institucion' : data.instId,

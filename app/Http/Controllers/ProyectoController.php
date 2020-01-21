@@ -283,6 +283,9 @@ class ProyectoController extends Controller
     public function exportReportProyByType($proyectoId, $type)
     {
         $proyecto = $this->class::where('id',$proyectoId)->with('users')->first();
+        // $clientList = $this->class::select(DB::raw('*,DATE_FORMAT(fechAprobacion, "%d/%m/%Y") as fechAprobacion' ))->find($proyecto);
+        $sectorial = ClaSectorial::getSectorAndSubSectorAndTipo($proyecto->sectId);
+        // var_dump($sectorial);
         // echo json_encode($proyecto);
         // return response()->json($proyecto);
         if( $proyecto )
@@ -290,7 +293,7 @@ class ProyectoController extends Controller
             switch( $type )
             {
                 case  'datosGenerales' :
-                    $pdf = \PDF::loadView('Reportes.report_proy_datos_generales', compact( 'proyecto' ))->setPaper('a4', 'landscape');;
+                    $pdf = \PDF::loadView('Reportes.report_proy_datos_generales', compact( 'proyecto','sectorial' ))->setPaper('a4', 'landscape');;
                     return   $pdf->stream();
                 break;
                 case  'localizacion' :
@@ -299,7 +302,7 @@ class ProyectoController extends Controller
                     // exit;
                 //  return view( 'Reportes.report_proy_localizacion', compact( 'proyecto',  'proyectoLocalizacion' ) );
 
-                    $pdf = \PDF::loadView('Reportes.report_proy_localizacion', compact( 'proyecto',  'proyectoLocalizacion'))->setPaper('a4', 'landscape');;
+                    $pdf = \PDF::loadView('Reportes.report_proy_localizacion', compact( 'proyecto',  'proyectoLocalizacion', 'sectorial'))->setPaper('a4', 'landscape');;
                     return   $pdf->stream();
                 break;
                 case  'componentes' :
@@ -310,11 +313,20 @@ class ProyectoController extends Controller
                             $componentes[ $key ][ 'hitos' ] = json_decode(json_encode( CompIndicadores::where( 'cmpId', $value->id )->with( 'auxIndicadores' )->get())) ;
 
                     }
-                //    echo json_encode( $componentes[0]->hitos[0]->aux_indicadores->id );
-                //     exit;
+                    $pdf = \PDF::loadView( 'Reportes.report_proy_componentes' ,compact( 'proyecto', 'componentes', 'sectorial'))->setPaper('a4', 'landscape');
+                    return   $pdf->stream();
+                break;
+                case  'proyectoAll' :
+                    $componentes = Componente::where( 'pryId', $proyectoId )->get();
 
-                //  return view( 'Reportes.report_proy_componentes', compact( 'proyecto', 'componentes' ) );
-                    $pdf = \PDF::loadView( 'Reportes.report_proy_componentes' ,compact( 'proyecto', 'componentes'))->setPaper('a4', 'landscape');
+                    $proyectoLocalizacion = ProyectoLocalizacion::getProyectoLocalizacionByProyId( $proyectoId );
+                    foreach ( $componentes as $key => $value )
+                    {
+
+                            $componentes[ $key ][ 'hitos' ] = json_decode(json_encode( CompIndicadores::where( 'cmpId', $value->id )->with( 'auxIndicadores' )->get())) ;
+
+                    }
+                    $pdf = \PDF::loadView( 'Reportes.report_proy_all' ,compact( 'proyecto', 'componentes', 'sectorial', 'proyectoLocalizacion'));
                     return   $pdf->stream();
                 break;
 

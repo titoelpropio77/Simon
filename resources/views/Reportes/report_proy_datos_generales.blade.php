@@ -19,7 +19,7 @@
     <div style="    padding: 10px;">
       @include('Reportes.section_data_proy')
     </div>
-    <div style="border: 1px solid">
+    <div style="">
     @include('Reportes.section_footer_proy')
     </div>
 

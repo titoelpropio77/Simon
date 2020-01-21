@@ -76932,10 +76932,12 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         className: "fas fa-trash-alt"
       }));
-      var btnActionOthers = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+      var btnActionOthers = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn btn-success",
-        href: "exportReportProyect" // onClick={() => this.deletedElement(elementId)}
-
+        href: "exportReportProyect",
+        onClick: function onClick() {
+          return window.open('exportReportProyByType/' + elementId + '/proyectoAll');
+        }
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         "class": "far fa-file-excel"
       }));
