@@ -5,6 +5,8 @@ import TablePersonalizate from "../table/tablePersonalizate.js";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import ModalBT from "../modal/modal";
+import alertify from 'alertifyjs';
+
 import {
     saveDataForm,
     getById,
@@ -78,6 +80,48 @@ const Componentes = props => {
     useEffect(() => {
         getComponente();
     }, [])
+    const deletedItem =  (id) =>
+    {
+        let token = document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content");
+        alertify.confirm('Eliminar item', 'Esta seguro que desea eliminar ', async function(){
+            var request = await fetch( '../componente' + "/" + id, {
+               method: "DELETE",
+               headers: {
+                   "X-CSRF-TOKEN": token,
+                   Accept: "application/json",
+                   "Content-Type": "application/json"
+               }
+           })
+           .then(res => res.json())
+           .then(
+                   result => {
+                       if( result.status )
+                       {
+                           alertify.success(result.message);
+                           getAllConfinaciadoresByProy();
+                       }
+                       else{
+                            alertify
+                            .alert("Error",result.message, function(){
+                                 alertify.message('OK');
+                            });
+                       }
+                       return result;
+                   },
+                   error => {
+
+                       console.log(error);
+                   }
+               );
+            return request;
+        },
+        function(){
+           alertify.error('Cancelado');
+        });
+
+    }
     const field = () => {
         return (
             <Row>
@@ -308,7 +352,7 @@ const Componentes = props => {
                 <td>
                     <Button variant="primary" onClick={() => getComponenteById( item.id )}> <i className="fas fa-edit"></i> </Button>
                     <Button variant="warning" onClick={() => {  setHito( item.id ); getHitosByIdComponente(item .id, item.nombre) }} ><i class="fas fa-align-left"></i></Button>
-                    <Button variant="danger"> <i className="fas fa-trash-alt"></i> </Button>
+                    <Button variant="danger" onClick={ () => deletedItem( item.id ) }> <i className="fas fa-trash-alt"></i> </Button>
                 </td>
             </tr>
         );

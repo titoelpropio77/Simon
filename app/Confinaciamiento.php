@@ -38,18 +38,23 @@ class Confinaciamiento extends Model
      * Retor una lista de la relacion entre proyconvfinanciamiento y csfsegfinaciero
      * {id} id del confinaciador
     */
-    public static function getEstructFinanByCofinaciadorId( $id = 0 )
+    public static function getEstructFinanByCofinaciadorId( $id = 0, $proyectoId = 0 )
     {
         $query  = " SELECT
                         *
                     FROM
                         proyconvfinanciamiento,
-                        csfsegfinaciero
+                        csfsegfinaciero,
+                        encsegfinanciero
                     WHERE
                         proyconvfinanciamiento.id = csfsegfinaciero.cofinaciadorId ";
         if  ( $id != 0 )
         {
             $query .= " AND proyconvfinanciamiento.id = " . $id;
+        }
+        if  ( $proyectoId != 0 )
+        {
+            $query .= " AND  encsegfinanciero.pryId =" . $proyectoId;
         }
 
         $result = DB::select( $query );

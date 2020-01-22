@@ -154,9 +154,34 @@ class ComponenteController extends Controller
      * @param  \App\Componente  $componente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Componente $componente)
+    public function destroy( $componenteId )
     {
-        //
+        if (!$this->verifyPermission('puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+
+        $componente = $this->class::findOrFail($componenteId);
+        $result[ 'data' ]  = $this->class::getEstructFinanByCompIdAndProyId( $componenteId, $componente->pryId );
+        try {
+            if ( !count( $result[ 'data' ] ))
+            {
+                $result = $this->class::getEstructFinanByCompIdAndProyId( $componenteId, $componente->pryId );
+                return response()->json($result);
+                exit;
+                $componente->delete();
+                $result['status'] = true;
+                $result['message'] = 'Eliminado Correctamente';
+            }else
+            {
+                $result['status'] = false;
+                $result['message'] = 'Ya existen componentes registrados en Estructura de Financimiento';
+            }
+
+        } catch (Exception $e) {
+
+            $result['status'] = false;
+            $result['message'] = $e->getMessage();
+        }
+        return response()->json($result);
     }
     /**
      * Carga todos los componentes dado el ID Proyecto

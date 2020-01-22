@@ -173,12 +173,6 @@ const Confinaciadores = props => {
         function(){
            alertify.error('Cancelado');
         });
-        // const response = await deletedElement( '../confinaciamiento',id );
-        // if( response.status )
-        // {
-
-        //     getAllConfinaciadoresByProy();
-        // }
 
     }
     const dowloadFieldCofinaciadores = ( id ) => {
@@ -514,9 +508,13 @@ const Confinaciadores = props => {
                     <Form.Control
                         name="docConvenio"
                         type="file"
+                        required={true}
                         onChange={onChangeValue}
                         // value={inputs ? inputs.vigenciaDias : ""}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        El documento de convenio es obligatorio
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} lg={8} md={8} >
                     <Form.Label></Form.Label>
