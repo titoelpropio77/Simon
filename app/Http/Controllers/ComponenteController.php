@@ -164,9 +164,6 @@ class ComponenteController extends Controller
         try {
             if ( !count( $result[ 'data' ] ))
             {
-                $result = $this->class::getEstructFinanByCompIdAndProyId( $componenteId, $componente->pryId );
-                return response()->json($result);
-                exit;
                 $componente->delete();
                 $result['status'] = true;
                 $result['message'] = 'Eliminado Correctamente';
