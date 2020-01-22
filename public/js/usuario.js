@@ -76545,10 +76545,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveTypeDataForm", function() { return saveTypeDataForm; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alertifyjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alertifyjs */ "./node_modules/alertifyjs/build/alertify.js");
-/* harmony import */ var alertifyjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alertifyjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var alertifyjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alertifyjs */ "./node_modules/alertifyjs/build/alertify.js");
+/* harmony import */ var alertifyjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alertifyjs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _table_table_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../table/table.js */ "./resources/js/components/table/table.js");
 
 
 
@@ -76559,6 +76558,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  */
 
+var token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
   var messageSend,
       request,
@@ -76581,8 +76581,8 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             break;
           }
 
-          alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.alert(messageSend.error, function () {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.message('OK');
+          alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert(messageSend.error, function () {
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.message('OK');
           });
           return _context.abrupt("return", {
             status: false
@@ -76617,7 +76617,7 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
 
             return response.json(); // throw new Error('A ocurrido un error');
           }).then(function (result) {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.success(result.message);
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
             return result;
           }));
 
@@ -76657,7 +76657,7 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
           }).then(function (res) {
             return res.json();
           }).then(function (result) {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.success(result.message);
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
             return result;
           }, function (error) {
             console.log(error);
@@ -76711,41 +76711,48 @@ var getById = function getById(url, id) {
   });
 };
 var deletedElement = function deletedElement(url, id) {
-  var token, request;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function deletedElement$(_context3) {
-    while (1) {
-      switch (_context3.prev = _context3.next) {
-        case 0:
-          console.log("getById");
-          token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-          _context3.next = 4;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url + "/" + id, {
-            method: "DELETE",
-            headers: {
-              "X-CSRF-TOKEN": token,
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            }
-          }).then(function (res) {
-            return res.json();
-          }).then(function (result) {
-            return result;
-          }, function (error) {
-            console.log(error);
-          }));
+  var nombre = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+  alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.confirm('Eliminar item', 'Esta seguro que desea eliminar ' + nombre, function _callee() {
+    var request;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function _callee$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url + "/" + id, {
+              method: "DELETE",
+              headers: {
+                "X-CSRF-TOKEN": token,
+                Accept: "application/json",
+                "Content-Type": "application/json"
+              }
+            }).then(function (res) {
+              return res.json();
+            }).then(function (result) {
+              if (result.status) {
+                alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
+                Object(_table_table_js__WEBPACK_IMPORTED_MODULE_2__["reloadTableData"])();
+              }
 
-        case 4:
-          request = _context3.sent;
-          return _context3.abrupt("return", request);
+              return result;
+            }, function (error) {
+              console.log(error);
+            }));
 
-        case 6:
-        case "end":
-          return _context3.stop();
+          case 2:
+            request = _context3.sent;
+            return _context3.abrupt("return", request);
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
       }
-    }
+    });
+  }, function () {
+    alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.error('Cancelado');
   });
 };
-var token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 var getAllByClass = function getAllByClass(url, dataForm) {
   var request;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getAllByClass$(_context4) {
@@ -76802,8 +76809,8 @@ var saveTypeDataForm = function saveTypeDataForm(urlSave, dataForm, elementId) {
             break;
           }
 
-          alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.alert("Error", messageSend.error, function () {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.message('OK');
+          alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert("Error", messageSend.error, function () {
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.message('OK');
           });
           return _context5.abrupt("return", {
             status: false
@@ -76832,7 +76839,7 @@ var saveTypeDataForm = function saveTypeDataForm(urlSave, dataForm, elementId) {
             // console.log(response);
             // throw new Error('A ocurrido un error');
           }).then(function (result) {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_2___default.a.success(result.message);
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
             return result;
           }));
 

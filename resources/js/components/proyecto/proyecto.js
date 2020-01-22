@@ -153,10 +153,7 @@ export default class Proyecto extends Component {
     }
     async deletedElement(elementId) {
         const response = await deletedElement(this.url, elementId);
-        if (response.status) {
-            reloadTableData();
-        } else {
-        }
+
     }
     onChangeValue(e) {
         this.setState({

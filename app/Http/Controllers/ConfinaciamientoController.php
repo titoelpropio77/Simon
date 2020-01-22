@@ -151,10 +151,19 @@ class ConfinaciamientoController extends Controller
         if (!$this->verifyPermission('puedeEliminar'))
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
-            $perfil = $this->class::findOrFail($confinaciamiento);
-            $perfil->delete();
-            $result['status'] = true;
-            $result['message'] = 'Eliminado Correctamente';
+            $result['data'] = $this->class::getEstructFinanByCofinaciadorId( $confinaciamiento );
+            if ( !count( $result ) )
+            {
+                $perfil = $this->class::findOrFail($confinaciamiento);
+                $perfil->delete();
+                $result['status'] = true;
+                $result['message'] = 'Eliminado Correctamente';
+            }else
+            {
+                $result['status'] = false;
+                $result['message'] = 'Ya existen cofinancidores registrados en Estructura de Financimiento';
+            }
+
         } catch (Exception $e) {
 
             $result['status'] = false;

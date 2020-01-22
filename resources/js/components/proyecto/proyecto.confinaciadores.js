@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Form, Alert } from "react-bootstrap";
 import Select from "react-select";
-import InputMask from "react-input-mask";
 import TablePersonalizate from "../table/tablePersonalizate.js";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import ModalBT from "../modal/modal";
+import alertify from 'alertifyjs';
 
 import {
     saveDataForm,
@@ -23,7 +23,7 @@ const Confinaciadores = props => {
     });
     const [tipoDocumentoOptions, setTipoDocumentoOptions] = useState(
         { label: "Seleccion un tipo documento", value: 0 }
-);
+    );
     const [tipoDocumento, setTipoDocumento] = useState(
         { label: "Seleccione TD", value: 0 }
     );
@@ -41,7 +41,7 @@ const Confinaciadores = props => {
     const [elementId, setElementId] = useState( null);
     const [rowFooter, setRowFooter] = useState([]);
     const [ totalMontoCof, setTotalMontoCof ] = useState();
-
+    const [ disableSelect, setDisableSelect ] = useState(false);
     /**
      * Realiza una peticion al WS del confinacimiento dado un id
      * @param {id Del elemento a editar} id
@@ -51,6 +51,7 @@ const Confinaciadores = props => {
         const response = await getById( '../confinaciamiento', id );
         setShowModal(true);
         setElementId(id);
+        setDisableSelect(true);
         setVisibilityButton('hidden');
         if( response.status )
         {
@@ -131,14 +132,53 @@ const Confinaciadores = props => {
             // GetElementById(items[0].id)
         }
     }
-    const deletedItem = async (id) =>
-    {
-        const response = await deletedElement( '../confinaciamiento',id );
-        if( response.status )
-        {
 
-            getAllConfinaciadoresByProy();
-        }
+    const deletedItem =  (id) =>
+    {
+        let token = document
+        .querySelector("meta[name='csrf-token']")
+        .getAttribute("content");
+        alertify.confirm('Eliminar item', 'Esta seguro que desea eliminar ', async function(){
+            var request = await fetch( '../confinaciamiento' + "/" + id, {
+               method: "DELETE",
+               headers: {
+                   "X-CSRF-TOKEN": token,
+                   Accept: "application/json",
+                   "Content-Type": "application/json"
+               }
+           })
+           .then(res => res.json())
+           .then(
+                   result => {
+                       if( result.status )
+                       {
+                           alertify.success(result.message);
+                           getAllConfinaciadoresByProy();
+                       }
+                       else{
+                            alertify
+                            .alert("Error",result.message, function(){
+                                 alertify.message('OK');
+                            });
+                       }
+                       return result;
+                   },
+                   error => {
+
+                       console.log(error);
+                   }
+               );
+            return request;
+        },
+        function(){
+           alertify.error('Cancelado');
+        });
+        // const response = await deletedElement( '../confinaciamiento',id );
+        // if( response.status )
+        // {
+
+        //     getAllConfinaciadoresByProy();
+        // }
 
     }
     const dowloadFieldCofinaciadores = ( id ) => {
@@ -321,6 +361,7 @@ const Confinaciadores = props => {
                         onChange={onChangeValue}
                         options={institucionOptions}
                         value={institucion}
+                        isDisabled={ disableSelect }
                         required={true}
                         onChange={(e, meta) => {
                             setInputs({ ...inputs, institucion: e.value });
@@ -342,6 +383,7 @@ const Confinaciadores = props => {
                     <Select
                         name="tipoDocumento"
                         options={tipoDocumentoOptions}
+                        isDisabled={ disableSelect }
                         value={tipoDocumento}
                         onChange={(e, meta) => {
 
@@ -540,11 +582,13 @@ const Confinaciadores = props => {
     };
     const closeModal = () => {
         setValidated(false);
+        setDisableSelect(false);
         setVisibilityButton('visible');
         cleanForm();
         setShowModal(false);
     }
     const cleanForm = () => {
+        document.getElementById("docConvenio").value="";
         setInstitucion({   label: "Seleccione una institucion", value: 0 });
         setTipoDocumento({   label: "Seleccione TD", value: 0 });
         setInputs({
