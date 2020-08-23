@@ -10,11 +10,11 @@ use App\Helpers\My_ModelGeneral;
 class ModuloController extends Controller
 {
     private $url = "modulo";
-    // public function __construct()
-    // {
-    //   parent::__construct();
-    //   $this->puedeVisionar( $this->url);
-    // }
+    public function __construct()
+    {
+      parent::__construct();
+      $this->puedeVisionar( $this->url);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -78,6 +78,9 @@ class ModuloController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        // echo "hola";
+        // var_dump( $id );
+        // exit;
        if (!$this->verifyPermission('puedeModificar'))
        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {

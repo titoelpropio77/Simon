@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {deletedElement,saveDataForm,getById} from "../tools/tools";
 import ModalBT from "../modal/modal";
-const properties_form = (urlSave, dataInput = {}) => {
+const properties_form = (url, head_column_table = {}) => {
     const [ showModal, setShowModal ] = useState(false);
     const [ validated, setValidated ] = useState(false);
     const [ inputs, setInputs ] = useState({});
@@ -38,7 +38,7 @@ const properties_form = (urlSave, dataInput = {}) => {
         {
             setValidated(false);
             const response = await saveDataForm(
-                urlSave,
+                url,
                 inputs,
                 elementId,
                 ''
@@ -67,7 +67,7 @@ const properties_form = (urlSave, dataInput = {}) => {
     }
     /**
      * retorna la etiqueta button de añadir nuevo elemento
-     * @param {sgring} title 
+     * @param {string} title titulo del boton
      */
     const btnOpenModal =(title) => {
         return (<button
@@ -86,7 +86,7 @@ const properties_form = (urlSave, dataInput = {}) => {
      * @param {int} id 
      */
     const getByIdElement = async (id)  =>   {
-        const response = await getById(urlSave,id);
+        const response = await getById(url,id);
         if( response.status )
         {
             setShowModal(true);
@@ -96,41 +96,11 @@ const properties_form = (urlSave, dataInput = {}) => {
             setElementId( response.data.id );
         }
     }
-    const propertiesDataTable = (elementId)  => {
-        const columns = [
-            {
-                data: "proc_nombre",
-                render : function(type, data, row)
-                {
-                    return row.proc_grado_automatizacion ;
-                }
-            },
-            {
-                data: "proc_grado_automatizacion"
-            },
-            {
-                data: "proc_grado_automatizacion"
-            },
-            {
-                data: "proc_grado_automatizacion"
-            },
-            {
-                data: "proc_periodo_ejecucion"
-            },
-    
-        ];
-        let head = (
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Nombre del proceso</th>
-                    <th>Grado acutomatizacion</th>
-                    <th>Estado</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-        );
+    const propertiesDataTable = (elementId, nombre = '')  => {
         
+        const head = head_column_table.headTable;
+        const columns = head_column_table.columnsTable;
+        const getColumn = head_column_table.getColumnTable;
         const btnActionUpdate = (
             <button
             className="btn btn-primary"
@@ -142,7 +112,7 @@ const properties_form = (urlSave, dataInput = {}) => {
         const btnActionDelete = (
             <button
                 className="btn btn-danger"
-                onClick={() => deletedElement(elementId)}
+                onClick={() => deletedElement( url, elementId, nombre)}
             >
                 <i className="fas fa-trash-alt"></i>
             </button>
@@ -162,6 +132,7 @@ const properties_form = (urlSave, dataInput = {}) => {
             targets: [4],
             btnActionDelete: btnActionDelete,
             btnActionUpdate: btnActionUpdate,
+            getColumn: getColumn,
             // btnActionOthers: btnActionOthers
         };
         

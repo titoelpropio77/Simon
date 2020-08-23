@@ -17,10 +17,11 @@ class GAct_Proceso extends Model
     	'proc_reponsable_ejecucion',
     	'proc_macroproceso_id',
     ];
-    // public function users()
-    // {
-    // 	$this->hasMany('App/User', 'idPerfil');
-    // }
+    public function macros()
+    {
+        // return $this->hasMany('App/Macro', 'proc_macroproceso_id');
+        return $this->belongsTo(Macro::class, 'proc_macroproceso_id');
+    }
     public function getAllMacroProceso(){
         $query = "select * from gact_macroprocesos ";
         $result = DB::Select($query);

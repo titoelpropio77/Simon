@@ -8,6 +8,7 @@ use App\Helpers\JqueryDataTable;
 use App\Helpers\My_ModelGeneral;
 use Session;
 use Redirect;
+use DataTables;
 
 class GAct_ProcesoController extends Controller
 {
@@ -109,20 +110,14 @@ class GAct_ProcesoController extends Controller
     {
         if(  $request->ajax() )
         {
-            $table = 'gact_procesos';
-            // var_dump( $this->class->table);
-            // exit;
-            $dt = new JqueryDataTable( $request->all()  );
-    
-            $recordsTotal =  My_ModelGeneral::countDataTable( $table ,'' );
-            $recordsFiltered = $recordsTotal;
-            $searchValue = $dt->getSearchValue();
-            if ( $dt->hasSearchValue() )
-            {
-               $recordsFiltered = My_ModelGeneral::countDataTable( $table,$searchValue );
+            $result['status'] = true;
+            if ($request->ajax()) {
+                $data = $this->class::with('macros')->latest()->get();
+                return Datatables::of($data)
+                        ->addIndexColumn()
+                        ->make(true);
+
             }
-            $resultArray = My_ModelGeneral::getDataTable($table , $searchValue, $dt->getLength(), $dt->getStart(), $dt->getOrderName( 0 ), $dt->getOrderDir( 0 ) );
-            $result = $dt->generateArrayData( $recordsTotal,  $recordsFiltered, $resultArray );
             return response()->json( $result );
         }
     }

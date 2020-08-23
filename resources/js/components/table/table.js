@@ -34,10 +34,11 @@ export default class Table extends Component{
                         // <button  className="btn btn-primary" onClick={() => this.props.getBydId(rowData.id)}>Editar</button>
                         // onClick ={() => this.alertSth('hey!')}
                         // console.log(this.props.propertiesDataTable().btnAction);
+                    const getColumn = this.props.propertiesDataTable(rowData.id).getColumn;
                     ReactDOM.render(
                     (<div >
                     {this.props.propertiesDataTable(rowData.id).btnActionUpdate}
-                    {this.props.propertiesDataTable(rowData.id).btnActionDelete}
+                    {this.props.propertiesDataTable(rowData.id, rowData[getColumn]).btnActionDelete}
                     {this.props.propertiesDataTable(rowData.id).btnActionOthers}
                     </div>),td
                     );
