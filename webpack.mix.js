@@ -21,4 +21,7 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 .react( 'resources/js/components/proyecto/proyecto.js', 'public/js/proyecto.js' )
 .react( 'resources/js/components/proyecto/proyecto.create.js', 'public/js/proyecto.create.js' )
 
+//Macro Proceso
+.react('resources/js/components/macro/macro.js','public/js/macro.js')
+
 .sass('resources/sass/app.scss', 'public/css');

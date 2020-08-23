@@ -82,4 +82,9 @@ Route::resource( 'estructuraFinanciamiento', 'EstruturaFinanciamientoController'
 Route::post( 'getListClaPresupuestario', [ 'uses'=>'EstruturaFinanciamientoController@getListClaPresupuestario'] );
 Route::post( 'getEFByProyecto', [ 'uses'=>'EstruturaFinanciamientoController@getEFByProyecto'] );
 
+//Macro Proceso
+Route::resource( 'macro', 'MacroprocesoController' );
+Route::post('getMacroAll',[ 'uses'=>'MacroprocesoController@getMacroAll']);
+
+
 Route::get('/home', 'HomeController@index')->name('home');
