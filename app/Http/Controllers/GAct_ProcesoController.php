@@ -13,7 +13,13 @@ use DataTables;
 class GAct_ProcesoController extends Controller
 {
     private $url = "gactProceso";
-     public function __construct()
+    private $field_validate = [
+        'grado_automatizacion' => 'required',
+        'grado_descentralizacion' => 'required',
+        'nombre' => 'required',
+        'periodo_ejecucion' => 'required',
+    ];
+    public function __construct()
     {
         parent::__construct();
         $this->class = new GAct_Proceso();
@@ -48,8 +54,34 @@ class GAct_ProcesoController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
-        exit;
+        
+        if (!$this->verifyPermission('puedeGuardar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+            //validate() valida las campon del formulario, este metodo es de laravel
+            $validatedData = $request->validate( $this->field_validate );
+            //obtengo toda la data 
+            $data = $request->all();
+            try {
+                if( $validatedData )
+                {
+                    $this->class::create([
+                        'proc_nombre' => $data['nombre'],
+                        'proc_grado_automatizacion' => $data['grado_automatizacion'],
+                        'proc_grado_descentralizacion'=> $data['grado_descentralizacion'],
+                        'proc_periodo_ejecucion' => $data['periodo_ejecucion'],
+                        // 'proc_reponsable_revision',
+                        // 'proc_reponsable_ejecucion',
+                        'proc_macroproceso_id'=> $data['macro_proceso'],
+                    ]);
+                    $result[ 'status' ] = true;
+                    $result[ 'message' ] = 'Guardado Correctamente';
+                }
+
+            } catch (Exception $e) {
+                $result[ 'status' ] = false;
+                $result[ 'message' ] = $e->getMessage();
+            }
+        return $result;
     }
 
     /**
@@ -74,7 +106,7 @@ class GAct_ProcesoController extends Controller
         if (!$this->verifyPermission('puedeModificar'))
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
-            $clientList= $this->class::find($id);
+            $clientList= $this->class::with('macros')->where('id', $id)->first();
             $result[ 'data' ] = $clientList;
             $result[ 'status' ] = true;
         } catch (Exception $e) {
@@ -91,20 +123,59 @@ class GAct_ProcesoController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GAct_Proceso $cliente)
+    public function update(Request $request, $id)
     {
-        //
+        if (!$this->verifyPermission('puedeModificar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+            //validate() valida las campon del formulario, este metodo es de laravel
+            $validatedData = $request->validate( $this->field_validate );
+            //obtengo toda la data 
+            $data = $request->all();
+            try {
+                if( $validatedData )
+                {
+                    $classModel = $this->class::findOrFail($id);
+                    $classModel->update([
+                        'proc_nombre' => $data['nombre'],
+                        'proc_grado_automatizacion' => $data['grado_automatizacion'],
+                        'proc_grado_descentralizacion'=> $data['grado_descentralizacion'],
+                        'proc_periodo_ejecucion' => $data['periodo_ejecucion'],
+                        // 'proc_reponsable_revision',
+                        // 'proc_reponsable_ejecucion',
+                        'proc_macroproceso_id'=> $data['macro_proceso'],
+                    ]);
+                    $result[ 'status' ] = true;
+                    $result[ 'message' ] = 'Guardado Correctamente';
+                }
+
+            } catch (Exception $e) {
+                $result[ 'status' ] = false;
+                $result[ 'message' ] = $e->getMessage();
+            }
+        return $result;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Cliente  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GAct_Proceso $cliente)
+    public function destroy($id)
     {
-        //
+        if (!$this->verifyPermission('puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        try {
+            $classModel = $this->class::findOrFail($id);
+            $classModel->delete();
+            $result['status'] = true;
+            $result['message'] = 'Eliminado Correctamente';
+        } catch (Exception $e) {
+
+            $result['status'] = false;
+            $result['message'] = $e->getMessage();
+        }
+        return response()->json($result);
     }
     public function getDataTable(Request $request)
     {
@@ -121,7 +192,8 @@ class GAct_ProcesoController extends Controller
             return response()->json( $result );
         }
     }
-    public function getMacroProceso(){
+    public function getMacroProceso()
+    {
         $data = $this->class->getAllMacroProceso();
         $result = ['data' => $data, 'status' => true];
         return response()->json( $result );

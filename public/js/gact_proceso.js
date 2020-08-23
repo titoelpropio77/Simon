@@ -87575,7 +87575,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Form_Field = function Form_Field(onChangeValue, inputs) {
-  var _React$createElement, _React$createElement2;
+  var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4, _React$createElement5;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([{
     label: "Seleccion",
@@ -87585,12 +87585,37 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
       macroprocesOption = _useState2[0],
       setMacroprocesOption = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    label: "Seleccione un macro proceso"
-  }),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([{
+    label: "Semiautomatizado",
+    value: "Semiautomatizado"
+  }, {
+    label: "Automatizado",
+    value: "Automatizado"
+  }]),
       _useState4 = _slicedToArray(_useState3, 2),
-      otrosInputs = _useState4[0],
-      setOtrosInputs = _useState4[1];
+      optionsGradoAutomatizacion = _useState4[0],
+      setOptionsGradoAutomatizacion = _useState4[1];
+
+  var optionGradoDescentralizacion = [{
+    label: "Centralizado",
+    value: "Centralizado"
+  }, {
+    label: "Desentralizado",
+    value: "Desentralizado"
+  }];
+  var optionPeriodoEjecucion = [{
+    label: "Diario",
+    value: "Diario"
+  }, {
+    label: "Semanal",
+    value: "Semanal"
+  }, {
+    label: "Mensual",
+    value: "Mensual"
+  }, {
+    label: "Anual",
+    value: "Anual"
+  }]; // const [otrosInputs, setOtrosInputs] = useState({ label: "Seleccione un macro proceso" });
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var getMacroprocesos = function getMacroprocesos() {
@@ -87633,13 +87658,12 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
     lg: 6
   }, _defineProperty(_React$createElement, "md", 6), _defineProperty(_React$createElement, "controlId", "validationCustom10"), _React$createElement), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Macro Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     name: "macro_proceso",
-    options: macroprocesOption // isDisabled={ disableSelect }
+    options: macroprocesOption,
+    required: true // isDisabled={ disableSelect }
     ,
     value: inputs.macroproceso,
     onChange: function onChange(e, meta) {
-      setOtrosInputs({
-        macro_proceso: e.value
-      });
+      // setOtrosInputs({ macro_proceso: e.value });
       var data_select = {
         'macro_proceso': e.value,
         macroproceso: e
@@ -87651,16 +87675,62 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
     md: "6",
     lg: 6
-  }, _defineProperty(_React$createElement2, "md", 6), _defineProperty(_React$createElement2, "controlId", "validationCustom10"), _React$createElement2), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Nombre Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
+  }, _defineProperty(_React$createElement2, "md", 6), _defineProperty(_React$createElement2, "controlId", "validationCustom11"), _React$createElement2), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Nombre Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
     type: "text",
-    name: "nombre" // required
-    // required={true}
-    ,
+    name: "nombre",
+    required: true,
     onChange: onChangeValue,
     value: inputs ? inputs.nombre : ""
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control.Feedback, {
     type: "invalid"
-  }, "El campo es obligatorio")));
+  }, "El campo es obligatorio")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement3 = {
+    as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
+    md: "6",
+    lg: 6
+  }, _defineProperty(_React$createElement3, "md", 6), _defineProperty(_React$createElement3, "controlId", "validationCustom12"), _React$createElement3), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado de automatizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    name: "grado_automatizacion",
+    options: optionsGradoAutomatizacion,
+    value: inputs.gradoautomatizacion,
+    onChange: function onChange(e, meta) {
+      var data_select = {
+        'grado_automatizacion': e.value,
+        gradoautomatizacion: e
+      };
+      onChangeValue(e, data_select);
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement4 = {
+    as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
+    md: "6",
+    lg: 6
+  }, _defineProperty(_React$createElement4, "md", 6), _defineProperty(_React$createElement4, "controlId", "validationCustom14"), _React$createElement4), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado Descentralizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    name: "grado_descentralizacion",
+    options: optionGradoDescentralizacion,
+    value: inputs.gradodescentralizacion,
+    required: true,
+    onChange: function onChange(e, meta) {
+      var data_select = {
+        'grado_descentralizacion': e.value,
+        gradodescentralizacion: e
+      };
+      onChangeValue(e, data_select);
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement5 = {
+    as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
+    md: "6",
+    lg: 6
+  }, _defineProperty(_React$createElement5, "md", 6), _defineProperty(_React$createElement5, "controlId", "validationCustom15"), _React$createElement5), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Periodo de Ejecuci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    name: "periodo_ejecucion",
+    options: optionPeriodoEjecucion,
+    value: inputs.periodoejecucion,
+    required: true,
+    onChange: function onChange(e, meta) {
+      var data_select = {
+        'periodo_ejecucion': e.value,
+        periodoejecucion: e
+      };
+      onChangeValue(e, data_select);
+    }
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Form_Field);
@@ -87694,32 +87764,74 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var GACT_PROCESO = function GACT_PROCESO() {
-  var url = 'gactProceso'; //columnas de la tabla
+  var url = 'gactProceso';
+  var title = 'Proceso';
+  var urlListDataTable = 'getGactProcesoAll'; //columnas de la tabla
 
   var columnsTable = [{
     data: "proc_nombre",
     render: function render(type, data, row) {
-      return row.proc_grado_automatizacion;
+      return row.macros.macpro_nombre;
     }
   }, {
-    data: "proc_grado_automatizacion"
+    data: "proc_nombre"
   }, {
     data: "proc_grado_automatizacion"
   }, {
-    data: "proc_grado_automatizacion"
+    data: "proc_grado_descentralizacion"
+  }, {
+    data: "proc_periodo_ejecucion"
   }, {
     data: "proc_periodo_ejecucion"
   }]; //Cabecera de la tabla
 
-  var headTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre del proceso"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Grado acutomatizacion"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Estado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Accion")));
-  var getColumnTable = 'proc_nombre';
+  var headTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Macro Proceso"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre del proceso"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Grado de automatizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Grado Descentralizado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Periodo de Ejecucion"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Accion"))); //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
+
+  var getColumnTable = 'proc_nombre'; //posicion de las acciones en la tabla
+
+  var target_action = 5;
   var head_column_table = {
     headTable: headTable,
     columnsTable: columnsTable,
-    getColumnTable: getColumnTable
+    getColumnTable: getColumnTable,
+    target_action: target_action
+  };
+  /**
+   * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form
+   * @param {json} data 
+   */
+
+  var getDataInputs = function getDataInputs(data) {
+    var result = {
+      //setea las opciones del SELECT
+      macroproceso: {
+        label: data.macros.macpro_nombre,
+        value: data.macros.id
+      },
+      gradoautomatizacion: {
+        label: data.proc_grado_automatizacion,
+        value: data.proc_grado_automatizacion
+      },
+      gradodescentralizacion: {
+        label: data.proc_grado_descentralizacion,
+        value: data.proc_grado_descentralizacion
+      },
+      periodoejecucion: {
+        label: data.proc_periodo_ejecucion,
+        value: data.proc_periodo_ejecucion
+      },
+      //setea valores de los campos
+      macro_proceso: data.macros.id,
+      grado_automatizacion: data.proc_grado_automatizacion,
+      grado_descentralizacion: data.proc_grado_descentralizacion,
+      periodo_ejecucion: data.proc_periodo_ejecucion,
+      nombre: data.proc_nombre // nombre: data.proc_nombre,
+
+    };
+    return result;
   };
 
-  var _properties_form = Object(_tools_properties_form__WEBPACK_IMPORTED_MODULE_6__["default"])(url, head_column_table),
+  var _properties_form = Object(_tools_properties_form__WEBPACK_IMPORTED_MODULE_6__["default"])(url, head_column_table, getDataInputs),
       btnOpenModal = _properties_form.btnOpenModal,
       modalBT = _properties_form.modalBT,
       propertiesDataTable = _properties_form.propertiesDataTable;
@@ -87728,7 +87840,7 @@ var GACT_PROCESO = function GACT_PROCESO() {
     loading: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null),
     title: "Proceso",
     table: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table_table_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      url: "getGactProcesoAll",
+      url: urlListDataTable,
       propertiesDataTable: propertiesDataTable
     }),
     modalBT: modalBT(_fields__WEBPACK_IMPORTED_MODULE_5__["default"]),
@@ -87987,7 +88099,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _tools_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tools/tools */ "./resources/js/components/tools/tools.js");
-/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modal/modal */ "./resources/js/components/modal/modal.js");
+/* harmony import */ var _table_table_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../table/table.js */ "./resources/js/components/table/table.js");
+/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal/modal */ "./resources/js/components/modal/modal.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -88008,28 +88121,40 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var properties_form = function properties_form(url) {
   var head_column_table = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var getDataInputs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
       showModal = _useState2[0],
-      setShowModal = _useState2[1];
+      setShowModal = _useState2[1]; //state del modal de bootstrap para mostrar o ocultar el modal,function ( modalBT )
+
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
       validated = _useState4[0],
-      setValidated = _useState4[1];
+      setValidated = _useState4[1]; //state para activar o desactiva notificacion de validaciones en el form
+
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({}),
       _useState6 = _slicedToArray(_useState5, 2),
       inputs = _useState6[0],
-      setInputs = _useState6[1];
+      setInputs = _useState6[1]; //state de los campos del formulario, setea y retorna valores del formulario 
+
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
       _useState8 = _slicedToArray(_useState7, 2),
       elementId = _useState8[0],
-      setElementId = _useState8[1];
+      setElementId = _useState8[1]; ////este state trabaja con la tabla datatable, cuando se activa la accion de "editar" guarda el id del elemento seleccionado
+
+  /**
+   * Setea el state inputs con los valores de los formulario
+   * @param {*} event //evento de los inputs de cualquier tipo( text, checkox, radio, etc )
+   * @param {*} dataPersonalizate // data personalizada, esto siver para setear alguna informacion extra en el State Inputs
+   */
+
 
   var onChangeValue = function onChangeValue(event) {
     var dataPersonalizate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -88041,6 +88166,9 @@ var properties_form = function properties_form(url) {
       });
     } else {
       //recorre todo le json
+      console.log("dataPersonalizada");
+      console.log(dataPersonalizate);
+
       for (var key in dataPersonalizate) {
         setInputs(function (inputs) {
           return _objectSpread({}, inputs, _defineProperty({}, key, dataPersonalizate[key]));
@@ -88080,27 +88208,33 @@ var properties_form = function properties_form(url) {
             response = _context.sent;
 
             if (response.status) {
-              getAllConfinaciadoresByProy();
-              cleanForm();
+              setShowModal(false);
+              Object(_table_table_js__WEBPACK_IMPORTED_MODULE_3__["reloadTableData"])();
+              setInputs({});
             }
 
             return _context.abrupt("return");
 
           case 10:
             setValidated(true);
-            console.log(inputs);
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
     });
   };
+  /**
+   * retorna componente Modal de bootrap
+   * @param {object} fields componente de los campos a mostrar en formulario del modal
+   */
+
 
   var modalBT = function modalBT(fields) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      state: showModal,
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      state: showModal //estado del modal( true = show, false = hidden )
+      ,
       closeModal: function closeModal() {
         return setShowModal(false);
       },
@@ -88121,6 +88255,7 @@ var properties_form = function properties_form(url) {
       onClick: function onClick() {
         setShowModal(true);
         setElementId(0);
+        setInputs({});
       },
       className: "btn btn-success"
     }, "Adicionar ", title);
@@ -88132,7 +88267,7 @@ var properties_form = function properties_form(url) {
 
 
   var getByIdElement = function getByIdElement(id) {
-    var response;
+    var response, dataInputs;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getByIdElement$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -88144,16 +88279,10 @@ var properties_form = function properties_form(url) {
             response = _context2.sent;
 
             if (response.status) {
-              setShowModal(true);
-              setInputs({
-                nombre: response.data.proc_nombre
-              });
-              setInputs({
-                macroproceso: {
-                  label: 'prueba',
-                  value: 1
-                }
-              });
+              setShowModal(true); //getDataInputs retorna los valores para los campos en el formulario
+
+              dataInputs = getDataInputs(response.data);
+              setInputs(dataInputs);
               setElementId(response.data.id);
             }
 
@@ -88164,14 +88293,25 @@ var properties_form = function properties_form(url) {
       }
     });
   };
+  /**
+   * retorna las propiedades necesarias para el Plugins DataTables
+   * @param {integer} elementId id del elemento de una fila seleccionado en el datatable
+   * @param {string} nombre nombre del elemento de una fila seleccionado en el datatable
+   */
+
 
   var propertiesDataTable = function propertiesDataTable(elementId) {
     var nombre = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-    var head = head_column_table.headTable;
-    var columns = head_column_table.columnsTable;
-    var getColumn = head_column_table.getColumnTable;
+    var head = head_column_table.headTable; //cabecera de la table <Head>
+
+    var columns = head_column_table.columnsTable; // columnas de la tabla 
+
+    var getColumn = head_column_table.getColumnTable; // columna que se quiere extraer de la tabla
+
+    var target = head_column_table.target_action; // posicion de la columna donde se quiere mostrar los botones de acciones (editar, eliminar)
+
     var btnActionUpdate = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-      className: "btn btn-primary",
+      className: "btn  btn-primary btn-sm",
       onClick: function onClick() {
         return getByIdElement(elementId);
       }
@@ -88179,7 +88319,7 @@ var properties_form = function properties_form(url) {
       className: "fas fa-edit"
     }));
     var btnActionDelete = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-      className: "btn btn-danger",
+      className: "btn btn-danger btn-sm",
       onClick: function onClick() {
         return Object(_tools_tools__WEBPACK_IMPORTED_MODULE_2__["deletedElement"])(url, elementId, nombre);
       }
@@ -88198,7 +88338,7 @@ var properties_form = function properties_form(url) {
     return {
       columns: columns,
       head: head,
-      targets: [4],
+      targets: [target],
       btnActionDelete: btnActionDelete,
       btnActionUpdate: btnActionUpdate,
       getColumn: getColumn // btnActionOthers: btnActionOthers
@@ -88280,7 +88420,7 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
           if (elementId) {
-            _context.next = 24;
+            _context.next = 20;
             break;
           }
 
@@ -88295,45 +88435,46 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             },
             body: JSON.stringify(dataForm)
           }).then(function (response) {
-            // console.log(response);
-            // if (response.ok) {
-            return response.json(); // }
-            // alertify
-            // .alert(messageSend.error, function(){
-            //     alertify.message('OK');
-            // });
+            return response.json();
+          }).then(function (response) {
+            if (response.errors) {
+              var dataError = response.errors;
+              console.log("dataError: " + dataError);
+              var message_error_html = "";
 
-            return response.json(); // throw new Error('A ocurrido un error');
-          }).then(function (result) {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
-            return result;
+              for (var key in dataError) {
+                var errors_array = dataError[key];
+                console.log("error_array: " + errors_array);
+                errors_array.forEach(function (element) {
+                  message_error_html += element + "<br>";
+                });
+              }
+
+              alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Error', message_error_html);
+              return response;
+            }
+
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(response.message);
+            return response;
           }));
 
         case 11:
           request = _context.sent;
-          _context.next = 22;
+          _context.next = 18;
           break;
 
         case 14:
           _context.prev = 14;
           _context.t0 = _context["catch"](8);
-          _context.t1 = console;
-          _context.next = 19;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(request);
-
-        case 19:
-          _context.t2 = _context.sent;
-
-          _context.t1.log.call(_context.t1, _context.t2);
-
+          console.log(_context.t0);
           return _context.abrupt("return", _context.t0);
 
-        case 22:
-          _context.next = 27;
+        case 18:
+          _context.next = 23;
           break;
 
-        case 24:
-          _context.next = 26;
+        case 20:
+          _context.next = 22;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + "/" + elementId, {
             method: "PUT",
             headers: {
@@ -88344,20 +88485,37 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             body: JSON.stringify(dataForm)
           }).then(function (res) {
             return res.json();
-          }).then(function (result) {
-            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(result.message);
-            return result;
+          }).then(function (response) {
+            if (response.errors) {
+              var dataError = response.errors;
+              console.log("dataError: " + dataError);
+              var message_error_html = "";
+
+              for (var key in dataError) {
+                var errors_array = dataError[key];
+                console.log("error_array: " + errors_array);
+                errors_array.forEach(function (element) {
+                  message_error_html += element + "<br>";
+                });
+              }
+
+              alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Error', message_error_html);
+              return response;
+            }
+
+            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(response.message);
+            return response;
           }, function (error) {
-            console.log(error);
+            console.log("a ocurrido un error" + error);
           }));
 
-        case 26:
+        case 22:
           request = _context.sent;
 
-        case 27:
+        case 23:
           return _context.abrupt("return", request);
 
-        case 28:
+        case 24:
         case "end":
           return _context.stop();
       }

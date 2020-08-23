@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet"  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- Bootstrap 4 -->
+   <link rel="stylesheet"  href="{{asset('plugins/bootstrap-4.4.1/css/bootstrap.css')}}" >
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet"  href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}" >
   <!-- iCheck -->
@@ -27,7 +29,36 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- ESTILOS DEL DATATABLE -->
   <link rel="stylesheet" href="{{asset('plugins/datatables/datatables.min.css')}}">
+  <!-- datatables-bs4 -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+  <!-- datatables-responsive -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}">
+  <!-- datatables-buttons -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.css')}}">
+  <!-- datatables-autofill -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-autofill/css/autoFill.bootstrap4.css')}}">
+  <!-- datatables-fixedcolumns -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css')}}">
+  <!-- datatables-fixedHeader -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css')}}">
+  <!-- datatables-colReorder -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-colreorder/css/colReorder.bootstrap4.css')}}">
+  <!-- datatables-keytable -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-keytable/css/keyTable.bootstrap4.css')}}">
+  <!-- datatables-rowgroup -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-rowgroup/css/rowGroup.bootstrap4.css')}}">
+  <!-- datatables-rowreorder -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-rowreorder/css/rowReorder.bootstrap4.css')}}">
+  <!-- datatables-scroller -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-scroller/css/scroller.bootstrap4.css')}}">
+  <!-- datatables-select -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables-select/css/select.bootstrap4.css')}}">
+  
+  
+  <!-- alertify -->
   <link rel="stylesheet" href="{{asset('plugins/alertify/alertify.css')}}">
 </head>
 <?php
@@ -250,6 +281,9 @@ Redirect::to('login')->send();
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('plugins/admLte/js/adminlte.js')}}"></script>
+
+
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="{{asset('dist/js/pages/dashboard.js')}}"></script> -->
 <!-- AdminLTE for demo purposes -->
@@ -270,5 +304,15 @@ Redirect::to('login')->send();
             })
  </script>
 @yield('Jscripts')
+<!-- datatables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<!-- <script src="{{asset('plugins/datatables/datatables.min.js')}}"></script> -->
+  <!-- datatables-bs4 -->
+  <script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.js')}}"></script>
+  <script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.bundle.min.js')}}"></script>
+<!-- datatables-responsive -->
+<script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.js')}}"></script>
+<!-- datatables-responsive -->
+<script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.js')}}"></script>
 </body>
 </html>

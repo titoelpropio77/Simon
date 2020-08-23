@@ -268,7 +268,7 @@ const Confinaciadores = props => {
         const btnActionUpdate = (
             <button
                 className="btn btn-primary"
-                // onClick={() => this.getByElementId(elementId)}
+                onClick={() => this.getByElementId(elementId)}
             >
                 <i className="fas fa-edit"></i>
             </button>
@@ -276,7 +276,7 @@ const Confinaciadores = props => {
         const btnActionDelete = (
             <button
                 className="btn btn-danger"
-                // onClick={() => this.deletedElement(elementId)}
+                onClick={() => this.deletedElement(elementId)}
             >
                 <i className="fas fa-trash-alt"></i>
             </button>

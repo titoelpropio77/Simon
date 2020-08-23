@@ -1,11 +1,17 @@
 import React,{useState} from 'react';
 import {deletedElement,saveDataForm,getById} from "../tools/tools";
+import {reloadTableData } from "../table/table.js";
 import ModalBT from "../modal/modal";
-const properties_form = (url, head_column_table = {}) => {
-    const [ showModal, setShowModal ] = useState(false);
-    const [ validated, setValidated ] = useState(false);
-    const [ inputs, setInputs ] = useState({});
-    const [ elementId, setElementId ] = useState(0);
+const properties_form = (url, head_column_table = {}, getDataInputs = {}) => {
+    const [ showModal, setShowModal ] = useState(false);//state del modal de bootstrap para mostrar o ocultar el modal,function ( modalBT )
+    const [ validated, setValidated ] = useState(false);//state para activar o desactiva notificacion de validaciones en el form
+    const [ inputs, setInputs ] = useState({});//state de los campos del formulario, setea y retorna valores del formulario 
+    const [ elementId, setElementId ] = useState(0);////este state trabaja con la tabla datatable, cuando se activa la accion de "editar" guarda el id del elemento seleccionado
+    /**
+     * Setea el state inputs con los valores de los formulario
+     * @param {*} event //evento de los inputs de cualquier tipo( text, checkox, radio, etc )
+     * @param {*} dataPersonalizate // data personalizada, esto siver para setear alguna informacion extra en el State Inputs
+     */ 
     const onChangeValue = (event,dataPersonalizate = {}) => {
         if( Object.entries( dataPersonalizate ).length == 0 ){
             event.persist();
@@ -16,6 +22,8 @@ const properties_form = (url, head_column_table = {}) => {
         }else
         {
             //recorre todo le json
+            console.log("dataPersonalizada");
+            console.log(dataPersonalizate);
             for (var key in dataPersonalizate) {
                 setInputs(inputs => ({
                     ...inputs,
@@ -45,19 +53,23 @@ const properties_form = (url, head_column_table = {}) => {
             );
             if( response.status )
             {
-                getAllConfinaciadoresByProy();
-                cleanForm();
+                setShowModal(false);
+                reloadTableData();
+                setInputs({});
             }
             return;
 
         }
             setValidated(true);
-        console.log( inputs );
     }
+    /**
+     * retorna componente Modal de bootrap
+     * @param {object} fields componente de los campos a mostrar en formulario del modal
+     */
     const modalBT =( fields ) =>
     {
         return (<ModalBT
-                state={showModal}
+                state={showModal}//estado del modal( true = show, false = hidden )
                 closeModal={() => setShowModal(false) }
                 field={fields( onChangeValue, inputs )}
                 validated ={validated}
@@ -74,6 +86,7 @@ const properties_form = (url, head_column_table = {}) => {
             onClick={() => {
                 setShowModal(true);
                 setElementId(0);
+                setInputs({});
                 }
             }
             className="btn btn-success"
@@ -90,20 +103,26 @@ const properties_form = (url, head_column_table = {}) => {
         if( response.status )
         {
             setShowModal(true);
-            setInputs({nombre: response.data.proc_nombre});
-            setInputs({macroproceso: { label :'prueba' , value: 1 }});
-
+            //getDataInputs retorna los valores para los campos en el formulario
+            const dataInputs = getDataInputs( response.data );
+            setInputs( dataInputs );
             setElementId( response.data.id );
         }
     }
+    /**
+     * retorna las propiedades necesarias para el Plugins DataTables
+     * @param {integer} elementId id del elemento de una fila seleccionado en el datatable
+     * @param {string} nombre nombre del elemento de una fila seleccionado en el datatable
+     */
     const propertiesDataTable = (elementId, nombre = '')  => {
         
-        const head = head_column_table.headTable;
-        const columns = head_column_table.columnsTable;
-        const getColumn = head_column_table.getColumnTable;
+        const head = head_column_table.headTable;//cabecera de la table <Head>
+        const columns = head_column_table.columnsTable;// columnas de la tabla 
+        const getColumn = head_column_table.getColumnTable;// columna que se quiere extraer de la tabla
+        const target = head_column_table.target_action;// posicion de la columna donde se quiere mostrar los botones de acciones (editar, eliminar)
         const btnActionUpdate = (
             <button
-            className="btn btn-primary"
+            className="btn  btn-primary btn-sm"
             onClick={() => getByIdElement(elementId)}
             >
                 <i className="fas fa-edit"></i>
@@ -111,7 +130,7 @@ const properties_form = (url, head_column_table = {}) => {
         );
         const btnActionDelete = (
             <button
-                className="btn btn-danger"
+                className="btn btn-danger btn-sm"
                 onClick={() => deletedElement( url, elementId, nombre)}
             >
                 <i className="fas fa-trash-alt"></i>
@@ -129,7 +148,7 @@ const properties_form = (url, head_column_table = {}) => {
         return {
             columns: columns,
             head: head,
-            targets: [4],
+            targets: [target],
             btnActionDelete: btnActionDelete,
             btnActionUpdate: btnActionUpdate,
             getColumn: getColumn,

@@ -10,7 +10,7 @@ class GAct_Proceso extends Model
     private $prex = 'proc_';
     protected $fillable = [
     	'proc_nombre',
-    	'proc_grado_automatizacion|',
+    	'proc_grado_automatizacion',
     	'proc_grado_descentralizacion',
     	'proc_periodo_ejecucion',
     	'proc_reponsable_revision',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const loading = () => {
+const Loading = () => {
     return (
     <div id='loading'>
     <img src='images/Cargando.gif' style={{margin:'0 auto',
@@ -12,4 +12,4 @@ const loading = () => {
     height: 32}}/>
 </div>);
 }
-export default loading;
+export default Loading;

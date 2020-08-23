@@ -40,23 +40,30 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
                 body: JSON.stringify(dataForm)
             })
                 .then(response => {
-                    // console.log(response);
-                    // if (response.ok) {
                     return response.json();
-                    // }
-                    // alertify
-                    // .alert(messageSend.error, function(){
-                    //     alertify.message('OK');
-                    // });
-                    return response.json();
-                    // throw new Error('A ocurrido un error');
                 })
-                .then(result => {
-                    alertify.success(result.message);
-                    return result;
+                .then(response => {
+                    if ( response.errors )
+                    {
+                        var dataError = response.errors;
+                        console.log("dataError: " + dataError);
+                        var message_error_html = "";
+                        for (var key in  dataError)
+                        {
+                            var errors_array = dataError[key];
+                            console.log("error_array: " + errors_array);
+                            errors_array.forEach(element => {
+                                message_error_html += element+"<br>";
+                            });
+                        }
+                        alertify.alert('Error',message_error_html);
+                        return response;
+                    }
+                    alertify.success(response.message);
+                    return response;
                 });
         } catch (error) {
-            console.log(await request);
+            console.log( error);
             return error;
         }
     } else {
@@ -71,12 +78,28 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
         })
             .then(res => res.json())
             .then(
-                result => {
-                    alertify.success(result.message);
-                    return result;
+                response => {
+                    if ( response.errors )
+                    {
+                        var dataError = response.errors;
+                        console.log("dataError: " + dataError);
+                        var message_error_html = "";
+                        for (var key in  dataError)
+                        {
+                            var errors_array = dataError[key];
+                            console.log("error_array: " + errors_array);
+                            errors_array.forEach(element => {
+                                message_error_html += element+"<br>";
+                            });
+                        }
+                        alertify.alert('Error',message_error_html);
+                        return response;
+                    }
+                    alertify.success(response.message);
+                    return response;
                 },
                 error => {
-                    console.log(error);
+                    console.log("a ocurrido un error"+error);
                 }
             );
     }
