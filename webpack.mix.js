@@ -20,6 +20,8 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 //proyecto
 .react( 'resources/js/components/proyecto/proyecto.js', 'public/js/proyecto.js' )
 .react( 'resources/js/components/proyecto/proyecto.create.js', 'public/js/proyecto.create.js' )
+//cliente
+.react('resources/js/components/gact_proceso/gact_proceso.js', 'public/js/gact_proceso.js')
 
 //Macro Proceso
 .react('resources/js/components/macro/macro.js','public/js/macro.js')
