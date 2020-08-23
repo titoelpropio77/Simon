@@ -83,3 +83,9 @@ Route::post( 'getListClaPresupuestario', [ 'uses'=>'EstruturaFinanciamientoContr
 Route::post( 'getEFByProyecto', [ 'uses'=>'EstruturaFinanciamientoController@getEFByProyecto'] );
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//cliente
+Route::resource( 'gactProceso', 'GAct_ProcesoController' );
+Route::post('getGactProcesoAll',[ 'uses'=>'GAct_ProcesoController@getDataTable']);
+Route::post('getMacroProceso',[ 'uses'=>'GAct_ProcesoController@getMacroProceso']);
+
