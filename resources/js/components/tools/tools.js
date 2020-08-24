@@ -28,47 +28,11 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
     let token = document
         .querySelector("meta[name='csrf-token']")
         .getAttribute("content");
-    if (!elementId) {
-        try {
-            request = await fetch(urlSave, {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": token,
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataForm)
-            })
-                .then(response => {
-                    return response.json();
-                })
-                .then(response => {
-                    if ( response.errors )
-                    {
-                        var dataError = response.errors;
-                        console.log("dataError: " + dataError);
-                        var message_error_html = "";
-                        for (var key in  dataError)
-                        {
-                            var errors_array = dataError[key];
-                            console.log("error_array: " + errors_array);
-                            errors_array.forEach(element => {
-                                message_error_html += element+"<br>";
-                            });
-                        }
-                        alertify.alert('Error',message_error_html);
-                        return response;
-                    }
-                    alertify.success(response.message);
-                    return response;
-                });
-        } catch (error) {
-            console.log( error);
-            return error;
-        }
-    } else {
-        request = await fetch(urlSave + "/" + elementId, {
-            method: "PUT",
+    var url = elementId ? urlSave + "/" + elementId : urlSave;
+    var method = elementId ? "PUT" : "POST";
+    try {
+        request = await fetch(url, {
+            method: method,
             headers: {
                 "X-CSRF-TOKEN": token,
                 Accept: "application/json",
@@ -76,33 +40,34 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
             },
             body: JSON.stringify(dataForm)
         })
-            .then(res => res.json())
-            .then(
-                response => {
-                    if ( response.errors )
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                if ( response.errors )
+                {
+                    var dataError = response.errors;
+                    console.log("dataError: " + dataError);
+                    var message_error_html = "";
+                    for (var key in  dataError)
                     {
-                        var dataError = response.errors;
-                        console.log("dataError: " + dataError);
-                        var message_error_html = "";
-                        for (var key in  dataError)
-                        {
-                            var errors_array = dataError[key];
-                            console.log("error_array: " + errors_array);
-                            errors_array.forEach(element => {
-                                message_error_html += element+"<br>";
-                            });
-                        }
-                        alertify.alert('Error',message_error_html);
-                        return response;
+                        var errors_array = dataError[key];
+                        console.log("error_array: " + errors_array);
+                        errors_array.forEach(element => {
+                            message_error_html += element+"<br>";
+                        });
                     }
-                    alertify.success(response.message);
+                    alertify.alert('Error',message_error_html);
                     return response;
-                },
-                error => {
-                    console.log("a ocurrido un error"+error);
                 }
-            );
+                alertify.success(response.message);
+                return response;
+            });
+    } catch (error) {
+        console.log( error);
+        return error;
     }
+    
     return request;
 };
 export const getById = async (url, id) => {
@@ -128,8 +93,9 @@ export const getById = async (url, id) => {
         );
     return request;
 };
-export const deletedElement =  (url, id, nombre= "") => {
-    alertify.confirm('Eliminar item', 'Esta seguro que desea eliminar ' + nombre, async function(){
+export const deletedElement =   (url, id, nombre= "") => {
+    alertify.confirm('Eliminar item', '¿Esta seguro que desea eliminar ' + nombre + '?', 
+    async function(){
          var request = await fetch(url + "/" + id, {
             method: "DELETE",
             headers: {
@@ -155,8 +121,8 @@ export const deletedElement =  (url, id, nombre= "") => {
             );
          return request;
     },
-     function(){
-        alertify.error('Cancelado');
+        function(){
+            alertify.error('Cancelado');
         });
 
 };

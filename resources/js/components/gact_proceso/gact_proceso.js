@@ -53,14 +53,14 @@ const GACT_PROCESO = () => {
     );
     //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
     const getColumnTable = 'proc_nombre';
-    //posicion de las acciones en la tabla
+    //posicion de los botones de acciones  en la tabla
     const target_action = 5;
     const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
     /**
      * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form
      * @param {json} data 
      */
-    const getDataInputs = ( data ) =>
+    const setDataInputs = ( data ) =>
     {
         const result = { 
             //setea las opciones del SELECT
@@ -78,7 +78,7 @@ const GACT_PROCESO = () => {
         };
         return result ;
     }
-    const {btnOpenModal, modalBT, propertiesDataTable} = properties_form(url, head_column_table, getDataInputs);
+    const {btnOpenModal, modalBT, propertiesDataTable} = properties_form(url, head_column_table, setDataInputs);
     return (
             <div>
                 <Wrapper

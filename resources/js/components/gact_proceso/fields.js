@@ -43,7 +43,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
     },[]);
     return   (
             <Row>
-                <Form.Group as={Col} md="6" lg={6} md={6} controlId="validationCustom10" >
+                <Form.Group as={Col} sm="12" lg={6} md={6} controlId="validationCustom10" >
                         <Form.Label>Macro Proceso</Form.Label>
                         <Select
                             name="macro_proceso"
@@ -60,7 +60,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                             }}
                         />
                 </Form.Group>
-                <Form.Group as={Col} md="6" lg={6} md={6} controlId="validationCustom11" >
+                <Form.Group as={Col} sm="6" lg={6} md={6} controlId="validationCustom11" >
                     <Form.Label>Nombre Proceso</Form.Label>
                     <Form.Control
                             type="text"
@@ -73,7 +73,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                         El campo es obligatorio
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="6" lg={6} md={6} controlId="validationCustom12" >
+                <Form.Group as={Col} sm="8" lg={6} md={6} controlId="validationCustom12" >
                     <Form.Label>Grado de automatización</Form.Label>
                     <Select
                             name="grado_automatizacion"
@@ -85,7 +85,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                             }}
                         />
                 </Form.Group>
-                <Form.Group as={Col} md="6" lg={6} md={6} controlId="validationCustom14" >
+                <Form.Group as={Col} sm="7" lg={6} md={6} controlId="validationCustom14" >
                     <Form.Label>Grado Descentralización</Form.Label>
                     <Select
                             name="grado_descentralizacion"
@@ -98,7 +98,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                             }}
                         />
                 </Form.Group>
-                <Form.Group as={Col} md="6" lg={6} md={6} controlId="validationCustom15" >
+                <Form.Group as={Col} sm="5" lg={6} md={6} controlId="validationCustom15" >
                     <Form.Label>Periodo de Ejecución</Form.Label>
                     <Select
                             name="periodo_ejecucion"

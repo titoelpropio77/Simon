@@ -19,7 +19,6 @@ class GAct_Proceso extends Model
     ];
     public function macros()
     {
-        // return $this->hasMany('App/Macro', 'proc_macroproceso_id');
         return $this->belongsTo(Macro::class, 'proc_macroproceso_id');
     }
     public function getAllMacroProceso(){

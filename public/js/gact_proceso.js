@@ -87534,7 +87534,9 @@ var Body = function Body(_ref) {
     }
   }, btnOpenModal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-12"
-  }, table)))))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "table"
+  }, table))))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Body);
@@ -87559,8 +87561,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
 
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -87575,8 +87575,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Form_Field = function Form_Field(onChangeValue, inputs) {
-  var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4, _React$createElement5;
-
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([{
     label: "Seleccion",
     value: 0
@@ -87652,11 +87650,13 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
 
     getMacroprocesos();
   }, []);
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement = {
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
-    md: "6",
-    lg: 6
-  }, _defineProperty(_React$createElement, "md", 6), _defineProperty(_React$createElement, "controlId", "validationCustom10"), _React$createElement), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Macro Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    sm: "12",
+    lg: 6,
+    md: 6,
+    controlId: "validationCustom10"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Macro Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     name: "macro_proceso",
     options: macroprocesOption,
     required: true // isDisabled={ disableSelect }
@@ -87671,11 +87671,13 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
 
       onChangeValue(e, data_select);
     }
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement2 = {
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
-    md: "6",
-    lg: 6
-  }, _defineProperty(_React$createElement2, "md", 6), _defineProperty(_React$createElement2, "controlId", "validationCustom11"), _React$createElement2), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Nombre Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
+    sm: "6",
+    lg: 6,
+    md: 6,
+    controlId: "validationCustom11"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Nombre Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control, {
     type: "text",
     name: "nombre",
     required: true,
@@ -87683,11 +87685,13 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
     value: inputs ? inputs.nombre : ""
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Control.Feedback, {
     type: "invalid"
-  }, "El campo es obligatorio")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement3 = {
+  }, "El campo es obligatorio")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
-    md: "6",
-    lg: 6
-  }, _defineProperty(_React$createElement3, "md", 6), _defineProperty(_React$createElement3, "controlId", "validationCustom12"), _React$createElement3), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado de automatizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    sm: "8",
+    lg: 6,
+    md: 6,
+    controlId: "validationCustom12"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado de automatizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     name: "grado_automatizacion",
     options: optionsGradoAutomatizacion,
     value: inputs.gradoautomatizacion,
@@ -87698,11 +87702,13 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
       };
       onChangeValue(e, data_select);
     }
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement4 = {
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
-    md: "6",
-    lg: 6
-  }, _defineProperty(_React$createElement4, "md", 6), _defineProperty(_React$createElement4, "controlId", "validationCustom14"), _React$createElement4), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado Descentralizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    sm: "7",
+    lg: 6,
+    md: 6,
+    controlId: "validationCustom14"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Grado Descentralizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     name: "grado_descentralizacion",
     options: optionGradoDescentralizacion,
     value: inputs.gradodescentralizacion,
@@ -87714,11 +87720,13 @@ var Form_Field = function Form_Field(onChangeValue, inputs) {
       };
       onChangeValue(e, data_select);
     }
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, (_React$createElement5 = {
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Group, {
     as: react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"],
-    md: "6",
-    lg: 6
-  }, _defineProperty(_React$createElement5, "md", 6), _defineProperty(_React$createElement5, "controlId", "validationCustom15"), _React$createElement5), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Periodo de Ejecuci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    sm: "5",
+    lg: 6,
+    md: 6,
+    controlId: "validationCustom15"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Label, null, "Periodo de Ejecuci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     name: "periodo_ejecucion",
     options: optionPeriodoEjecucion,
     value: inputs.periodoejecucion,
@@ -87787,7 +87795,7 @@ var GACT_PROCESO = function GACT_PROCESO() {
 
   var headTable = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Macro Proceso"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre del proceso"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Grado de automatizaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Grado Descentralizado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Periodo de Ejecucion"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Accion"))); //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
 
-  var getColumnTable = 'proc_nombre'; //posicion de las acciones en la tabla
+  var getColumnTable = 'proc_nombre'; //posicion de los botones de acciones  en la tabla
 
   var target_action = 5;
   var head_column_table = {
@@ -87801,7 +87809,7 @@ var GACT_PROCESO = function GACT_PROCESO() {
    * @param {json} data 
    */
 
-  var getDataInputs = function getDataInputs(data) {
+  var setDataInputs = function setDataInputs(data) {
     var result = {
       //setea las opciones del SELECT
       macroproceso: {
@@ -87831,7 +87839,7 @@ var GACT_PROCESO = function GACT_PROCESO() {
     return result;
   };
 
-  var _properties_form = Object(_tools_properties_form__WEBPACK_IMPORTED_MODULE_6__["default"])(url, head_column_table, getDataInputs),
+  var _properties_form = Object(_tools_properties_form__WEBPACK_IMPORTED_MODULE_6__["default"])(url, head_column_table, setDataInputs),
       btnOpenModal = _properties_form.btnOpenModal,
       modalBT = _properties_form.modalBT,
       propertiesDataTable = _properties_form.propertiesDataTable;
@@ -88124,7 +88132,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var properties_form = function properties_form(url) {
   var head_column_table = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var getDataInputs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var setDataInputs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -88159,6 +88167,7 @@ var properties_form = function properties_form(url) {
   var onChangeValue = function onChangeValue(event) {
     var dataPersonalizate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
+    //Object.entries extrae informacion del objeto
     if (Object.entries(dataPersonalizate).length == 0) {
       event.persist();
       setInputs(function (inputs) {
@@ -88281,7 +88290,7 @@ var properties_form = function properties_form(url) {
             if (response.status) {
               setShowModal(true); //getDataInputs retorna los valores para los campos en el formulario
 
-              dataInputs = getDataInputs(response.data);
+              dataInputs = setDataInputs(response.data);
               setInputs(dataInputs);
               setElementId(response.data.id);
             }
@@ -88391,6 +88400,8 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
   var messageSend,
       request,
       token,
+      url,
+      method,
       _args = arguments;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function saveDataForm$(_context) {
     while (1) {
@@ -88418,16 +88429,12 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
 
         case 6:
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-
-          if (elementId) {
-            _context.next = 20;
-            break;
-          }
-
-          _context.prev = 8;
-          _context.next = 11;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave, {
-            method: "POST",
+          url = elementId ? urlSave + "/" + elementId : urlSave;
+          method = elementId ? "PUT" : "POST";
+          _context.prev = 9;
+          _context.next = 12;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
+            method: method,
             headers: {
               "X-CSRF-TOKEN": token,
               Accept: "application/json",
@@ -88458,69 +88465,26 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             return response;
           }));
 
-        case 11:
+        case 12:
           request = _context.sent;
-          _context.next = 18;
+          _context.next = 19;
           break;
 
-        case 14:
-          _context.prev = 14;
-          _context.t0 = _context["catch"](8);
+        case 15:
+          _context.prev = 15;
+          _context.t0 = _context["catch"](9);
           console.log(_context.t0);
           return _context.abrupt("return", _context.t0);
 
-        case 18:
-          _context.next = 23;
-          break;
-
-        case 20:
-          _context.next = 22;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + "/" + elementId, {
-            method: "PUT",
-            headers: {
-              "X-CSRF-TOKEN": token,
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dataForm)
-          }).then(function (res) {
-            return res.json();
-          }).then(function (response) {
-            if (response.errors) {
-              var dataError = response.errors;
-              console.log("dataError: " + dataError);
-              var message_error_html = "";
-
-              for (var key in dataError) {
-                var errors_array = dataError[key];
-                console.log("error_array: " + errors_array);
-                errors_array.forEach(function (element) {
-                  message_error_html += element + "<br>";
-                });
-              }
-
-              alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Error', message_error_html);
-              return response;
-            }
-
-            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(response.message);
-            return response;
-          }, function (error) {
-            console.log("a ocurrido un error" + error);
-          }));
-
-        case 22:
-          request = _context.sent;
-
-        case 23:
+        case 19:
           return _context.abrupt("return", request);
 
-        case 24:
+        case 20:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[8, 14]]);
+  }, null, null, [[9, 15]]);
 };
 var getById = function getById(url, id) {
   var request;
@@ -88558,7 +88522,7 @@ var getById = function getById(url, id) {
 };
 var deletedElement = function deletedElement(url, id) {
   var nombre = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
-  alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.confirm('Eliminar item', 'Esta seguro que desea eliminar ' + nombre, function _callee() {
+  alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.confirm('Eliminar item', '¿Esta seguro que desea eliminar ' + nombre + '?', function _callee() {
     var request;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function _callee$(_context3) {
       while (1) {
@@ -88755,10 +88719,7 @@ var saveTypeDataForm = function saveTypeDataForm(urlSave, dataForm, elementId) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _body_Body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../body/Body */ "./resources/js/components/body/Body.js");
-
+/* harmony import */ var _body_Body__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../body/Body */ "./resources/js/components/body/Body.js");
 
 
 
@@ -88771,7 +88732,7 @@ var Wrapper = function Wrapper(_ref) {
       loading = _ref.loading,
       modalBT = _ref.modalBT,
       btnOpenModal = _ref.btnOpenModal;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_body_Body__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_body_Body__WEBPACK_IMPORTED_MODULE_1__["default"], {
     urlSave: urlSave,
     title: title,
     table: table,
@@ -88794,7 +88755,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp7_4\htdocs\Simon\resources\js\components\gact_proceso\gact_proceso.js */"./resources/js/components/gact_proceso/gact_proceso.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\gact_proceso\gact_proceso.js */"./resources/js/components/gact_proceso/gact_proceso.js");
 
 
 /***/ })

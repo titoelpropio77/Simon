@@ -80057,7 +80057,9 @@ var Body = function Body(_ref) {
     }
   }, btnOpenModal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-12"
-  }, table)))))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "table"
+  }, table))))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Body);
@@ -80670,6 +80672,8 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
   var messageSend,
       request,
       token,
+      url,
+      method,
       _args = arguments;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function saveDataForm$(_context) {
     while (1) {
@@ -80697,16 +80701,12 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
 
         case 6:
           token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-
-          if (elementId) {
-            _context.next = 20;
-            break;
-          }
-
-          _context.prev = 8;
-          _context.next = 11;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave, {
-            method: "POST",
+          url = elementId ? urlSave + "/" + elementId : urlSave;
+          method = elementId ? "PUT" : "POST";
+          _context.prev = 9;
+          _context.next = 12;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
+            method: method,
             headers: {
               "X-CSRF-TOKEN": token,
               Accept: "application/json",
@@ -80737,69 +80737,26 @@ var saveDataForm = function saveDataForm(urlSave, dataForm, elementId) {
             return response;
           }));
 
-        case 11:
+        case 12:
           request = _context.sent;
-          _context.next = 18;
+          _context.next = 19;
           break;
 
-        case 14:
-          _context.prev = 14;
-          _context.t0 = _context["catch"](8);
+        case 15:
+          _context.prev = 15;
+          _context.t0 = _context["catch"](9);
           console.log(_context.t0);
           return _context.abrupt("return", _context.t0);
 
-        case 18:
-          _context.next = 23;
-          break;
-
-        case 20:
-          _context.next = 22;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(urlSave + "/" + elementId, {
-            method: "PUT",
-            headers: {
-              "X-CSRF-TOKEN": token,
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dataForm)
-          }).then(function (res) {
-            return res.json();
-          }).then(function (response) {
-            if (response.errors) {
-              var dataError = response.errors;
-              console.log("dataError: " + dataError);
-              var message_error_html = "";
-
-              for (var key in dataError) {
-                var errors_array = dataError[key];
-                console.log("error_array: " + errors_array);
-                errors_array.forEach(function (element) {
-                  message_error_html += element + "<br>";
-                });
-              }
-
-              alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Error', message_error_html);
-              return response;
-            }
-
-            alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.success(response.message);
-            return response;
-          }, function (error) {
-            console.log("a ocurrido un error" + error);
-          }));
-
-        case 22:
-          request = _context.sent;
-
-        case 23:
+        case 19:
           return _context.abrupt("return", request);
 
-        case 24:
+        case 20:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[8, 14]]);
+  }, null, null, [[9, 15]]);
 };
 var getById = function getById(url, id) {
   var request;
@@ -80837,7 +80794,7 @@ var getById = function getById(url, id) {
 };
 var deletedElement = function deletedElement(url, id) {
   var nombre = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
-  alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.confirm('Eliminar item', 'Esta seguro que desea eliminar ' + nombre, function _callee() {
+  alertifyjs__WEBPACK_IMPORTED_MODULE_1___default.a.confirm('Eliminar item', '¿Esta seguro que desea eliminar ' + nombre + '?', function _callee() {
     var request;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function _callee$(_context3) {
       while (1) {
@@ -81034,10 +80991,7 @@ var saveTypeDataForm = function saveTypeDataForm(urlSave, dataForm, elementId) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _body_Body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../body/Body */ "./resources/js/components/body/Body.js");
-
+/* harmony import */ var _body_Body__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../body/Body */ "./resources/js/components/body/Body.js");
 
 
 
@@ -81050,7 +81004,7 @@ var Wrapper = function Wrapper(_ref) {
       loading = _ref.loading,
       modalBT = _ref.modalBT,
       btnOpenModal = _ref.btnOpenModal;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_body_Body__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_body_Body__WEBPACK_IMPORTED_MODULE_1__["default"], {
     urlSave: urlSave,
     title: title,
     table: table,
@@ -81073,7 +81027,7 @@ var Wrapper = function Wrapper(_ref) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp7_4\htdocs\Simon\resources\js\components\macro\macro.js */"./resources/js/components/macro/macro.js");
+module.exports = __webpack_require__(/*! E:\htdocs2\workspace\Simon\resources\js\components\macro\macro.js */"./resources/js/components/macro/macro.js");
 
 
 /***/ })

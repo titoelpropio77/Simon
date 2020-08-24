@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {deletedElement,saveDataForm,getById} from "../tools/tools";
 import {reloadTableData } from "../table/table.js";
 import ModalBT from "../modal/modal";
-const properties_form = (url, head_column_table = {}, getDataInputs = {}) => {
+const properties_form = (url, head_column_table = {}, setDataInputs = {}) => {
     const [ showModal, setShowModal ] = useState(false);//state del modal de bootstrap para mostrar o ocultar el modal,function ( modalBT )
     const [ validated, setValidated ] = useState(false);//state para activar o desactiva notificacion de validaciones en el form
     const [ inputs, setInputs ] = useState({});//state de los campos del formulario, setea y retorna valores del formulario 
@@ -13,6 +13,7 @@ const properties_form = (url, head_column_table = {}, getDataInputs = {}) => {
      * @param {*} dataPersonalizate // data personalizada, esto siver para setear alguna informacion extra en el State Inputs
      */ 
     const onChangeValue = (event,dataPersonalizate = {}) => {
+        //Object.entries extrae informacion del objeto
         if( Object.entries( dataPersonalizate ).length == 0 ){
             event.persist();
             setInputs(inputs => ({
@@ -104,7 +105,7 @@ const properties_form = (url, head_column_table = {}, getDataInputs = {}) => {
         {
             setShowModal(true);
             //getDataInputs retorna los valores para los campos en el formulario
-            const dataInputs = getDataInputs( response.data );
+            const dataInputs = setDataInputs( response.data );
             setInputs( dataInputs );
             setElementId( response.data.id );
         }

@@ -179,18 +179,14 @@ class GAct_ProcesoController extends Controller
     }
     public function getDataTable(Request $request)
     {
-        if(  $request->ajax() )
-        {
-            $result['status'] = true;
-            if ($request->ajax()) {
+            if ($request->ajax()) 
+            {
                 $data = $this->class::with('macros')->latest()->get();
                 return Datatables::of($data)
-                        ->addIndexColumn()
-                        ->make(true);
-
+                    ->addIndexColumn()
+                    ->make(true);
             }
-            return response()->json( $result );
-        }
+
     }
     public function getMacroProceso()
     {

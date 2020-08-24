@@ -4,14 +4,17 @@ import Table,{reloadTableData } from "../table/table.js";
 import Wrapper from '../wrapper/Wrapper';
 import ModalBT from "../modal/modal";
 import Loading from '../loading/loading';
+import { Button, Row, Col, Form, Alert } from "react-bootstrap";
 import {saveDataForm,getById , deletedElement} from "../tools/tools";
 export default class  Perfil extends Component {
 
     constructor(props)
     {
         super(props);
+        
         this.state = {
             titleForm :'Perfil',
+            color:'success',
             urlDataTable :'getPerfilAll',
             elementId : 0,
             statusModal : false,
@@ -93,9 +96,10 @@ export default class  Perfil extends Component {
     }
     btnOpenModal() {
 
-        return (<button
-            variant="primary"
+        return (<Button
             onClick={() => {
+                // this.state.color = 'warning';
+                // this.setState({ color:'warning' });
                 // const alert = useAlert();
                 // alert.show("Oh look, an alert!");
                 this.setState({statusModal:true, elementId:0,
@@ -105,10 +109,10 @@ export default class  Perfil extends Component {
                 });
                 }
             }
-            className="btn btn-success"
+            variant={this.state.color}
         >
             Adicionar {this.state.titleForm}
-        </button>);
+        </Button>);
     }
 
     field ()

@@ -26,11 +26,11 @@ class CreateGactMacroprocProc extends Migration
         Schema::create('gact_procesos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string($this->prefijo.'nombre',30);
-            $table->enum($this->prefijo.'grado_automatizacion', ['Semiatuomatizado', 'Automatizado']);
+            $table->enum($this->prefijo.'grado_automatizacion', ['Semiautomatizado', 'Automatizado']);
             $table->enum($this->prefijo.'grado_descentralizacion', ['Centralizado', 'Desentralizado']);
             $table->enum($this->prefijo.'periodo_ejecucion', ['Diario', 'Semanal', 'Mensual', 'Anual']);
-            $table->string($this->prefijo.'reponsable_ejecucion',30);
-            $table->string($this->prefijo.'reponsable_revision',30);
+            $table->string($this->prefijo.'reponsable_ejecucion',30)->nullable();
+            $table->string($this->prefijo.'reponsable_revision',30)->nullable();
             $table->unsignedBigInteger($this->prefijo.'macroproceso_id');
             $table->foreign($this->prefijo.'macroproceso_id')->references('id')->on('gact_macroprocesos');
             $table->softDeletes();
