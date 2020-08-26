@@ -7,11 +7,16 @@ use App\Helpers\JqueryDataTable;
 use App\Helpers\My_ModelGeneral;
 use Session;
 use Redirect;
+use DataTables;
 
 
 class MacroprocesoController extends Controller
 {
     private $url = "macro";
+    private $field_validate = [
+        'nombre' => 'required',
+        'descripcion' => 'required'
+    ];
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +30,7 @@ class MacroprocesoController extends Controller
      */
     public function index()
     {
-        return view('macro.index', ['title' => 'Macro', 'urlForm' => $this->url]);
+        return view('macro.index', ['urlForm' => $this->url]);
     }
 
     /**
@@ -48,15 +53,25 @@ class MacroprocesoController extends Controller
     {
         if (!$this->verifyPermission('puedeGuardar'))
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        //validate() valida las campon del formulario, este metodo es de laravel
+        $validatedData = $request->validate( $this->field_validate );
+        //obtengo toda la data
+        $data = $request->all();
         try {
-            $result[ 'status' ] = true;
-            $result[ 'message' ] = 'Guardado Correctamente';
-            $this->class::create($request->all());
+            if( $validatedData )
+                {
+                    $this->class::create([
+                        'macpro_nombre' => $data['nombre'],
+                        'macpro_descripcion' => $data['descripcion'],
+                    ]);
+                    $result[ 'status' ] = true;
+                    $result[ 'message' ] = 'Guardado Correctamente';
+                }
         } catch (Exception $e) {
             $result[ 'status' ] = false;
             $result[ 'message' ] = $e->getMessage();
         }
-        return response()->json( $result );
+        return $result;
     }
 
     /**
@@ -78,7 +93,17 @@ class MacroprocesoController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (!$this->verifyPermission('puedeModificar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        try {
+            $clientList= $this->class::where('id', $id)->first();
+            $result[ 'data' ] = $clientList;
+            $result[ 'status' ] = true;
+        } catch (Exception $e) {
+            $result[ 'status' ] = false;
+            $result[ 'message' ] = $e->getMessage();
+        }
+       return response()->json( $result );
     }
 
     /**
@@ -90,7 +115,29 @@ class MacroprocesoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (!$this->verifyPermission('puedeModificar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+            //validate() valida las campon del formulario, este metodo es de laravel
+            $validatedData = $request->validate( $this->field_validate );
+            //obtengo toda la data
+            $data = $request->all();
+            try {
+                if( $validatedData )
+                {
+                    $classModel = $this->class::findOrFail($id);
+                    $classModel->update([
+                        'macpro_nombre' => $data['nombre'],
+                        'macpro_descripcion' => $data['descripcion'],
+                    ]);
+                    $result[ 'status' ] = true;
+                    $result[ 'message' ] = 'Guardado Correctamente';
+                }
+
+            } catch (Exception $e) {
+                $result[ 'status' ] = false;
+                $result[ 'message' ] = $e->getMessage();
+            }
+        return $result;
     }
 
     /**
@@ -101,25 +148,37 @@ class MacroprocesoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!$this->verifyPermission('puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        try {
+            $classModel = $this->class::findOrFail($id);
+            $classModel->delete();
+            $result['status'] = true;
+            $result['message'] = 'Eliminado Correctamente';
+        } catch (Exception $e) {
+
+            $result['status'] = false;
+            $result['message'] = $e->getMessage();
+        }
+        return response()->json($result);
+    }
+
+    public function getDataTable(Request $request)
+    {
+            if ($request->ajax())
+            {
+                $data = $this->class::latest()->get();
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+
     }
 
     public function getMacroAll(Request $request)
     {
-        $table = 'gact_macroprocesos';
-        $dt = new JqueryDataTable( $request->all()  );
-
-        $recordsTotal =  My_ModelGeneral::countDataTable( $table ,'' );
-        // var_dump($recordsTotal);
-        // exit;
-        $recordsFiltered = $recordsTotal;
-        $searchValue = $dt->getSearchValue();
-        if ( $dt->hasSearchValue() )
-        {
-           $recordsFiltered = My_ModelGeneral::countDataTable( $table,$searchValue );
-        }
-        $resultArray = My_ModelGeneral::getDataTable($table , $searchValue, $dt->getLength(), $dt->getStart(), $dt->getOrderName( 0 ), $dt->getOrderDir( 0 ) );
-        $result = $dt->generateArrayData( $recordsTotal,  $recordsFiltered, $resultArray );
+        $data = $this->class->getAllMacroProceso();
+        $result = ['data' => $data, 'status' => true];
         return response()->json( $result );
     }
 }

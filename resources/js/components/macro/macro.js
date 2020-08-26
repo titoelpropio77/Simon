@@ -1,183 +1,79 @@
-import React,{Component} from 'react';
-import ReactDOM  from 'react-dom';
-import Table,{reloadTableData } from "../table/table.js";
+import React,{useState} from "react"
 import Wrapper from '../wrapper/Wrapper';
-import ModalBT from "../modal/modal";
 import Loading from '../loading/loading';
-import {saveDataForm,getById , deletedElement} from "../tools/tools";
+import Table,{reloadTableData } from "../table/table.js";
+import ReactDOM  from 'react-dom';
+import Form_Field from './fields'
 
-export default class  Macro extends Component {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            titleForm :'Macro',
-            urlDataTable :'getMacroAll',
-            elementId : 0,
-            statusModal : false,
-            field : {
-                nombre: '',
-                descripcion: ''
-            }
-          }
-        this.url = 'macro';
-        this.onChangeValue = this.onChangeValue.bind(this);
-        this.getByIdElement = this.getByIdElement.bind(this);
-        this.field = this.field.bind(this);
-        this.btnOpenModal = this.btnOpenModal.bind(this);
-        this.deletedElement = this.deletedElement.bind(this);
+import  properties_form from '../tools/properties_form'
 
-        // this.modalBT = this.modalBT.bind(this);
-
-    }
-    render(){
-
-        // const [show, setShow] = useState(false);
-		return (
-            <div>
-                <Wrapper
-                loading  = {<Loading />}
-                urlSave = {this.url}
-                title={this.state.titleForm}
-                table = {<Table url={this.state.urlDataTable}  propertiesDataTable = {this.propertiesDataTable}   getByElementId={this.getByIdElement}  deletedElement={this.deletedElement}/>}
-                // field = {<Field onChangeValue ={this.onChangeValue} dataField ={this.state}/>}
-                // field = {this.field()}
-                modalBT = {this.modalBT()}
-                btnOpenModal = {this.btnOpenModal()}
-                dataForm ={this.state}
-                ></Wrapper>
-            </div>
-            );
-
-
-    };
-
-    async saveForm (event)  {
-
-        const response = await saveDataForm(this.url,this.state.field, this.state.elementId);
-        if( response.status )
+const Macro = () => {
+    const url = 'macro';
+    const title = 'Macro Proceso';
+    const urlListDataTable = 'getMacroAll';
+    //columnas de la tabla
+    const columnsTable = [
         {
-            this.setState({statusModal:false});
-            reloadTableData();
-
-        }
-        else{
-
-        }
-    }
-    async getByIdElement (id)  {
-        const response = await getById(this.url,id);
-
-        if( response.status )
+            data: "id",
+        },
         {
-            this.setState({elementId: id});
-           await this.setState({ field:{nombre : response.data.nombre } });
-           await this.setState({field:{descripcion : response.data.descriopcion} });
-           await this.setState({statusModal:true});
-        }
-    }
-    async deletedElement (elementId)  {
-        const response = await deletedElement(this.url, elementId);
-        if( response.status )
+            data: "macpro_nombre"
+        },
         {
-            reloadTableData();
-        }
-        else{
+            data: "macpro_descripcion"
+        },
+        {
+            data: "macpro_descripcion"
+        },
 
-        }
-    }
-    onChangeValue(e) {
 
-        this.setState({
-            field :{[e.target.name]: e.target.value}
-        });
 
-    }
-    btnOpenModal() {
-
-        return (<button
-            variant="primary"
-            onClick={() => {
-                // const alert = useAlert();
-                // alert.show("Oh look, an alert!");
-                this.setState({statusModal:true, elementId:0,
-                    field: {
-                        nombre : '',
-                        descripcion : ''
-                    }
-                });
-                }
-            }
-            className="btn btn-success"
-        >
-            Adicionar {this.state.titleForm}
-        </button>);
-    }
-
-    field ()
-    {
-        return (<div className="row">
-            <div className="col-md-6">
-                <label>Nombre</label>
-                <input type="text" className="form-control" name="nombre" value={this.state.field.nombre} onChange={this.onChangeValue}></input>
-                <label>Descripcion</label>
-                <input type="text" className="form-control" name="nombre" value={this.state.field.descriopcion} onChange={this.onChangeValue}></input>
-            </div>
-
-        </div>)
-    }
-    modalBT ()
-    {
-        return (<ModalBT
-                state={this.state.statusModal}
-                closeModal={() => this.setState({ statusModal:false })}
-                field={this.field()}
-                // onChangeField={onChangeValue}
-                title={this.state.titleForm}
-                saveDataForm={() =>
-                    this.saveForm()
-                }
-            />);
-    }
-    /**
-     * retorna las columnas y la cabecera que se mostraran en el datatable
-    */
-    propertiesDataTable (elementId)  {
-        const columns =[
-            {
-                "data" : "id"
-            },
-            {
-                "data" : "nombre"
-            },
-            {
-                "data" : "Descripcion",
-                "render" :function(data, type, row){
-                    return row.nombre
-                }
-            },
-        ];
-        let head =(<thead>
+    ];
+    //Cabecera de la tabla
+    const headTable = (
+        <thead>
             <tr>
-                <th>id</th>
+                <th>Id</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Accion</th>
             </tr>
-        </thead>);
-        // const btnAction = 'Editar1';
-        const btnActionUpdate = (<button className="btn btn-primary" onClick={() => this.getByElementId(elementId)}><i className="fas fa-edit"></i></button>);
-        const btnActionDelete = (<button className="btn btn-danger" onClick={() => this.deletedElement(elementId)}><i className="fas fa-trash-alt"></i></button>);
-        const btnActionOthers = (<a title="perfilObjeto" className="btn btn-warning" href={`perfilobjeto/${elementId}`}><i className="fas fa-newspaper"></i></a>);
-        return {
-            columns : columns,
-            head : head,
-            targets : [2],
-            btnActionDelete : btnActionDelete,
-            btnActionUpdate : btnActionUpdate,
-            btnActionOthers : btnActionOthers
+        </thead>
+    );
+    //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
+    const getColumnTable = 'macpro_nombre';
+    //posicion de los botones de acciones  en la tabla
+    const target_action = 3;
+    const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
+    /**
+     * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form
+     * @param {json} data
+     */
+    const setDataInputs = ( data ) =>
+    {
+        const result = {
+
+            //setea valores de los campos
+
+            nombre: data.macpro_nombre,
+            // nombre: data.proc_nombre,
+            descripcion: data.macpro_descripcion,
         };
+        return result ;
     }
-}
+    const {btnOpenModal, modalBT, propertiesDataTable} = properties_form(url, head_column_table, setDataInputs);
+    return (
+            <div>
+                <Wrapper
+                loading  = {<Loading />}
+                title='Macro Proceso'
+                table = {<Table url={urlListDataTable}  propertiesDataTable = {propertiesDataTable}    />}
+                modalBT = { modalBT( Form_Field ) }
+                btnOpenModal = { btnOpenModal('Macro Proceso') }
+                ></Wrapper>
+            </div>
+            );
+};
+
 
 ReactDOM.render(<Macro  />, document.getElementById('contentBody'));
