@@ -35,7 +35,7 @@ const GACT_PROCESO = () => {
         {
             data: "proc_periodo_ejecucion"
         },
-        
+
 
     ];
     //Cabecera de la tabla
@@ -58,11 +58,11 @@ const GACT_PROCESO = () => {
     const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
     /**
      * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form
-     * @param {json} data 
+     * @param {json} data
      */
     const setDataInputs = ( data ) =>
     {
-        const result = { 
+        const result = {
             //setea las opciones del SELECT
             macroproceso: { label :data.macros.macpro_nombre , value: data.macros.id },
             gradoautomatizacion: { label :data.proc_grado_automatizacion , value: data.proc_grado_automatizacion  },

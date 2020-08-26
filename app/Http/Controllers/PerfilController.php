@@ -98,7 +98,7 @@ class PerfilController extends Controller
      */
     public function destroy($idPerfil)
     {
-         if (!$this->verifyPermission('puedeEliminar'))
+        if (!$this->verifyPermission('puedeEliminar'))
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
             $perfil = $this->class::findOrFail($idPerfil);
