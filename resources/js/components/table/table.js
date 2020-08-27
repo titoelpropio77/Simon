@@ -52,7 +52,7 @@ export default class Table extends Component{
             'ajax': {
                 url: _props.url,
                 headers: {
-                    "X-CSRF-TOKEN": token
+                    "X-CSRF-TOKEN": csrf_token
                 },
                 type: 'POST',
                 data:  _props.propertiesDataTable(1).dataSend

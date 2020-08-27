@@ -2,7 +2,9 @@ import React,{useState , useEffect} from 'react';
 import { Button, Row, Col, Form, Alert } from "react-bootstrap";
 import MultiSelect from "react-multi-select-component";
 import {getAllByClass} from "../tools/tools";
-
+import ModelZona from "../Models/ModelZona"
+import ModelTipoActivo from "../Models/ModelTipoActivo"
+import ModelClasificacionActivo from "../Models/ModelClasificacionActivo"
 import Select from "react-select";
 
 const Form_Field = ( onChangeValue, inputs ) => {
@@ -10,6 +12,13 @@ const Form_Field = ( onChangeValue, inputs ) => {
     const [selected, setSelected] = useState([]);
     const [optionsZona,setOptionsZona ] = useState([]);
     const [optionsUbicacion,setOptionsUbicacion ] = useState([]);
+    const [optionsTipoActivo,setOptionsTipoActivo ] = useState([]);
+    const [optionsClasificacion,setOptionsClasificacion ] = useState([]);
+    
+    const { getAllZona } = ModelZona();
+    const { getAllTipoActivo } = ModelTipoActivo();
+    const { getAllClasificacion } = ModelClasificacionActivo();
+    
     const optionsControlAcceso = [
         {   'label' : 'Acceso protegido con llave' , value : 1 },
         {   'label' : 'Sin llave' , value : 2 },
@@ -37,7 +46,44 @@ const Form_Field = ( onChangeValue, inputs ) => {
             }
             return true;
         };
+        const getOptionsZona = async () => {
+            let listaZona =await getAllZona();
+            listaZona = listaZona.map(x => ({
+                label : x.zona_nombre,
+                value : x.id,
+            }));
+            setOptionsZona(listaZona);
+
+        };
+        const getOptionsTipoActivo = async () => {
+            let listaTipoActivo =await getAllTipoActivo();
+            listaTipoActivo = listaTipoActivo.map(x => ({
+                label : x.tipo_nombre,
+                value : x.id,
+            }));
+            setOptionsTipoActivo(listaTipoActivo);
+        };
+        const getOptionsClasificacion = async () => {
+            let lista =await getAllClasificacion();
+            lista = lista.map(x => ({
+                label : x.clasif_nombre,
+                value : x.id,
+            }));
+            setOptionsClasificacion(lista);
+        };
+        // const getOptionsUbicacion = async () => {
+        //     let listaUbicacion =await getAllUbicacion();
+        //     listaUbicacion = listaUbicacion.map(x => ({
+        //         label : x.ubicacion_nombre,
+        //         value : x.id,
+        //     }));
+        //     setOptionsZona(listaZona);
+
+        // };
         getMacroprocesos();
+        getOptionsZona();
+        getOptionsTipoActivo();
+        getOptionsClasificacion();
     },[]);
     return   (
             <Row>
@@ -68,7 +114,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} sm="6" lg={6} md={6} controlId="validationCustom11" >
-                    <Form.Label>Nombre del Activo</Form.Label>
+                    <Form.Label>Unidad Macro-Proceso</Form.Label>
                     <MultiSelect
                         options={optionsProceso}
                         value={selected}
@@ -124,7 +170,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                     <Form.Label>Tipo activo</Form.Label>
                     <Select
                             name="tipo_activo"
-                            options={ optionsControlAcceso }
+                            options={ optionsTipoActivo }
                             value={inputs.i_tipo_activo}
                             required
                             onChange={(e, meta) => {
@@ -137,7 +183,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                     <Form.Label>Clasificacion</Form.Label>
                     <Select
                             name="clasificacion"
-                            options={ optionsControlAcceso }
+                            options={ optionsClasificacion }
                             value={inputs.i_clasificacion}
                             required
                             onChange={(e, meta) => {

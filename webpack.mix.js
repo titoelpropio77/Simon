@@ -28,4 +28,23 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 //Activo 
 .react('resources/js/components/gact_activo/gact_activo.js','public/js/gact_activo.js')
 
+//Gestion Activos Matriz de Riezgo
+.react('resources/js/components/gact_matrizriezgo/gact_matrizriezgo.js','public/js/gact_matrizriezgo.js')
+
+//Gestion Activos Zonas
+.react('resources/js/components/gact_zonas/gact_zonas.js','public/js/gact_zonas.js')
+
+//Gestion Clasificacion
+.react('resources/js/components/gact_clasificacion/gact_clasificacion.js','public/js/gact_clasificacion.js')
+
+//Gestion Activos Tipos Activos
+.react('resources/js/components/gact_tipo_activo/gact_tipo_activo.js','public/js/gact_tipo_activo.js')
+
+//Gestion Activos Amenazas
+.react('resources/js/components/gact_amenazas/gact_amenazas.js','public/js/gact_amenazas.js')
+
+//Gestion de Activos Vulnerabilidad
+.react('resources/js/components/gact_vulnerabilidad/gact_vulnerabilidad.js','public/js/gact_vulnerabilidad.js')
+
+
 .sass('resources/sass/app.scss', 'public/css');

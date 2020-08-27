@@ -2,5 +2,5 @@
 @section('content')
 @endsection
 @section('Jscripts')
-<script src="js/gact_proceso.js"></script>
+<script src="js/gact_zonas.js"></script>
 @endsection

@@ -85,7 +85,7 @@ Route::post( 'getEFByProyecto', [ 'uses'=>'EstruturaFinanciamientoController@get
 
 //Macro Proceso
 Route::resource( 'macro', 'MacroprocesoController' );
-Route::post('getMacroAll',[ 'uses'=>'MacroprocesoController@getMacroAll']);
+Route::post('getMacroAll',[ 'uses'=>'MacroprocesoController@getDataTable']);
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -101,4 +101,28 @@ Route::post('getProcesoAll',[ 'uses'=>'GAct_ProcesoController@getProcesoAll']);
 Route::resource( 'gactActivo', 'GActActivoController' );
 Route::post('getDataTableActivo',[ 'uses'=>'GActActivoController@getDataTable']);
 // Route::post('getMacroProceso',[ 'uses'=>'GActActivoController@getMacroProceso']);
+
+//Gestion de activos Matriz de Riezgo
+Route::resource( 'matriezgo', 'GAct_MatrizRController' );
+Route::post('getMatrizRiezgoAll',[ 'uses'=>'GAct_MatrizRController@getDataTable']);
+
+//Gestion de activos Zonas
+Route::resource( 'gactZona', 'GAct_ZonasController' );
+Route::post('getZonaAll',[ 'uses'=>'GAct_ZonasController@getDataTable']);
+
+//Gestion de activos Tipos de activos
+Route::resource( 'tipoactivo', 'GAct_Tipo_ActivosController' );
+Route::post('getTipoActivoAll',[ 'uses'=>'GAct_Tipo_ActivosController@getDataTable']);
+
+//Gestion de activos Clasificacion
+Route::resource( 'clasificacion', 'GAct_ClasificacionController' );
+Route::post('getClasificacionAll',[ 'uses'=>'GAct_ClasificacionController@getDataTable']);
+
+//Gestion de activos Amenazas
+Route::resource( 'amenazas', 'GAct_AmenazasController' );
+Route::post('getAmenazasAll',[ 'uses'=>'GAct_AmenazasController@getDataTable']);
+
+//Getion de activos Vulnerabilidades
+Route::resource( 'vulnerabilidades', 'GAct_VulnerabilidadesController' );
+Route::post('getVulnerabilidadesAll',[ 'uses'=>'GAct_VulnerabilidadesController@getDataTable']);
 
