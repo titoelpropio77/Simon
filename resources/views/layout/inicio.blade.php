@@ -12,7 +12,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet"  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
    <!-- Bootstrap 4 -->
-   <link rel="stylesheet"  href="{{asset('plugins/bootstrap-4.4.1/css/bootstrap.css')}}" >
+   <!-- <link rel="stylesheet"  href="{{asset('plugins/bootstrap-4.4.1/css/bootstrap.css')}}" > -->
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet"  href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}" >
   <!-- iCheck -->
@@ -33,7 +33,7 @@
   <!-- ESTILOS DEL DATATABLE -->
   <link rel="stylesheet" href="{{asset('plugins/datatables/datatables.min.css')}}">
   <!-- datatables-bs4 -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+  <!-- <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}"> -->
   <!-- datatables-responsive -->
   <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}">
   <!-- datatables-buttons -->
@@ -70,6 +70,9 @@ if ( !$modulo )
 Redirect::to('login')->send();
 }
 ?>
+<script>
+  var path_url_base='{{ config('app.url') }}';
+</script>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -230,16 +233,18 @@ Redirect::to('login')->send();
     <!-- Main content -->
     @yield('contentPersonate')
     <section class="content" id="contentBody">
+     
         @yield('content')
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2014-20190 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.2-pre
+      
     </div>
   </footer>
 

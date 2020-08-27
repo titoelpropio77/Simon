@@ -14,7 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
        parent::__construct();
-      $this->puedeVisionar( $this->url);
+     
     }
     /**
      * Display a listing of the resource.
@@ -24,6 +24,7 @@ class UserController extends Controller
     public function index( Request $request )
     {
 
+        $this->puedeVisionar( $this->url);
         $urlForm = 'usuario';
         $title = 'Usuario';
         $listPerfil = Perfil::all();
@@ -70,7 +71,7 @@ class UserController extends Controller
      */
     public function edit( $typeRooms)
     {
-         if (!$this->verifyPermission('puedeModificar'))
+         if (!$this->verifyPermissionByUrl($this->url,'puedeModificar'))
        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
             $clientList = User::with(['perfil', 'licencia'] )->find($typeRooms);
@@ -92,7 +93,7 @@ class UserController extends Controller
      */
     public function update(Request $request,  $id)
     {
-       if (!$this->verifyPermission('puedeModificar'))
+        if (!$this->verifyPermissionByUrl($this->url,'puedeModificar'))
        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
 
         try {
@@ -122,8 +123,8 @@ class UserController extends Controller
      */
     public function destroy($typeRooms)
     {
-         if (!$this->verifyPermission('puedeEliminar'))
-       return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
+        if (!$this->verifyPermissionByUrl($this->url,'puedeEliminar'))
+        return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
              $perfil = User::findOrFail($typeRooms);
             $perfil->delete();
@@ -138,7 +139,8 @@ class UserController extends Controller
     }
     public function getAll()
     {
-         $result['data'] = User::with('perfil')->get();
+        $result['data'] = User::with('perfil')->get();
+        $result['status'] = true;
         return response()->json($result);
     }
     public function updateUserPass( Request $request )

@@ -41,6 +41,7 @@ Route::resource('usuario','UserController');
 Route::post('getUsersDataTable',[ 'uses'=>'UserController@getUsersDataTable']);
 Route::post('getPerfilAllForUser',[ 'uses'=>'UserController@getPerfilAllForUser']);
 Route::post('getLicAllForUser',[ 'uses'=>'UserController@getLicAllForUser']);
+Route::post('get-all-user',[ 'uses'=>'UserController@getAll']);
 
 //Proyecto
 Route::resource( 'proyecto', 'ProyectoController' );
@@ -89,8 +90,15 @@ Route::post('getMacroAll',[ 'uses'=>'MacroprocesoController@getMacroAll']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//cliente
+//proceso
 Route::resource( 'gactProceso', 'GAct_ProcesoController' );
 Route::post('getGactProcesoAll',[ 'uses'=>'GAct_ProcesoController@getDataTable']);
 Route::post('getMacroProceso',[ 'uses'=>'GAct_ProcesoController@getMacroProceso']);
+Route::post('getProcesoAll',[ 'uses'=>'GAct_ProcesoController@getProcesoAll']);
+
+
+//Activos
+Route::resource( 'gactActivo', 'GActActivoController' );
+Route::post('getDataTableActivo',[ 'uses'=>'GActActivoController@getDataTable']);
+// Route::post('getMacroProceso',[ 'uses'=>'GActActivoController@getMacroProceso']);
 

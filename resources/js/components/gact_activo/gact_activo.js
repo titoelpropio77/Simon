@@ -7,34 +7,39 @@ import Form_Field from './fields'
 
 import  properties_form from '../tools/properties_form'
 
-const GACT_PROCESO = () => {
-    const url = 'gactProceso';
-    const title = 'Proceso';
-    const urlListDataTable = 'getGactProcesoAll';
+const GACT_ACTIVO = () => {
+    const prefijo = 'act_';
+    const url = 'gactActivo';
+    const titulo = 'Activo';
+    const urlListDataTable = 'getDataTableActivo';
     //columnas de la tabla
     const columnsTable = [
         {
-            data: "proc_nombre",
+            data: prefijo+"macroproceso_id",
             render : function(type, data, row)
             {
                 return row.macros.macpro_nombre ;
             }
         },
         {
-            data: "proc_nombre"
+            data: prefijo+"nombre_activo"
         },
         {
-            data: "proc_grado_automatizacion"
+            data: prefijo+"macroproceso_id"
         },
         {
             data: "proc_grado_descentralizacion"
         },
         {
-            data: "proc_periodo_ejecucion"
+            data: prefijo+"macroproceso_id"
         },
         {
-            data: "proc_periodo_ejecucion"
+            data: prefijo+"macroproceso_id"
         },
+        {
+            data: prefijo+"macroproceso_id"
+        },
+       
         
 
     ];
@@ -42,27 +47,21 @@ const GACT_PROCESO = () => {
     const headTable = (
         <thead>
             <tr>
-                <th>Macro Proceso</th>
-                <th>Nombre del proceso</th>
-                <th>Grado de automatización</th>
-                <th>Grado Descentralizado</th>
-                <th>Periodo de Ejecucion</th>
+                <th>Unidad</th>
+                <th>Nombre del Activo</th>
+                <th>Descripción</th>
+                <th>Propietario</th>
+                <th>Clasificacion</th>
+                <th>Proceso Asociado</th>
                 <th>Accion</th>
             </tr>
         </thead>
     );
     //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
-    const getColumnTable = 'proc_nombre';
+    const getColumnTable = prefijo+"macroproceso_id";
     //posicion de los botones de acciones  en la tabla
     const target_action = 5;
-    // const othersButton = ( elementId ) => (
-    //     <button className="btn btn-warning btn-sm" title="Ver Vulnerabilidades" onClick={ () => {
-    //         window.location = "macro/"+elementId;
-    //     }}>
-    //         <i class="fa fa-eye"></i>
-    //     </button>
-    // );
-
+    
     const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
     /**
      * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form
@@ -86,19 +85,19 @@ const GACT_PROCESO = () => {
         };
         return result ;
     }
-    
-    const {btnOpenModal, modalBT, propertiesDataTable} = properties_form(url, head_column_table, setDataInputs);
+    const {btnOpenModal, modalBT, propertiesDataTable} = properties_form(url, head_column_table, setDataInputs,titulo);
+    console.log("urlListDataTable: " +urlListDataTable);
     return (
             <div>
                 <Wrapper
                 loading  = {<Loading />}
-                title='Proceso'
+                title={titulo}
                 table = {<Table url={urlListDataTable}  propertiesDataTable = {propertiesDataTable}    />}
                 modalBT = { modalBT( Form_Field ) }
-                btnOpenModal = { btnOpenModal('Proceso') }
+                btnOpenModal = { btnOpenModal(titulo) }
                 ></Wrapper>
             </div>
             );
 };
 
-ReactDOM.render(<GACT_PROCESO />, document.getElementById('contentBody'));
+ReactDOM.render(<GACT_ACTIVO />, document.getElementById('contentBody'));

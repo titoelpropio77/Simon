@@ -28,12 +28,25 @@ class Controller extends BaseController
     public function verifyPermission( $permiso )
     {
         return  $this->arrayPermission->$permiso ;
-
+    }
+    public function verifyPermissionByUrl( $url,$permiso )
+    {
+      session_start();
+      $objeto = $_SESSION['objeto'] ?? 0;
+      $havePermission = true;
+      foreach ( $objeto as $obj )
+      {
+        if ( $url == $obj->urlObjeto )
+        {
+          $this->arrayPermission = $obj;
+        }
+      }
+      return  $this->arrayPermission->$permiso ;
     }
     public function puedeVisionar(  $url )
     {
-       session_start();
-       $objeto = $_SESSION['objeto'] ?? 0;
+      session_start();
+      $objeto = $_SESSION['objeto'] ?? 0;
       if ( !$objeto )
       {
         Redirect::to('login')->send();

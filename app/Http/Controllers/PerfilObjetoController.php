@@ -13,7 +13,7 @@ use DataTables;
 
 class PerfilObjetoController extends Controller
 {
-    private $url = 'perfilobjeto';
+    private $url = 'objeto';
     public function __construct()
     {
       parent::__construct();

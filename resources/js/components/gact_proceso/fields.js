@@ -26,8 +26,9 @@ const Form_Field = ( onChangeValue, inputs ) => {
     // const [otrosInputs, setOtrosInputs] = useState({ label: "Seleccione un macro proceso" });
     useEffect(() => {
         const getMacroprocesos = async () => {
+            const urlGet = "getMacroProceso";
             const response = await getAllByClass(
-                "getMacroProceso",
+                urlGet,
                 {}
             );
             if (response.status) {
