@@ -115,6 +115,6 @@ Route::resource( 'amenazas', 'GAct_AmenazasController' );
 Route::post('getAmenazasAll',[ 'uses'=>'GAct_AmenazasController@getDataTable']);
 
 //Getion de activos Vulnerabilidades
-Route::resource( 'vulnerabilidades', 'GAct_VulnerabilidadesController' );
-Route::post('getVulnerabilidadesAll',[ 'uses'=>'GAct_VulnerabilidadesController@getDataTable']);
+Route::resource( 'vulnerabilidad', 'GAct_VulnerabilidadController' );
+Route::post('getVulnerabilidadAll',[ 'uses'=>'GAct_VulnerabilidadController@getDataTable']);
 
