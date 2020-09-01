@@ -9,7 +9,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
     useEffect(() => {
         const getZonas = async () => {
             const response = await getAllByClass(
-                "getZonas",
+                "get-datatable-zona",
                 {}
             );
             if (response.status) {

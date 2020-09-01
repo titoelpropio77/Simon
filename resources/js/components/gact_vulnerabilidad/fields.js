@@ -9,24 +9,25 @@ const Form_Field = ( onChangeValue, inputs ) => {
     useEffect(() => {
         const getVulnerabilidad = async () => {
             const response = await getAllByClass(
-                "getVulnerabilidad",
-                {}
+                path_url_base+"/gact_vulnerabilidad",
+                {id:amenaza_id}
             );
-            if (response.status) {
-                const data = response.data.map(x => ({
-                    label: x.macpro_nombre,
-                    value: x.id
-                }));
-                getVulnerabilidadOption(data);
-            }
-            return true;
+            // if (response.status) {
+            //     const data = response.data.map(x => ({
+            //         label: x.macpro_nombre,
+            //         value: x.id
+            //     }));
+            //     getVulnerabilidadOption(data);
+            // }
+            console.log("hola2");
         };
         getVulnerabilidad();
+
     },[]);
     return   (
             <Row>
-                <Form.Group as={Col} sm="6" lg={6} md={6} controlId="validationCustom11" >
-                    <Form.Label>Vulnerabilidad</Form.Label>
+                <Form.Group as={Col} sm="8" lg={8} md={8} controlId="validationCustom11" >
+                    <Form.Label>Nombre de la Vulnerabilidad</Form.Label>
                     <Form.Control
                             type="text"
                             name="nombre"

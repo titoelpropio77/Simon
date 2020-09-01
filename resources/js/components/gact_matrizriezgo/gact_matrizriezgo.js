@@ -17,19 +17,19 @@ const GAct_MatrizRiezgo = () => {
             data: "id",
         },
         {
-            data: "nivel"
+            data: "mtr_nivel"
         },
         {
-            data: "sigla"
+            data: "mtr_sigla"
         },
         {
-            data: "valor_inicial"
+            data: "mtr_valor_inicial"
         },
         {
-            data: "valor_final"
+            data: "mtr_valor_final"
         },
         {
-            data: "valor_final"
+            data: "mtr_valor_final"
         },
 
     ];
@@ -47,7 +47,7 @@ const GAct_MatrizRiezgo = () => {
         </thead>
     );
     //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
-    const getColumnTable = 'nivel';
+    const getColumnTable = 'mtr_nivel';
     //posicion de los botones de acciones  en la tabla
     const target_action = 5;
     const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
@@ -59,14 +59,14 @@ const GAct_MatrizRiezgo = () => {
     {
         const result = {
             //setea las opciones del SELECT
-            nivel: data.nivel,
-            sigla: data.sigla,
-            valor_inicial: data.valor_inicial,
-            valor_final: data.valor_final,
-            i_nivel:{label :data.nivel, value: data.nivel},
-            i_sigla:{label :data.sigla, value: data.sigla},
-            v_inicial:{label :data.valor_inicial, value: data.valor_inicial},
-            v_final:{label :data.valor_final, value: data.valor_final},
+            nivel: data.mtr_nivel,
+            sigla: data.mtr_sigla,
+            valor_inicial: data.mtr_valor_inicial,
+            valor_final: data.mtr_valor_final,
+            i_nivel:{label :data.mtr_nivel, value: data.mtr_nivel},
+            i_sigla:{label :data.mtr_sigla, value: data.mtr_sigla},
+            v_inicial:{label :data.mtr_valor_inicial, value: data.mtr_valor_inicial},
+            v_final:{label :data.mtr_valor_final, value: data.mtr_valor_final},
 
         };
         return result ;

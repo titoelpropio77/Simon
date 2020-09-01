@@ -23,7 +23,6 @@ class GAct_ProcesoController extends Controller
     {
         parent::__construct();
         $this->class = new GAct_Proceso();
-        $this->puedeVisionar( $this->url);
     }
     /**
      * Display a listing of the resource.
@@ -32,18 +31,9 @@ class GAct_ProcesoController extends Controller
      */
     public function index( Request $request )
     {
+        $this->puedeVisionar( $this->url);
 
         return view('gact_proceso.index', [ 'urlForm' => $this->url]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -103,7 +93,7 @@ class GAct_ProcesoController extends Controller
      */
     public function edit($id)
     {
-        if (!$this->verifyPermission('puedeModificar'))
+        if (!$this->verifyPermissionByUrl( $this->url,'puedeModificar'))
         return response()->json( ['status'=>false, 'message' => 'No puede realizar esta transacción' ]  );
         try {
             $clientList= $this->class::with('macros')->where('id', $id)->first();
@@ -195,4 +185,11 @@ class GAct_ProcesoController extends Controller
         $result = ['data' => $data, 'status' => true];
         return response()->json( $result );
     }
+    public function getProcesoAll()
+    {
+        $data = $this->class::All();
+        $result = ['data' => $data, 'status' => true];
+        return response()->json( $result );
+    }
+
 }

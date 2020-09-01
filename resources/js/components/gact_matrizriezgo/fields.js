@@ -42,23 +42,23 @@ const Form_Field = ( onChangeValue, inputs ) => {
         { label: "Ninguno", value: "Ninguno" },
     ];
     // const [otrosInputs, setOtrosInputs] = useState({ label: "Seleccione un macro proceso" });
-    useEffect(() => {
-        const getMatrizRiezgo = async () => {
-            const response = await getAllByClass(
-                "getMatrizRiezgo",
-                {}
-            );
-            if (response.status) {
-                const data = response.data.map(x => ({
-                    label: x.macpro_nombre,
-                    value: x.id
-                }));
-                setMacroprocesOption(data);
-            }
-            return true;
-        };
-        getMatrizRiezgo();
-    },[]);
+    // useEffect(() => {
+    //     const getMatrizRiezgo = async () => {
+    //         const response = await getAllByClass(
+    //             "getMatrizRiezgo",
+    //             {}
+    //         );
+    //         if (response.status) {
+    //             const data = response.data.map(x => ({
+    //                 label: x.macpro_nombre,
+    //                 value: x.id
+    //             }));
+    //             setMacroprocesOption(data);
+    //         }
+    //         return true;
+    //     };
+    //     getMatrizRiezgo();
+    // },[]);
     return   (
             <Row>
                 <Form.Group as={Col} sm="5" lg={6} md={6} controlId="validationCustom15" >

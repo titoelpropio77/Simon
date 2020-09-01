@@ -168,4 +168,10 @@ class GAct_ZonasController extends Controller
             }
 
     }
+
+    public function getAll(){
+        $result['data']=$this->class::All() ;
+        $result['status'] = true;
+        return $result;
+    }
 }

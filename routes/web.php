@@ -41,6 +41,7 @@ Route::resource('usuario','UserController');
 Route::post('getUsersDataTable',[ 'uses'=>'UserController@getUsersDataTable']);
 Route::post('getPerfilAllForUser',[ 'uses'=>'UserController@getPerfilAllForUser']);
 Route::post('getLicAllForUser',[ 'uses'=>'UserController@getLicAllForUser']);
+Route::post('get-all-user',[ 'uses'=>'UserController@getAll']);
 
 //Proyecto
 Route::resource( 'proyecto', 'ProyectoController' );
@@ -89,10 +90,17 @@ Route::post('getMacroAll',[ 'uses'=>'MacroprocesoController@getDataTable']);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//cliente
+//proceso
 Route::resource( 'gactProceso', 'GAct_ProcesoController' );
 Route::post('getGactProcesoAll',[ 'uses'=>'GAct_ProcesoController@getDataTable']);
 Route::post('getMacroProceso',[ 'uses'=>'GAct_ProcesoController@getMacroProceso']);
+Route::post('getProcesoAll',[ 'uses'=>'GAct_ProcesoController@getProcesoAll']);
+
+
+//Activos
+Route::resource( 'gactActivo', 'GActActivoController' );
+Route::post('getDataTableActivo',[ 'uses'=>'GActActivoController@getDataTable']);
+// Route::post('getMacroProceso',[ 'uses'=>'GActActivoController@getMacroProceso']);
 
 //Gestion de activos Matriz de Riezgo
 Route::resource( 'matriezgo', 'GAct_MatrizRController' );
@@ -100,7 +108,7 @@ Route::post('getMatrizRiezgoAll',[ 'uses'=>'GAct_MatrizRController@getDataTable'
 
 //Gestion de activos Zonas
 Route::resource( 'gactZona', 'GAct_ZonasController' );
-Route::post('getZonaAll',[ 'uses'=>'GAct_ZonasController@getDataTable']);
+Route::post('get-datatable-zona',[ 'uses'=>'GAct_ZonasController@getDataTable']);
 
 //Gestion de activos Tipos de activos
 Route::resource( 'tipoactivo', 'GAct_Tipo_ActivosController' );
@@ -117,4 +125,6 @@ Route::post('getAmenazasAll',[ 'uses'=>'GAct_AmenazasController@getDataTable']);
 //Getion de activos Vulnerabilidades
 Route::resource( 'vulnerabilidad', 'GAct_VulnerabilidadController' );
 Route::post('getVulnerabilidadAll',[ 'uses'=>'GAct_VulnerabilidadController@getDataTable']);
+Route::post('gact_vulnerabilidad',[ 'uses'=>'GAct_VulnerabilidadController@getVulneravilidadesByAmenaza']);
+
 

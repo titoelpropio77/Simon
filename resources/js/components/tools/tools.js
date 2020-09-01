@@ -24,7 +24,8 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
             return { status: false }
         }
     }
-
+    console.log('valor del elementId');
+    console.log(elementId);
     let token = document
         .querySelector("meta[name='csrf-token']")
         .getAttribute("content");
@@ -67,12 +68,10 @@ export const saveDataForm = async (urlSave, dataForm, elementId, messageSend = n
         console.log( error);
         return error;
     }
-    
+
     return request;
 };
 export const getById = async (url, id) => {
-    console.log("getById");
-
     const request = await fetch(url + "/" + id + "/edit", {
         method: "GET",
         headers: {
@@ -84,7 +83,6 @@ export const getById = async (url, id) => {
         .then(res => res.json())
         .then(
             result => {
-
                 return result;
             },
             error => {
@@ -94,7 +92,7 @@ export const getById = async (url, id) => {
     return request;
 };
 export const deletedElement =   (url, id, nombre= "") => {
-    alertify.confirm('Eliminar item', '¿Esta seguro que desea eliminar ' + nombre + '?', 
+    alertify.confirm('Eliminar item', '¿Esta seguro que desea eliminar ' + nombre + '?',
     async function(){
          var request = await fetch(url + "/" + id, {
             method: "DELETE",

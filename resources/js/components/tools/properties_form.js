@@ -2,11 +2,15 @@ import React,{useState} from 'react';
 import {deletedElement,saveDataForm,getById} from "../tools/tools";
 import {reloadTableData } from "../table/table.js";
 import ModalBT from "../modal/modal";
-const properties_form = (url, head_column_table = {}, setDataInputs = {}, titulo='') => {
+const properties_form = (url, head_column_table = {}, setDataInputs = {}, titulo='', dataInput= {}) => {
     const [ showModal, setShowModal ] = useState(false);//state del modal de bootstrap para mostrar o ocultar el modal,function ( modalBT )
     const [ validated, setValidated ] = useState(false);//state para activar o desactiva notificacion de validaciones en el form
     const [ inputs, setInputs ] = useState({});//state de los campos del formulario, setea y retorna valores del formulario
     const [ elementId, setElementId ] = useState(0);////este state trabaja con la tabla datatable, cuando se activa la accion de "editar" guarda el id del elemento seleccionado
+    console.log("dataInput");
+    console.log(dataInput);
+    console.log("inputs");
+    console.log(inputs);
     /**
      * Setea el state inputs con los valores de los formulario
      * @param {*} event //evento de los inputs de cualquier tipo( text, checkox, radio, etc )
@@ -17,7 +21,7 @@ const properties_form = (url, head_column_table = {}, setDataInputs = {}, titulo
         if( Object.entries( dataPersonalizate ).length == 0 ){
             event.persist();
             setInputs(inputs => ({
-                ...inputs,
+                ...inputs,...dataInput,
                 [event.target.name]: event.target.value
             }));
         }else
@@ -101,8 +105,12 @@ const properties_form = (url, head_column_table = {}, setDataInputs = {}, titulo
      */
     const getByIdElement = async (id)  =>   {
         const response = await getById(url,id);
+        console.log("F: getByIdElement");
+        console.log("respuesta getById:" );
+        console.log(response);
         if( response.status )
         {
+
             setShowModal(true);
             //getDataInputs retorna los valores para los campos en el formulario
             const dataInputs = setDataInputs( response.data );

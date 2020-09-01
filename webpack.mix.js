@@ -25,6 +25,8 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 
 //Macro Proceso
 .react('resources/js/components/macro/macro.js','public/js/macro.js')
+//Activo 
+.react('resources/js/components/gact_activo/gact_activo.js','public/js/gact_activo.js')
 
 //Gestion Activos Matriz de Riezgo
 .react('resources/js/components/gact_matrizriezgo/gact_matrizriezgo.js','public/js/gact_matrizriezgo.js')

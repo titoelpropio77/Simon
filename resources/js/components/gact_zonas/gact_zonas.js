@@ -10,7 +10,7 @@ import  properties_form from '../tools/properties_form'
 const Zonas = () => {
     const url = 'gactZona';
     const title = 'Zonas';
-    const urlListDataTable = 'getZonaAll';
+    const urlListDataTable = 'get-datatable-zona';
     //columnas de la tabla
     const columnsTable = [
         {

@@ -23,9 +23,11 @@ const Form_Field = ( onChangeValue, inputs ) => {
     ];
 
     useEffect(() => {
-        const getProcesos = async () => {
+
+        const getMacroProcesos = async () => {
+            const urlGet = "getMacroProceso";
             const response = await getAllByClass(
-                "getProceso",
+                urlGet,
                 {}
             );
             if (response.status) {
@@ -33,11 +35,11 @@ const Form_Field = ( onChangeValue, inputs ) => {
                     label: x.macpro_nombre,
                     value: x.id
                 }));
-                setProcesOption(data);
+               // setProcesOption(data);
             }
             return true;
         };
-        getProcesos();
+        getMacroProcesos();
     },[]);
     return (
         <row>
@@ -45,7 +47,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
                 <Form.Label>Proceso</Form.Label>
                 <Select
                     name="proceso"
-                    options={ procesOption }
+                    options={ macroprocesOption }
                     required
                     value={inputs.macroproceso}
                     onChange={(e, meta) => {

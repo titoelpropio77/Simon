@@ -6,13 +6,14 @@
   <title>{{ config('app.name') }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet"  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
    <!-- Bootstrap 4 -->
-   <link rel="stylesheet"  href="{{asset('plugins/bootstrap-4.4.1/css/bootstrap.css')}}" >
+   <!-- <link rel="stylesheet"  href="{{asset('plugins/bootstrap-4.4.1/css/bootstrap.css')}}" > -->
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet"  href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}" >
   <!-- iCheck -->
@@ -31,33 +32,34 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <!-- ESTILOS DEL DATATABLE -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables/datatables.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables/datatables.min.css')}}"> --}}
   <!-- datatables-bs4 -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+  <!-- <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}"> -->
   <!-- datatables-responsive -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.css')}}"> --}}
   <!-- datatables-buttons -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.css')}}"> --}}
   <!-- datatables-autofill -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-autofill/css/autoFill.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-autofill/css/autoFill.bootstrap4.css')}}"> --}}
   <!-- datatables-fixedcolumns -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css')}}"> --}}
   <!-- datatables-fixedHeader -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.css')}}"> --}}
   <!-- datatables-colReorder -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-colreorder/css/colReorder.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-colreorder/css/colReorder.bootstrap4.css')}}"> --}}
   <!-- datatables-keytable -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-keytable/css/keyTable.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-keytable/css/keyTable.bootstrap4.css')}}"> --}}
   <!-- datatables-rowgroup -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-rowgroup/css/rowGroup.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-rowgroup/css/rowGroup.bootstrap4.css')}}"> --}}
   <!-- datatables-rowreorder -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-rowreorder/css/rowReorder.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-rowreorder/css/rowReorder.bootstrap4.css')}}"> --}}
   <!-- datatables-scroller -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables-scroller/css/scroller.bootstrap4.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('plugins/datatables-scroller/css/scroller.bootstrap4.css')}}"> --}}
   <!-- datatables-select -->
   <link rel="stylesheet" href="{{asset('plugins/datatables-select/css/select.bootstrap4.css')}}">
-  
-  
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+
+
   <!-- alertify -->
   <link rel="stylesheet" href="{{asset('plugins/alertify/alertify.css')}}">
 </head>
@@ -70,6 +72,10 @@ if ( !$modulo )
 Redirect::to('login')->send();
 }
 ?>
+<script>
+  var path_url_base='{{ config('app.url') }}';
+  var csrf_token = '{{ csrf_token() }}';
+</script>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -230,16 +236,18 @@ Redirect::to('login')->send();
     <!-- Main content -->
     @yield('contentPersonate')
     <section class="content" id="contentBody">
+
         @yield('content')
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2014-20190 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.2-pre
+
     </div>
   </footer>
 
@@ -303,16 +311,33 @@ Redirect::to('login')->send();
 
             })
  </script>
-@yield('Jscripts')
 <!-- datatables -->
 <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+{{-- dataTables.buttons --}}
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+{{-- buttons.flash --}}
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
 <!-- <script src="{{asset('plugins/datatables/datatables.min.js')}}"></script> -->
-  <!-- datatables-bs4 -->
-  <script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.js')}}"></script>
-  <script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.bundle.min.js')}}"></script>
-<!-- datatables-responsive -->
+<!-- datatables-bs4 -->
+ {{-- bootstrap --}}
+<script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.js')}}"></script>
+{{-- bootstrap.bundle --}}
+<script src="{{asset('plugins/bootstrap-4.4.1/js/bootstrap.bundle.min.js')}}"></script>
+{{-- <!-- datatables-responsive --> --}}
 <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.js')}}"></script>
-<!-- datatables-responsive -->
+<!-- datatable.select -->
+{{-- <script src="{{asset('plugins/datatables-select/js/dataTables.select.js')}}"></script> --}}
+<!-- responsive.bootstrap4 -->
 <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.js')}}"></script>
+{{-- pdfmake  --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+{{-- pdfmake vfs_fonts --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+{{-- buttons.html5 --}}
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+{{-- buttons.print --}}
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+@yield('Jscripts')
+
 </body>
 </html>

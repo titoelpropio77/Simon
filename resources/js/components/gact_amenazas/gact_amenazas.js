@@ -39,7 +39,7 @@ const Amenazas = () => {
 
     const othersButton = ( elementId ) => (
         <button className="btn btn-warning btn-sm" title="Ver Vulnerabilidades" onClick={ () => {
-            window.location = "macro/"+elementId;
+            window.location = "vulnerabilidad/"+elementId;
         }}>
             <i class="fa fa-eye"></i>
         </button>

@@ -9,7 +9,7 @@ const Form_Field = ( onChangeValue, inputs ) => {
     useEffect(() => {
         const getAmenazas = async () => {
             const response = await getAllByClass(
-                "getAmenazas",
+                "getAmenazasAll",
                 {}
             );
             if (response.status) {

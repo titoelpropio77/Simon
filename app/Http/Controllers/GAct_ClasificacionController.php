@@ -167,6 +167,10 @@ class GAct_ClasificacionController extends Controller
                     ->addIndexColumn()
                     ->make(true);
             }
-
+    }
+    public function getAll(){
+        $result['data']=$this->class::All() ;
+        $result['status'] = true;
+        return $result;
     }
 }
