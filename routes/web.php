@@ -128,3 +128,11 @@ Route::post('getVulnerabilidadAll',[ 'uses'=>'GAct_VulnerabilidadController@getD
 Route::post('gact_vulnerabilidad',[ 'uses'=>'GAct_VulnerabilidadController@getVulneravilidadesByAmenaza']);
 
 
+//Gestion de activos Areas
+Route::resource( 'areas', 'GAct_AreasController' );
+Route::post('getAreasAll',[ 'uses'=>'GAct_AreasController@getDataTable']);
+
+
+//Gestion de activos RRHH
+// Route::resource( 'rrhh', 'GAct_RRHHController' );
+// Route::post('getRRHHAll',[ 'uses'=>'GAct_RRHHController@getDataTable']);

@@ -25,7 +25,7 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 
 //Macro Proceso
 .react('resources/js/components/macro/macro.js','public/js/macro.js')
-//Activo 
+//Activo
 .react('resources/js/components/gact_activo/gact_activo.js','public/js/gact_activo.js')
 
 //Gestion Activos Matriz de Riezgo
@@ -46,5 +46,10 @@ mix.react( 'resources/js/components/modulo/index.js', 'public/js/modulo.js' )
 //Gestion de Activos Vulnerabilidad
 .react('resources/js/components/gact_vulnerabilidad/gact_vulnerabilidad.js','public/js/gact_vulnerabilidad.js')
 
+//Gestion Activos Areas
+ .react('resources/js/components/gact_areas/gact_areas.js','public/js/gact_areas.js')
+
+ //Gestion Activos RRHH
+//  .react('resources/js/components/gact_rrhh/gact_rrhh.js','public/js/gact_rrhh.js')
 
 .sass('resources/sass/app.scss', 'public/css');
