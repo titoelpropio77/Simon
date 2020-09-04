@@ -23,7 +23,16 @@ const Macro = () => {
             data: "macpro_descripcion"
         },
         {
-            data: "macpro_descripcion"
+            data: "idPropietario"
+        },
+        {
+            data: "idCustodio"
+        },
+        {
+            data: "idUsuario"
+        },
+        {
+            data: "idUsuario"
         },
 
 
@@ -36,6 +45,9 @@ const Macro = () => {
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
+                <th>Propietario</th>
+                <th>Custodio</th>
+                <th>Usuario</th>
                 <th>Accion</th>
             </tr>
         </thead>
@@ -43,7 +55,7 @@ const Macro = () => {
     //columna del cual se quiera extraer la data( esto sirver para la accion eliminar )
     const getColumnTable = 'macpro_nombre';
     //posicion de los botones de acciones  en la tabla
-    const target_action = 3;
+    const target_action = 6;
     const head_column_table = {headTable , columnsTable, getColumnTable, target_action};
     /**
      * Setea y retorna todos los campos del formulario para luego actualizar, esto actua sobre properties_form

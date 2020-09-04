@@ -3,6 +3,7 @@ import { Button, Row, Col, Form, Alert } from "react-bootstrap";
 // import {getAllByClass} from "../tools/tools";
 import ModelUsuario from "../Models/ModelUsuario"
 import MultiSelect from "react-multi-select-component";
+import Select from "react-select";
 
 const Form_Field = ( onChangeValue, inputs ) => {
 
@@ -40,13 +41,29 @@ const Form_Field = ( onChangeValue, inputs ) => {
                         El campo es obligatorio
                     </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group as={Col} sm="6" lg={6} md={6} controlId="validationCustom11" >
+                    <Form.Label>Propietario</Form.Label>
+                    <Select
+                            name="usuarios"
+                            options={ usersOption }
+                            value={inputs.propietario}
+                            onChange={(e, meta) => {
+                                var data_select = { 'usuarios' : e.value , propietario: e};
+                                onChangeValue(e, data_select);
+                            }}
+                        />
+                    <Form.Control.Feedback type="invalid">
+                        El campo es obligatorio
+                    </Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group as={Col} sm="8" lg={6} md={6} controlId="validationCustom12" >
-                    <Form.Label>Usuarios</Form.Label>
+                    <Form.Label>Custodio</Form.Label>
                     <MultiSelect
+                        
                         options={usersOption}
                         value={inputs.i_usersOption}
                         onChange={(e, meta) => {
-                            var data_select = { 'usuarios' : e.value , i_usersOption: e};
+                            var data_select = { 'custodio' : e.value , i_usersOption: e};
                             onChangeValue(e, data_select);
                         }}
                         labelledBy={"Select"}
@@ -60,6 +77,18 @@ const Form_Field = ( onChangeValue, inputs ) => {
                                 onChangeValue(e, data_select);
                             }}
                         /> */}
+                </Form.Group>
+                <Form.Group as={Col} sm="8" lg={6} md={6} controlId="validationCustom12" >
+                    <Form.Label>Users</Form.Label>
+                    <MultiSelect
+                        options={usersOption}
+                        value={inputs.users}
+                        onChange={(e, meta) => {
+                            var data_select = { 'usuarios' : e.value , users: e};
+                            onChangeValue(e, data_select);
+                        }}
+                        labelledBy={"Select"}
+                    />                    
                 </Form.Group>
                 <Form.Group as={Col} sm="12" lg={12} md={12} controlId="validationCustom13" >
                     <Form.Label>Descripcion</Form.Label>

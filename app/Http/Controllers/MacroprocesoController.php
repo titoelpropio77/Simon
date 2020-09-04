@@ -57,6 +57,9 @@ class MacroprocesoController extends Controller
         $validatedData = $request->validate( $this->field_validate );
         //obtengo toda la data
         $data = $request->all();
+        $custodio =  json_encode($data['i_usersOption']);
+        // var_dump($custodio);
+        // exit;
         try {
             if( $validatedData )
                 {
